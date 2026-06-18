@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quizfussball</title>
+
+    <!-- Lade-Vertrag: globale Basis zuerst. Kein ui-bundleimport.css (keine
+         Numberbox/Dropzone/Check-Button) und kein math-Bundle (kein Mathe-Modul). -->
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="quizfussball-wettkampf.css">
+</head>
+<body>
+
+    <header class="header"></header>
+
+    <!-- Toranzeige -->
+    <div class="scoreboard">
+        <div class="score-red">🔴 <span id="scoreRed">0</span></div>
+        <div class="score-separator">:</div>
+        <div class="score-blue"><span id="scoreBlue">0</span> 🔵</div>
+    </div>
+
+    <!-- Undo bleibt als Steuerung auf dem Spielfeld -->
+    <div class="secondary-controls">
+        <button id="undo-btn" class="undo-btn" onclick="undoMove()" title="Letzten Zug rückgängig">⎌ Rückgängig</button>
+    </div>
+
+    <!-- Stadion/Feld -->
+    <div class="stadium">
+        <div class="middle-line"></div>
+        <div class="center-circle"></div>
+        <div class="penalty-area penalty-left"></div>
+        <div class="penalty-area penalty-right"></div>
+        <div class="field"></div>
+    </div>
+
+    <!-- Angriff-Buttons + Trikot-Generator -->
+    <div class="controls">
+        <div class="control">
+            <button class="red-btn attack-btn" onclick="redAttacks()">🔴</button>
+        </div>
+
+        <div class="control">
+            <div id="middleJersey" onclick="triggerRandom()"><span>7</span></div>
+        </div>
+
+        <div class="control">
+            <button class="blue-btn attack-btn" onclick="blueAttacks()">🔵</button>
+        </div>
+    </div>
+
+    <!-- Optionaler Tor-Sound: goal.mp3 neben diese Datei legen, sonst stumm. -->
+    <audio id="goalSound" preload="auto">
+        <source src="goal.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Lade-Vertrag (Reihenfolge zählt) -->
+    <script src="../../../../../global/ui/ui.js"></script>                            <!-- 1. injectUI + SettingsBuilder-Stub -->
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>  <!-- 2. generische Bausteine (u.a. SettingsBuilder) -->
+    <script src="ui-quizfussball-wettkampf.js"></script>                             <!-- 3. eigene Settings (Modus/Generator/Feldgröße/Reset) -->
+    <script src="quizfussball-wettkampf.js"></script>                                <!-- 4. Spiel-Logik -->
+
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('game', {
+                title: 'Quizfussball ⚽',
+                showBack: true,
+                showSettings: true,
+                showExit: true,
+                showFullscreen: true,
+                exitUrl: '../../../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

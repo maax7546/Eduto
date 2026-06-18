@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menü - Werkzeuge</title>
+
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="menu-visuals-einteilung.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="menu-grid">
+
+            <a href="modules-einteilung/gruppen-einteilung/gruppen-einteilung.html" class="big-menu-btn teal">
+                <span class="btn-title">Gruppen-Einteilung</span>
+                <div class="visual-einteilung">
+                    <div class="ve-pair"><span>🙂</span><span>🙂</span></div>
+                    <div class="ve-pair"><span>🙂</span><span>🙂</span></div>
+                    <div class="ve-pair"><span>🙂</span><span>🙂</span></div>
+                </div>
+            </a>
+
+            <a href="modules-einteilung/sitzplan-einteilung/sitzplan-einteilung.html" class="big-menu-btn blue">
+                <span class="btn-title">Sitzplan</span>
+                <div class="visual-sitzplan">
+                    <div class="vs-table"><span>🪑</span><span>🪑</span></div>
+                    <div class="vs-table vs-table-wide"><span>🪑</span><span>🪑</span></div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <script src="../../../global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('menu-einteilung', {
+                title: 'Werkzeuge',
+                showBack: true,
+                showExit: true,
+                exitUrl: '../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

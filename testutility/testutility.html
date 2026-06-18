@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathe-Abenteuer: Dashboard</title>
+
+    <link rel="stylesheet" href="../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="testutility.css">
+
+    <style>
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+        .menu-card h3 {
+            margin: 10px 0 0 0;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+        .menu-card .badge {
+            background: #f0f3f5;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header style="text-align: center; padding: 40px 0;">
+        <h1>Mathe-Abenteuer Labor</h1>
+        <p>Test-Snippets für einzelne UI-Elemente</p>
+    </header>
+
+    <main id="snippet-grid" class="menu-grid"></main>
+
+    <script src="../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../global/math/bundleimport/math-bundleimport.js"></script>
+    <script src="testutility.js"></script>
+</body>
+</html>

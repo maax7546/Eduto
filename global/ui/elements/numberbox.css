@@ -1,0 +1,163 @@
+/**
+ * NUMBERBOX.CSS - SYMMETRISCH & BEREINIGT
+ */
+
+:root {
+    /* Größen-Definitionen */
+    --nb-box-size: clamp(75px, min(18vw, 25vh), 180px); 
+    --nb-box-size-small: clamp(50px, min(12vw, 15vh), 120px);
+    --nb-box-size-large: clamp(100px, min(25vw, 35vh), 250px);
+
+    /* Zentrale Schriftgrößen-Basis */
+    --nb-font-size-base: 140px; 
+
+    --nb-overlap: 6px;          
+    --nb-border-color: #2c3e50;
+    --nb-highlight-color: #27ae60;
+    --nb-wrong-color: #e74c3c;
+    --bg-color: #f0f4f8; 
+}
+
+/* ==========================================
+   1. NORMAL / BASIS DEFINITIONEN (Standard)
+   ========================================== */
+
+.nb-box, .nb-option {
+    width: var(--nb-box-size); 
+    height: var(--nb-box-size);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: var(--nb-font-size-base); 
+    font-weight: 900;
+    position: relative; 
+    flex-shrink: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+    box-sizing: border-box;
+    user-select: none;
+    touch-action: none;
+}
+
+/* Design: Weiße Karte */
+.nb-card {
+    background: white;
+    border: var(--nb-overlap) solid var(--nb-border-color); 
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* Design: Blaue Option */
+.nb-option {
+    background: #3498db; 
+    border-radius: 20px; 
+    color: white;
+    cursor: grab;
+    box-shadow: 0 6px 0 #2980b9; 
+    border: none;
+}
+
+/* Design: Symbole & Geister (Transparent) */
+.nb-symbol, .nb-ghost {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Gemeinsame Elemente */
+.nb-box img, .nb-option img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    pointer-events: none; 
+    display: block;
+}
+
+.nb-is-dragging {
+    opacity: 0.4 !important;
+    transform: scale(0.9);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    80% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================
+   2. SMALL DEFINITIONEN (.nb-box-small)
+   ========================================== */
+
+.nb-box-small {
+    width: var(--nb-box-size-small) !important;
+    height: var(--nb-box-size-small) !important;
+    font-size: calc(var(--nb-font-size-base) * 0.5) !important; 
+}
+
+/* Karte Small */
+.nb-card.nb-box-small {
+    border-width: calc(var(--nb-overlap) * 0.7);
+    border-radius: 10px;
+}
+
+/* Option Small */
+.nb-option.nb-box-small {
+    border-radius: 12px;
+    box-shadow: 0 4px 0 #2980b9;
+}
+
+/* Symbole & Geister Small (Rahmenlos & korrekt skaliert) */
+.nb-symbol.nb-box-small, .nb-ghost.nb-box-small {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================
+   3. LARGE DEFINITIONEN (.nb-box-large)
+   ========================================== */
+
+.nb-box-large {
+    width: var(--nb-box-size-large) !important;
+    height: var(--nb-box-size-large) !important;
+    font-size: calc(var(--nb-font-size-base) * 1.7) !important; 
+}
+
+/* Karte Large */
+.nb-card.nb-box-large {
+    border-width: calc(var(--nb-overlap) * 1.3);
+    border-radius: 20px;
+}
+
+/* Option Large */
+.nb-option.nb-box-large {
+    border-radius: 25px;
+    box-shadow: 0 8px 0 #2980b9;
+}
+
+/* Symbole & Geister Large (Rahmenlos & korrekt skaliert) */
+.nb-symbol.nb-box-large, .nb-ghost.nb-box-large {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================
+   4. DRAG-BILD (Klon beim Ziehen)
+   ========================================== */
+
+/* Schattenloser Klon, den draganddrop.js beim Ziehen als Drag-Bild nutzt.
+   Liegt offscreen, damit nur das vom Browser erzeugte Drag-Bild sichtbar ist.
+   KEIN box-shadow: ein nach außen gerichteter Schatten würde vom Drag-Snapshot
+   am Rand (typisch unten) abgeschnitten — der Schatten gehört nur an die
+   ruhende Box. */
+.nb-drag-ghost {
+    position: absolute;
+    top: 0;
+    left: -9999px;
+    margin: 0 !important;
+    box-shadow: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: none;
+}

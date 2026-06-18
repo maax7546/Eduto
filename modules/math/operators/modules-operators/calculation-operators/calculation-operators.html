@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rechenaufgaben</title>
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="calculation-operators.css">
+</head>
+<body>
+
+    <header class="header"></header>
+
+    <div class="game-container">
+        <div id="dotframe-wrapper" class="dotframe-wrapper">
+            <div id="main-dotframe" class="dot-frame v-20 large" data-red="0" data-blue="0"></div>
+        </div>
+
+        <div class="equation-area" id="equation-area">
+            <div id="slot-1" class="nb-box nb-card"></div>
+            <div id="op-symbol" class="nb-box nb-ghost nb-symbol">+</div>
+            <div id="slot-2" class="nb-box nb-card"></div>
+            <div id="eq-symbol" class="nb-box nb-ghost nb-symbol">=</div>
+            <div id="slot-3" class="nb-box nb-dropzone nb-drop-target"></div>
+        </div>
+
+        <div class="options-container" id="options-container"></div>
+    </div>
+
+    <script src="../../../../../global/ui/ui.js"></script>
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../../../../global/math/bundleimport/math-bundleimport.js"></script>
+    <script src="ui-calculation-operators.js"></script>
+    <script src="calculation-operators.js"></script>
+
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('game', {
+                title: 'Rechenaufgaben',
+                showBack: true,
+                showSettings: true,
+                showExit: true,
+                showFullscreen: true,
+                exitUrl: '../../../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

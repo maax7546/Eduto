@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menü - Größer / Kleiner</title>
+    
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="menu-moreorless.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+    <div class="menu-grid">
+        <a href="modules-moreorless/numbers-moreorless/numbers-moreorless.html" class="big-menu-btn blue">
+            <span class="btn-title">Zahlen vergleichen</span>
+            <div class="visual-comparison"><span class="symbol">12 < 25</span></div>
+        </a>
+
+        <a href="modules-moreorless/numberrow-moreorless/numberrow-moreorless.html" class="big-menu-btn green">
+            <span class="btn-title">Zahlen einsetzen</span>
+            <div class="visual-comparison"><span class="symbol">7 > ? > 4</span></div>
+        </a>
+
+        <a href="modules-moreorless/quantity-moreorless/quantity-moreorless.html" class="big-menu-btn orange">
+            <span class="btn-title">Mengen vergleichen</span>
+            <div class="visual-comparison">
+                <div class="dot-preview">
+                    <div class="dot"></div><div class="dot"></div>
+                    <span class="symbol"> > </span>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </a>
+    </div>
+</main>
+
+    <script src="../../../global/ui/ui.js"></script>
+    <script>
+        // Initialisiert die UI mit dem Titel für das Untermenü
+        if (typeof injectUI === 'function') {
+            injectUI('menu-moreorless', { 
+                title: 'Größer / Kleiner', 
+                showBack: true, 
+                showExit: true, 
+                exitUrl: '../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

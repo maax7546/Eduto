@@ -1,0 +1,10 @@
+@import url("../font.css");
+@import url("../ui.css");
+@import url("../settingsmenu.css");
+@import url("../scaling.css");
+
+/**
+ * GLOBAL BUNDLE-IMPORT (SYSTEM-BASIS):
+ * - Bündelt alle systemweiten Styles
+ * - WICHTIG: Muss als erste Datei im HTML geladen werden
+ */

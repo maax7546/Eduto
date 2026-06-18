@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="../testutility.css">
+</head>
+<body class="test-card">
+    <h2>4. Dotframes</h2>
+    <div class="test-content">
+        <p>Aufgabe: 4 + 8</p>
+        <div class="dot-frame v-20" data-red="4" data-blue="8"></div>
+        <hr>
+        <p>Klicke in die Felder:</p>
+        <div class="dot-frame v-20"></div>
+    </div>
+    <script src="../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../global/math/bundleimport/math-bundleimport.js"></script>
+    <script>
+        window.onload = () => { if(window.renderDotframes) window.renderDotframes(); };
+    </script>
+</body>
+</html>

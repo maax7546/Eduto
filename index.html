@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathe Abenteuer</title>
+    
+    <link rel="stylesheet" href="global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="index-visuals.css">
+
+    <style>
+        /* Positioniert den Test-Button unten rechts in der Ecke */
+        .test-corner-btn {
+            position: fixed; /* Fixiert an der Bildschirmposition, unabhängig vom Scrollen */
+            bottom: 10px;    /* Abstand von unten */
+            right: 10px;     /* Abstand von rechts */
+            background: rgba(0,0,0,0.1);
+            color: #555;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-family: sans-serif;
+            z-index: 2000; /* Sehr hoher Wert, um über allem zu liegen */
+            border: 1px solid rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+        .test-corner-btn:hover {
+            background: rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="menu-grid">
+
+            <a href="modules/math/numberline/menu-numberline.html" class="big-menu-btn blue">
+                <span class="btn-title">Zahlenstrahl</span>
+                <div class="visual-line-container">
+                    <div class="visual-ticks">
+                        <div class="visual-tick"><span>0</span></div>
+                        <div class="visual-tick"><span>5</span></div>
+                        <div class="visual-tick"><span>10</span></div>
+                        <div class="visual-tick"><span>15</span></div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="modules/math/moreorless/menu-moreorless.html" class="big-menu-btn green">
+                <span class="btn-title">Größer / Kleiner</span>
+                <div class="visual-comparison">
+                    <span>7</span>
+                    <span class="symbol">></span>
+                    <span>3</span>
+                </div>
+            </a>
+
+            <a href="modules/math/operators/menu-operators.html" class="big-menu-btn orange">
+                <span class="btn-title">Operationen</span>
+                <div class="visual-comparison">
+                    <span>+</span>
+                    <span class="symbol">/</span>
+                    <span>−</span>
+                </div>
+            </a>
+
+            <a href="modules/math/regrouping/menu-regrouping.html" class="big-menu-btn purple">
+                <span class="btn-title">Bündelung (BETA)</span>
+                <div class="visual-regrouping">
+                    <div class="reg-block-ten"></div>
+                    <div class="reg-dots">
+                        <span>●</span>
+                        <span>●</span>
+                        <span>●</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="modules/quiz/wettkampf/menu-wettkampf.html" class="big-menu-btn red">
+                <span class="btn-title">Quiz</span>
+                <div class="visual-quiz">
+                    <span class="vq-red">🔴</span>
+                    <span class="vq-ball">⚽</span>
+                    <span class="vq-blue">🔵</span>
+                </div>
+            </a>
+
+            <a href="modules/werkzeuge/einteilung/menu-einteilung.html" class="big-menu-btn teal">
+                <span class="btn-title">Werkzeuge</span>
+                <div class="visual-einteilung-home">
+                    <span>🙂🙂</span>
+                    <span>🙂🙂</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <a href="testutility/testutility.html" class="test-corner-btn">🔧 Test</a>
+
+    <script src="global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('index', { 
+                title: 'Mathe Abenteuer',
+                showExit: false 
+            });
+        }
+    </script>
+</body>
+</html>

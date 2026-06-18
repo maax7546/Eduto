@@ -1,0 +1,25 @@
+/**
+ * MODUL-LOGIK ZAHLENSTRAHL (Blau)
+ */
+
+/* Farbschema erzwingen */
+.big-menu-btn {
+    background-color: #3498db !important;
+    box-shadow: 0 10px 0 #2980b9 !important;
+}
+.big-menu-btn:active {
+    box-shadow: 0 4px 0 #2980b9 !important;
+}
+
+.visual-icon-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+/* Nutzt die globale .symbol Skalierung */
+.visual-icon-container .symbol {
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+    /* Icons etwas größer für die Optik */
+    font-size: calc(clamp(35px, 8vw, 55px) * 1.2);
+}

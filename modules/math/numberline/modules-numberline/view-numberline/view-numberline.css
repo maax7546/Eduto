@@ -1,0 +1,27 @@
+/* Den Container auf volle Höhe bringen und Abstände entfernen */
+#game-container {
+    display: block; /* Zentrierung aufheben, da wir volle Breite wollen */
+    height: 100vh;
+    background-color: #f2f5f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* Den Viewport (den Rahmen) unsichtbar machen und auf volle Breite setzen */
+.viewport {
+    width: 100vw !important;  /* Volle Viewport-Breite */
+    max-width: none !important; /* Begrenzung aufheben */
+    height: 100vh !important; /* Optional: Volle Höhe oder festen Wert lassen */
+    border: none !important;    /* Den globalen 4px Rahmen entfernen */
+    border-radius: 0 !important; /* Abrundung entfernen */
+    box-shadow: none !important; /* Schatten entfernen */
+    margin: 0 !important;
+    background: transparent !important; /* Hintergrund an Container anpassen */
+    display: block !important; /* Flex aufheben, damit der Wrapper volle Höhe bekommt */
+}
+
+/* Optional: Die Hauptlinie der Numberline etwas schöner positionieren */
+.numberline-wrapper {
+    width: 100%;
+    height: 100%;
+}

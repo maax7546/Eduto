@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekt Struktur - Lern-App</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; padding: 40px; color: #333; line-height: 1.4; }
+        .tree-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 1100px; margin: auto; }
+        h2 { border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50; margin-top: 0; }
+        ul { list-style-type: none; position: relative; padding-left: 25px; }
+        li { margin: 6px 0; position: relative; }
+        li::before { content: ""; position: absolute; top: 0; left: -15px; border-left: 2px solid #bdc3c7; height: 100%; }
+        li::after { content: ""; position: absolute; top: 12px; left: -15px; border-top: 2px solid #bdc3c7; width: 15px; }
+        li:last-child::before { height: 12px; }
+        .folder { font-weight: bold; color: #2980b9; }
+        .file { color: #2c3e50; font-family: 'Consolas', monospace; font-size: 0.95em; font-weight: bold; }
+        .comment { color: #27ae60; font-size: 0.85em; font-style: italic; margin-left: 10px; }
+        .root { font-size: 1.1em; color: #2c3e50; margin-bottom: 15px; font-weight: bold; }
+        .note { background:#eaf3fb; padding:14px 18px; border-radius:8px; margin-bottom:20px; color:#2c3e50; font-size:0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="tree-container">
+    <h2>📂 Projekt-Architektur (Stand: aktuell)</h2>
+
+    <div class="note">
+        <strong>Prinzip:</strong> Alle wiederverwendbaren Bausteine liegen in
+        <code>global/</code> — getrennt in <code>global/ui/</code> (generisch, fach-unabhängig)
+        und <code>global/math/</code> (mathe-spezifisch). Inhalte liegen nach Fach unter
+        <code>modules/&lt;fach&gt;/</code>. Module enthalten nur ihre eigene Logik und Aufrufe
+        der Bausteine. <code>testutility/</code> demonstriert alle UI-Elemente einzeln.
+    </div>
+
+    <ul>
+        <li class="root">ROOT /</li>
+
+        <li><span class="file">index.html</span> <span class="comment">Hauptmenü</span></li>
+        <li><span class="file">index-visuals.css</span> <span class="comment">Visuals nur fürs Hauptmenü</span></li>
+
+        <li><span class="folder">global /</span> <span class="comment">Globaler Baukasten</span>
+            <ul>
+                <li><span class="folder">ui /</span> <span class="comment">generisch, fach-unabhängig</span>
+                    <ul>
+                        <li><span class="file">ui.js</span> <span class="comment">injectUI(): Header / Nav / Vollbild</span></li>
+                        <li><span class="file">ui.css</span> <span class="comment">Header- und Nav-Styles</span></li>
+                        <li><span class="file">font.css</span> <span class="comment">--ui-font / --math-font</span></li>
+                        <li><span class="file">scaling.css</span></li>
+                        <li><span class="file">settingsmenu.css</span></li>
+                        <li><span class="file">menu-buttons.css</span></li>
+                        <li><span class="folder">elements /</span> <span class="comment">generische Bausteine</span>
+                            <ul>
+                                <li><span class="file">settings-builder.js</span> <span class="comment">Generischer Settings-Baukasten</span></li>
+                                <li><span class="file">draganddrop.js</span></li>
+                                <li><span class="file">numberbox.css</span></li>
+                                <li><span class="file">dropzone.css</span></li>
+                                <li><span class="file">check-button.css</span></li>
+                            </ul>
+                        </li>
+                        <li><span class="folder">bundleimport /</span> <span class="comment">Sammel-Imports</span>
+                            <ul>
+                                <li><span class="file">global-bundleimport.css</span> <span class="comment">font+ui+settingsmenu+scaling</span></li>
+                                <li><span class="file">menu-bundleimport.css</span> <span class="comment">menu-buttons</span></li>
+                                <li><span class="file">ui-bundleimport.css</span> <span class="comment">check-button+numberbox+dropzone</span></li>
+                                <li><span class="file">ui-bundleimport.js</span> <span class="comment">settings-builder+draganddrop</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><span class="folder">math /</span> <span class="comment">mathe-spezifisch</span>
+                    <ul>
+                        <li><span class="folder">elements /</span>
+                            <ul>
+                                <li><span class="file">numbergenerator.js</span></li>
+                                <li><span class="file">dots.css</span></li>
+                                <li><span class="folder">dotframe /</span>
+                                    <ul>
+                                        <li><span class="file">dotframe.js</span></li>
+                                        <li><span class="file">dotframe.css</span></li>
+                                    </ul>
+                                </li>
+                                <li><span class="folder">numberline /</span>
+                                    <ul>
+                                        <li><span class="file">numberline.js</span> <span class="comment">window.NumberlineState / currentZoom</span></li>
+                                        <li><span class="file">numberline.css</span></li>
+                                        <li><span class="folder">settings-numberline /</span>
+                                            <ul>
+                                                <li><span class="file">settings-numberline.js</span></li>
+                                                <li><span class="file">jump-button-numberline.js</span></li>
+                                                <li><span class="file">reset-button-numberline.js</span></li>
+                                                <li><span class="file">zoom-button-numberline.js</span></li>
+                                                <li><span class="file">shownegatives-button-numberline.js</span></li>
+                                                <li><span class="file">interval-button-numberline.js</span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><span class="folder">bundleimport /</span>
+                            <ul>
+                                <li><span class="file">math-bundleimport.css</span> <span class="comment">numberline+dotframe+dots</span></li>
+                                <li><span class="file">math-bundleimport.js</span> <span class="comment">numbergenerator+numberline+dotframe</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span class="comment">(reserviert) global/&lt;fach&gt;/ — künftige Bausteine, die weder ui noch math sind</span></li>
+            </ul>
+        </li>
+
+        <li><span class="folder">modules /</span> <span class="comment">Inhalte, nach Fach gruppiert</span>
+            <ul>
+                <li><span class="folder">math /</span>
+                    <ul>
+                        <li><span class="folder">numberline /</span>
+                            <ul>
+                                <li><span class="file">menu-numberline.html</span></li>
+                                <li><span class="file">menu-visuals-numberline.css</span></li>
+                                <li><span class="folder">modules-numberline /</span>
+                                    <ul>
+                                        <li><span class="folder">view-numberline /</span>
+                                            <ul><li><span class="file">view-numberline.html / .css / .js</span></li></ul>
+                                        </li>
+                                        <li><span class="folder">assign-numberline /</span>
+                                            <ul><li><span class="file">assign-numberline.html / .css / .js</span></li></ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span class="folder">ui-numberline /</span>
+                                    <ul><li><span class="file">ui-numberline.js</span></li></ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li><span class="folder">moreorless /</span>
+                            <ul>
+                                <li><span class="file">menu-moreorless.html</span></li>
+                                <li><span class="file">menu-moreorless.css</span></li>
+                                <li><span class="folder">functions-moreorless /</span>
+                                    <ul>
+                                        <li><span class="file">moreorless.js</span></li>
+                                        <li><span class="file">numbergenerator-moreorless.js</span></li>
+                                        <li><span class="file">render-moreorless.js</span></li>
+                                    </ul>
+                                </li>
+                                <li><span class="folder">modules-moreorless /</span>
+                                    <ul>
+                                        <li><span class="folder">numbers-moreorless /</span>
+                                            <ul><li><span class="file">numbers-moreorless.html / .css / .js</span></li></ul>
+                                        </li>
+                                        <li><span class="folder">numberrow-moreorless /</span>
+                                            <ul>
+                                                <li><span class="file">numberrow-moreorless.html / .css / .js</span></li>
+                                                <li><span class="file">ui-numberrow-moreorless.js</span></li>
+                                            </ul>
+                                        </li>
+                                        <li><span class="folder">quantity-moreorless /</span>
+                                            <ul><li><span class="file">quantity-moreorless.html / .css / .js</span></li></ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span class="folder">ui-moreorless /</span>
+                                    <ul><li><span class="file">ui-moreorless.js</span></li></ul>
+                                </li>
+                                <li><span class="folder">visuals-moreorless /</span>
+                                    <ul>
+                                        <li><span class="file">crocodiles-moreorless.css</span></li>
+                                        <li><span class="file">Krokodil1/2/3.png</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li><span class="folder">operators /</span>
+                            <ul>
+                                <li><span class="file">menu-operators.html</span></li>
+                                <li><span class="file">menu-visuals-operators.css</span></li>
+                                <li><span class="folder">modules-operators /</span>
+                                    <ul>
+                                        <li><span class="folder">structure-operators /</span>
+                                            <ul><li><span class="file">structure-operators.html / .css / .js + animation-…</span></li></ul>
+                                        </li>
+                                        <li><span class="folder">structure-commutativelaw /</span>
+                                            <ul><li><span class="file">commutativelaw-operators.html / .css / .js + animation-…</span></li></ul>
+                                        </li>
+                                        <li><span class="folder">structure-inverseoperation /</span>
+                                            <ul>
+                                                <li><span class="file">inverseoperation-operators.html / .css / .js + animation-…</span></li>
+                                                <li><span class="file">ui-inverseoperation-operators.js</span></li>
+                                            </ul>
+                                        </li>
+                                        <li><span class="folder">calculation-operators /</span>
+                                            <ul>
+                                                <li><span class="file">calculation-operators.html / .css / .js</span></li>
+                                                <li><span class="file">ui-calculation-operators.js</span></li>
+                                            </ul>
+                                        </li>
+                                        <li><span class="folder">crossingtens-operators /</span>
+                                            <ul>
+                                                <li><span class="file">crossingtens-operators.html / .css / .js</span></li>
+                                                <li><span class="file">ui-crossingtens-operators.js</span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span class="folder">ui-operators /</span>
+                                    <ul><li><span class="file">ui-operators.js</span></li></ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li><span class="folder">regrouping /</span>
+                            <ul>
+                                <li><span class="file">menu-regrouping.html</span></li>
+                                <li><span class="file">menu-visuals-regrouping.css</span></li>
+                                <li><span class="folder">modules-regrouping /</span>
+                                    <ul>
+                                        <li><span class="folder">placevaluechart-regrouping /</span>
+                                            <ul><li><span class="file">placevaluechart-regrouping.html / .css / .js</span></li></ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span class="folder">ui-regrouping /</span>
+                                    <ul><li><span class="file">ui-regrouping.js</span></li></ul>
+                                </li>
+                                <li><span class="folder">visuals-regrouping /</span>
+                                    <ul>
+                                        <li><span class="file">visuals-regrouping.css</span></li>
+                                        <li><span class="file">animations-regrouping.css</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span class="folder">quiz /</span> <span class="comment">Nicht-Mathe-Fach (nur global/ui)</span>
+                    <ul>
+                        <li><span class="folder">wettkampf /</span>
+                            <ul>
+                                <li><span class="file">menu-wettkampf.html</span></li>
+                                <li><span class="file">menu-visuals-wettkampf.css</span></li>
+                                <li><span class="folder">modules-wettkampf /</span>
+                                    <ul>
+                                        <li><span class="folder">quizfussball-wettkampf /</span>
+                                            <ul>
+                                                <li><span class="file">quizfussball-wettkampf.html / .css / .js</span></li>
+                                                <li><span class="file">ui-quizfussball-wettkampf.js</span></li>
+                                                <li><span class="file">trikot.png</span> <span class="comment">Asset (Trikot-Generator)</span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><span class="folder">testutility /</span> <span class="comment">Test-Labor für UI-Bausteine</span>
+            <ul>
+                <li><span class="file">testutility.html</span> <span class="comment">Dashboard (rendert SNIPPETS automatisch)</span></li>
+                <li><span class="file">testutility.js</span> <span class="comment">SNIPPETS-Liste hier pflegen</span></li>
+                <li><span class="file">testutility.css</span></li>
+                <li><span class="folder">parts-testutility /</span>
+                    <ul><li><span class="file">1…N. *-snippet.html</span></li></ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><span class="folder">Code-Structure /</span>
+            <ul><li><span class="file">project-structure.html</span> <span class="comment">Diese Datei</span></li></ul>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

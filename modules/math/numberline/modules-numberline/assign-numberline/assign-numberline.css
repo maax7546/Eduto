@@ -1,0 +1,133 @@
+/**
+ * ASSIGN-NUMBERLINE.CSS - KORRIGIERTE VERSION
+ * Fokus: Stabiles Schüttel-Feedback trotz absoluter Positionierung
+ */
+
+/* 1. IMPORT DER GLOBALEN KOMPONENTEN */
+@import url("../../../../../global/ui/elements/numberbox.css");
+@import url("../../../../../global/ui/elements/dropzone.css");
+@import url("../../../../../global/ui/elements/check-button.css");
+
+/* 2. BASIS LAYOUT (FULL-SCREEN) */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    /* Genau den Platz unter der global gebauten Kopfzeile füllen –
+       sonst entsteht unten ein weißer Streifen bzw. wird im Vollbild abgeschnitten */
+    height: calc(100vh - (var(--nav-height) + var(--ui-gap) * 2));
+    width: 100vw;
+    background-color: #f2f5f8;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* 3. ZAHLENSTRAHL VIEWPORT */
+.viewport {
+    flex: 1;
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    user-select: none; 
+}
+
+/* 4. PRÄZISE POSITIONIERUNG DER DROPZONES (SLOTS) */
+.slot.nb-dropzone.nb-box-small {
+    position: absolute;
+    top: 50%;
+    margin-top: 45px; 
+    left: 0; /* Ankerpunkt vom JS gesetzt, transform erledigt Zentrierung */
+    transform: translateX(-50%); 
+    z-index: 100;
+    
+    width: var(--nb-box-size-small, 70px);
+    height: var(--nb-box-size-small, 70px);
+    background: rgba(255, 255, 255, 0.4);
+    border: 3px dashed #cbd5e1;
+    border-radius: 12px;
+    
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 5. DAS DESIGN DER WEISSEN KARTE (Sobald befüllt) */
+.slot.nb-dropzone.is-filled {
+    background-color: #ffffff;
+    color: #2c3e50;
+    border: none; 
+    font-weight: 900;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 
+                0 0 0 2px #d1d5db;
+    opacity: 1;
+    /* Zentrierung muss hier explizit erhalten bleiben */
+    transform: translateX(-50%) scale(1);
+}
+
+/* 6. HOVER & FEEDBACK */
+.slot.nb-dropzone.nb-hover:not(.correct):not(.wrong) {
+    background-color: rgba(52, 152, 219, 0.2);
+    border-color: #3498db;
+    transform: translateX(-50%) scale(1.1);
+}
+
+/* KORREKTUR: Spezifische Schüttel-Animation für den Zahlenstrahl */
+/* Wir addieren den -50% Offset in jeden Keyframe ein */
+@keyframes shakeZoneNumberline {
+    0%, 100% { transform: translateX(-50%); }
+    20%, 60% { transform: translateX(calc(-50% - 10px)); }
+    40%, 80% { transform: translateX(calc(-50% + 10px)); }
+}
+
+/* Überschreibt die globale .wrong Animation aus dropzone.css */
+.slot.nb-dropzone.wrong {
+    animation: shakeZoneNumberline 0.5s ease-in-out !important;
+    background-color: #e74c3c !important;
+    color: #ffffff !important;
+}
+
+.slot.nb-dropzone.correct {
+    background-color: #2e7d32 !important;
+    color: #ffffff !important;
+    transform: translateX(-50%) scale(1.05); /* Leichtes Hervorheben bei Erfolg */
+}
+
+/* 7. AUSWAHLLEISTE UNTEN */
+.symbol-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 40px;
+    background-color: #ffffff;
+    border-top: 2px solid #d1d5db;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    z-index: 200;
+}
+
+.nb-box.nb-option.nb-box-small {
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nb-box.nb-option.nb-box-small:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.nb-is-dragging {
+    opacity: 0.4;
+    transform: scale(0.9);
+}

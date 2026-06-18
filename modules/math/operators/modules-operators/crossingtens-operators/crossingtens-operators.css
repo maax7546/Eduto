@@ -1,0 +1,120 @@
+.main-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.exercise-area {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: space-between; 
+    width: 98vw;
+    height: 88vh; 
+    padding: 30px; 
+    background: white;
+    border-radius: 20px;
+    box-sizing: border-box;
+    transition: padding 0.3s ease;
+}
+
+.exercise-area-expanded {
+    padding: 80px 0 10px 0 !important;
+}
+
+.dotframe-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.eye-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    background: #f0f0f0;
+    border: 3px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 #bbb;
+}
+
+.eye-btn:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.eye-btn.active {
+    background: #3498db;
+    border-color: #2980b9;
+    color: white;
+    box-shadow: 0 4px 0 #1c5980;
+}
+
+.math-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center; 
+}
+
+.math-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Bereinigte Operatoren-Klasse: Nutzt nun Variablen aus numberbox.css */
+.math-op, .nb-symbol {
+    font-weight: 800;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-hidden-row { 
+    display: none !important; 
+}
+
+.step-hidden { 
+    visibility: hidden; 
+}
+
+.step-divider {
+    width: 100%;
+    max-width: 600px;
+    height: 2px;
+    background: #edf2f7;
+    margin: 5px 0;
+}
+
+.options-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 10px;
+    border-top: 2px dashed #e2e8f0;
+    min-height: 120px;
+    margin-top: auto;
+}
+
+
+.mode-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}

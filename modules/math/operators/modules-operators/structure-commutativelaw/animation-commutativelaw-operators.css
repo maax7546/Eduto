@@ -1,0 +1,40 @@
+/**
+ * KOMMUTATIVGESETZ - TAUSCH-ANIMATION
+ */
+
+:root {
+    --fly-height: 90%; 
+}
+
+/* Zahl 1 fliegt oben herum */
+@keyframes commute-swap-first {
+    0% { transform: translate(0, 0); }
+    30% { transform: translate(0, calc(var(--fly-height) * -1)); }
+    70% { transform: translate(calc(2 * var(--grid-unit)), calc(var(--fly-height) * -1)); }
+    100% { transform: translate(calc(2 * var(--grid-unit)), 0); }
+}
+
+/* Zahl 2 fliegt unten herum */
+@keyframes commute-swap-second {
+    0% { transform: translate(0, 0); }
+    30% { transform: translate(0, var(--fly-height)); }
+    70% { transform: translate(calc(-2 * var(--grid-unit)), var(--fly-height)); }
+    100% { transform: translate(calc(-2 * var(--grid-unit)), 0); }
+}
+
+.swapped #slot-1 {
+    animation: commute-swap-first var(--anim-speed) forwards cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    z-index: 100;
+}
+
+.swapped #slot-2 {
+    animation: commute-swap-second var(--anim-speed) forwards cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    z-index: 100;
+}
+
+/* Reset ohne Ruckeln */
+.no-animation #slot-1,
+.no-animation #slot-2 {
+    animation: none !important;
+    transform: none !important;
+}

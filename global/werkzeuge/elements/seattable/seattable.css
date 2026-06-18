@@ -1,0 +1,154 @@
+/**
+ * SEATTABLE — globaler Werkzeuge-Baustein: ein Sitzplan-Tisch.
+ * Aussehen UND Bedien-Optik (Verschieben/Drehen/Größe, Stühle, Namen) leben
+ * GENAU HIER — einmal. Module bauen den Tisch NICHT nach, sie rufen nur
+ * `window.SeatTable` auf (siehe seattable.js) und liefern die Spielregeln
+ * (Vorlagen, Magnet-Partner, Speichern) als Callbacks.
+ *
+ * Klassen-Präfix `st-` (seat-table), damit Modul-eigene Klassen (z. B. `sp-`
+ * im Sitzplan-Modul) sauberer getrennt bleiben.
+ */
+
+/* ---- Ein Tisch (Container = Tischfläche) -------------------------------- */
+.st-table {
+    position: absolute;
+    transform-origin: center center;
+    touch-action: none;
+}
+.st-body {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(#fdf6e9, #f3e6cf);
+    border: 2px solid #c8a36a;
+    border-radius: 0;          /* eckige Tische (keine runden Ecken) */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+    cursor: move;
+}
+.st-table.st-selected { z-index: 50; }
+.st-table.st-selected .st-body {
+    outline: 3px solid #16a085;
+    outline-offset: 2px;
+}
+
+/* Optionale Beschriftung auf der Tischfläche (z. B. „Pult"). */
+.st-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    font-family: var(--ui-font, sans-serif);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #6b5638;
+}
+.st-label:empty { display: none; }
+/* Kurz aufleuchten, wenn der Tisch magnetisch andockt. */
+.st-table.st-snapped .st-body {
+    border-color: #16a085;
+    box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.35);
+}
+
+/* ---- Stuhl (Kreis mit Namensfeld) --------------------------------------- */
+.st-chair {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #8aa0a8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.st-chair-name {
+    width: 90%;
+    border: none;
+    background: transparent;
+    outline: none;
+    text-align: center;
+    font-family: var(--ui-font, sans-serif);
+    font-weight: 700;
+    font-size: 11px;
+    color: #2c3e50;
+    padding: 0;
+}
+.st-chair-name::placeholder { color: transparent; }
+
+/* ---- Bedien-Elemente (nur bei Auswahl sichtbar) ------------------------- */
+.st-handle, .st-add, .st-del-table {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    display: none;               /* via .st-selected eingeblendet */
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 900;
+    line-height: 1;
+    font-size: 15px;
+    user-select: none;
+    touch-action: none;
+    z-index: 60;
+}
+/* Griffe/Buttons nur, wenn GENAU EIN Tisch ausgewählt ist (.st-solo).
+   Bei Mehrfach-Auswahl bleibt es bei der reinen Auswahl-Umrandung. */
+.st-table.st-solo .st-handle,
+.st-table.st-solo .st-add,
+.st-table.st-solo .st-del-table { display: flex; }
+
+/* Stuhl-× nur bei Einzel-Auswahl */
+.st-del-chair { display: none; }
+.st-table.st-solo .st-del-chair { display: flex; }
+
+.st-handle {
+    background: #16a085;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.st-handle-rotate { cursor: grab; }
+.st-handle-resize { cursor: nwse-resize; border-radius: 6px; }
+
+.st-add {
+    background: #ecf6f3;
+    color: #16a085;
+    border: 2px dashed #16a085;
+    font-size: 16px;
+}
+.st-add:hover { background: #d6efe8; }
+
+.st-del-table {
+    background: #e74c3c;
+    color: white;
+    border: 2px solid white;
+    font-size: 17px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Stuhl entfernen (× am Stuhl) */
+.st-del-chair {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #e74c3c;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    z-index: 61;
+}

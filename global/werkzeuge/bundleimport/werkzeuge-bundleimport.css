@@ -1,0 +1,6 @@
+/*
+ * WERKZEUGE-BUNDLE (CSS) — werkzeuge-spezifische Bausteine.
+ * Pfade relativ zu global/werkzeuge/ (eine Ebene über bundleimport/).
+ * Nur von Werkzeug-Modulen geladen, die diese Bausteine brauchen.
+ */
+@import url("../elements/seattable/seattable.css");

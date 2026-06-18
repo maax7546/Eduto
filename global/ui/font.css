@@ -1,0 +1,57 @@
+/**
+ * ZENTRALE SCHRIFTARTEN-STEUERUNG
+ * - System-Schrift: für UI, Navigation, Menü-Titel
+ * - Mathe-Schrift (Patrick Hand): für Zahlen, Symbole, mathematische Inhalte
+ *
+ * Strategie: globaler Sans-Serif als Basis, Mathe-Klassen erben
+ * `var(--math-font)` per normaler Klassen-Spezifität (kein !important nötig).
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+:root {
+    --ui-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --math-font: 'Patrick Hand', cursive;
+}
+
+/* --- 1. BASIS: UI & NAVIGATION --- */
+html, body {
+    font-family: var(--ui-font);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- 2. MATHE-LOOK: PATRICK HAND --- */
+.tick-label,
+.number,
+.visual-tick span,
+.visual-comparison span,
+.visual-comparison .symbol,
+.visual-structure .box,
+.visual-structure .op,
+.nb-box,
+.nb-card,
+.nb-option,
+.nb-symbol,
+.nb-slot-question,
+.nb-dropzone,
+.drop-zone,
+.symbol,
+[data-val],
+[data-value] {
+    font-family: var(--math-font);
+}
+
+/* --- 3. SPEZIFISCHE ANPASSUNGEN --- */
+
+/* Zahlen erben Größe von der Box, brauchen aber saubere Zeilenhöhe */
+.number,
+.nb-box {
+    font-size: inherit;
+    line-height: 1;
+}
+
+/* Bilder in Boxen sollen keine Schrift-Eigenschaften erben */
+.nb-box img,
+.nb-option img {
+    font-family: var(--ui-font);
+}

@@ -1,0 +1,8 @@
+/*
+ * MATH-BUNDLE (CSS) — mathe-spezifische Bausteine.
+ * Pfade relativ zu global/math/ (eine Ebene über bundleimport/).
+ * Nur von Mathe-Modulen geladen.
+ */
+@import url("../elements/numberline/numberline.css");
+@import url("../elements/dotframe/dotframe.css");
+@import url("../elements/dots.css");

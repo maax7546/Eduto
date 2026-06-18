@@ -1,0 +1,127 @@
+/**
+ * index-visuals.css
+ * Große Symbole ohne Boxen + Fix für Zahlenstrahl-Ticks
+ */
+
+/* --- ZAHLENSTRAHL FIX --- */
+.visual-line-container {
+    width: 85%;
+    height: 4px;
+    background: white;
+    position: relative;
+    margin: 20px 0 35px 0;
+    display: flex;
+    align-items: center;
+}
+
+.visual-line-container::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left: 15px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.visual-ticks {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.visual-tick { 
+    width: 3px; 
+    height: 18px; 
+    background: white; 
+    position: relative; /* Wichtig für die Position der Zahl darunter */
+}
+
+/* Die Zahlen unter den Strichen */
+.visual-tick span {
+    position: absolute;
+    top: 25px; /* Fester Abstand nach unten */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+/* --- VERGLEICH OHNE BOXEN --- */
+.visual-comparison {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Alle Zahlen und Symbole im Vergleichsbereich */
+.visual-comparison span {
+    font-weight: 900;
+    color: white;
+    /* Exakt die Größe deiner Operatoren, aber ohne Rahmen/Hintergrund */
+    font-size: clamp(35px, 8vw, 55px); 
+    line-height: 1;
+}
+
+.visual-comparison .symbol {
+    color: #f1c40f; /* Das Zeichen bleibt gelb */
+}
+
+/* --- BÜNDELUNG --- */
+.visual-regrouping {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.reg-block-ten {
+    width: 16px;
+    height: 45px;
+    background: white;
+    border-radius: 4px;
+}
+.reg-dots {
+    color: white;
+    font-size: 24px;
+    line-height: 0.8;
+}
+
+/* --- QUIZ (Team-Wettkampf-Spiele) --- */
+.visual-quiz {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 10px;
+    line-height: 1;
+}
+.visual-quiz span {
+    font-size: clamp(35px, 8vw, 55px);
+}
+.visual-quiz .vq-ball {
+    font-size: clamp(45px, 10vw, 70px);
+}
+
+/* --- WERKZEUGE (Gruppen-Einteilung) --- */
+.visual-einteilung-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+.visual-einteilung-home span {
+    font-size: clamp(30px, 7vw, 48px);
+    letter-spacing: 4px;
+    line-height: 1;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    padding: 4px 12px;
+}

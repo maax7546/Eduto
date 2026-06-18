@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zehnerübergang - Interaktiv</title>
+    
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="crossingtens-operators.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="exercise-area">
+            <div class="dotframe-wrapper">
+                <div id="main-dotframe" class="dot-frame v-20 large" data-red="0" data-blue="0"></div>
+                <button id="helper-toggle" class="eye-btn" title="Lernhilfe umschalten">👁️</button>
+            </div>
+            
+            <div class="math-steps">
+                <div class="math-row rechnung1">
+                    <div id="r1-n1" class="nb-box nb-ghost"></div>
+                    <div class="nb-box nb-symbol">+</div>
+                    <div id="r1-n2" class="nb-box nb-ghost"></div>
+                    <div class="nb-box nb-symbol">=</div>
+                    <div id="target-main" class="nb-dropzone step-hidden" data-correct-val=""></div>
+                </div>
+
+                <div class="step-divider"></div>
+
+                <div id="container-standard" class="mode-container">
+                    <div class="math-row rechnung2 step-hidden-row">
+                        <div id="r2-z1" class="nb-dropzone" data-correct-val=""></div>
+                        <div class="nb-box nb-symbol">+</div>
+                        <div id="r2-z2" class="nb-dropzone" data-correct-val=""></div>
+                        <div class="nb-box nb-symbol">=</div>
+                        <div class="nb-box nb-ghost">10</div>
+                    </div>
+                    <div class="math-row rechnung3 step-hidden-row">
+                        <div class="nb-box nb-ghost">10</div>
+                        <div class="nb-box nb-symbol">+</div>
+                        <div id="r3-z2" class="nb-dropzone" data-correct-val=""></div>
+                        <div class="nb-box nb-symbol">=</div>
+                        <div id="r3-z3" class="nb-dropzone" data-correct-val=""></div>
+                    </div>
+                </div>
+
+                <div id="container-split" class="mode-container" style="display: none;">
+                    <div class="math-row rechnung-split step-hidden-row">
+                        <div id="split-n1" class="nb-box nb-ghost"></div>
+                        <div class="nb-box nb-symbol">+</div>
+                        <div id="split-bridge" class="nb-dropzone" data-correct-val=""></div>
+                        <div class="nb-box nb-symbol">+</div>
+                        <div id="split-rest" class="nb-dropzone" data-correct-val=""></div>
+                        <div class="nb-box nb-symbol">=</div>
+                        <div id="split-sum" class="nb-dropzone" data-correct-val=""></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="options-container" class="options-row"></div>
+        </div>
+    </main>
+
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../../../../global/math/bundleimport/math-bundleimport.js"></script>
+    <script src="../../../../../global/ui/ui.js"></script>
+    <script src="ui-crossingtens-operators.js"></script>
+    <script src="crossingtens-operators.js"></script>
+
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('crossingtens-operators', { 
+                title: 'Zehnerübergang',
+                showBack: true, 
+                showExit: true, 
+                showFullscreen: true,
+                showSettings: true,
+                exitUrl: '../../../../../index.html' 
+            });
+        }
+    </script>
+</body>
+</html>

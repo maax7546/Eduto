@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="../testutility.css">
+</head>
+<body class="test-card">
+    <h2>7. NumberGenerator</h2>
+    <div class="test-content">
+        <div class="gen-test-card" data-range="0-20">
+            <h3>Raum: 0-20</h3>
+            <button onclick="this.nextElementSibling.innerText = window.NumberGenerator.getRandomNumber()">Würfeln</button>
+            <div class="result-display">--</div>
+        </div>
+    </div>
+    <script src="../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../global/math/bundleimport/math-bundleimport.js"></script>
+</body>
+</html>

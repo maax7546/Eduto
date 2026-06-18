@@ -1,0 +1,41 @@
+/**
+ * DOTS.CSS
+ * Zentrales Design für die Punkte
+ */
+.dot {
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 50%;
+    box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Durchgestrichener (subtrahierter) Punkt */
+.dot.struck::after {
+    content: '';
+    position: absolute;
+    left: -15%;
+    right: -15%;
+    top: 50%;
+    height: 22%;
+    background: #1a1a1a;
+    border-radius: 2px;
+    transform: translateY(-50%) rotate(-18deg);
+}
+
+/* Roter Punkt */
+.dot.red {
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c0392b);
+}
+
+/* Blauer Punkt */
+.dot.blue {
+    background: radial-gradient(circle at 30% 30%, #54a0ff, #2980b9);
+}
+
+/* Leerer Punkt */
+.dot.empty {
+    background: transparent;
+    box-shadow: none;
+}

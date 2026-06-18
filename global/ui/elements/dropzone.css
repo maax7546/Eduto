@@ -1,0 +1,127 @@
+/**
+ * DROPZONE.CSS - VOLLSTÄNDIG SYMMETRISCH ZU NUMBERBOX.CSS
+ */
+
+:root {
+    /* Zentrale Schriftgrößen-Basis auf 140px erhöht */
+    --nb-font-size-base: 140px; 
+}
+
+/* ==========================================
+   1. NORMAL / BASIS DEFINITIONEN (Standard)
+   ========================================== */
+
+.nb-dropzone, .drop-zone {
+    width: var(--nb-box-size);
+    height: var(--nb-box-size);
+    border: 4px dashed #ccc;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    /* Nutzt die neue Basis-Schriftgröße */
+    font-size: var(--nb-font-size-base); 
+    font-weight: 900;
+    line-height: 1;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Placeholder "?" */
+.nb-dropzone:empty::after, 
+.drop-zone:empty::after {
+    content: "?";
+    font-size: 0.8em; 
+    color: #ccc;
+    font-weight: 900;
+}
+
+.nb-dropzone.wrong::after, 
+.nb-dropzone.correct::after,
+.nb-dropzone:not(:empty)::after,
+.drop-zone:not(:empty)::after {
+    content: none !important;
+}
+
+/* HOVER-EFFEKT */
+.nb-dropzone.nb-hover, .drop-zone.nb-hover {
+    background: rgba(52, 152, 219, 0.2) !important;
+    border-color: #3498db !important;
+    border-style: solid !important;
+    transform: scale(1.05);
+}
+
+/* FEEDBACK RICHTIG */
+.nb-dropzone.correct, .drop-zone.correct {
+    transition: none !important; 
+    background-color: #2e7d32 !important; 
+    color: #ffffff !important;
+    border: var(--nb-overlap) solid #1b5e20 !important;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* FEEDBACK FALSCH */
+.nb-dropzone.wrong, .drop-zone.wrong {
+    transition: none !important; 
+    background-color: #e74c3c !important; 
+    color: #ffffff !important;
+    border: var(--nb-overlap) solid #8e0000 !important;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    animation: shakeZone 0.5s ease-in-out !important;
+}
+
+@keyframes shakeZone {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+}
+
+/* ==========================================
+   2. SMALL DEFINITIONEN (.nb-box-small)
+   ========================================== */
+
+.nb-dropzone.nb-box-small, .drop-zone.nb-box-small {
+    width: var(--nb-box-size-small) !important;
+    height: var(--nb-box-size-small) !important;
+    /* 50% der neuen Basis (140px -> 70px) */
+    font-size: calc(var(--nb-font-size-base) * 0.5) !important; 
+    border-width: 3px;
+    border-radius: 12px;
+}
+
+.nb-dropzone.correct.nb-box-small, .drop-zone.correct.nb-box-small {
+    border-width: calc(var(--nb-overlap) * 0.7) !important;
+    border-radius: 10px;
+}
+
+.nb-dropzone.wrong.nb-box-small, .drop-zone.wrong.nb-box-small {
+    border-width: calc(var(--nb-overlap) * 0.7) !important;
+    border-radius: 10px;
+}
+
+/* ==========================================
+   3. LARGE DEFINITIONEN (.nb-box-large)
+   ========================================== */
+
+.nb-dropzone.nb-box-large, .drop-zone.nb-box-large {
+    width: var(--nb-box-size-large) !important;
+    height: var(--nb-box-size-large) !important;
+    /* 170% der neuen Basis (140px -> 238px) */
+    font-size: calc(var(--nb-font-size-base) * 1.7) !important; 
+    border-width: 6px;
+    border-radius: 25px;
+}
+
+.nb-dropzone.correct.nb-box-large, .drop-zone.correct.nb-box-large {
+    border-width: calc(var(--nb-overlap) * 1.3) !important;
+    border-radius: 20px;
+}
+
+.nb-dropzone.wrong.nb-box-large, .drop-zone.wrong.nb-box-large {
+    border-width: calc(var(--nb-overlap) * 1.3) !important;
+    border-radius: 20px;
+}

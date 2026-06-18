@@ -1,0 +1,68 @@
+@import url("../../../../../global/ui/elements/numberbox.css");
+@import url("../../../../../global/ui/elements/dropzone.css");
+
+:root {
+    --anim-speed: 1.6s; 
+    --grid-unit: calc(var(--nb-box-size) - var(--nb-overlap));
+    --bg-color: #f0f4f8;
+}
+
+body {
+    background: var(--bg-color);
+    overflow: hidden;
+}
+
+.game-container {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    align-items: center; 
+    height: calc(100vh - 80px); 
+    width: 100%;
+    padding: 30px; 
+    background: white;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+/* Platzhalter für die Flugkurve */
+.anim-spacer {
+    height: calc(var(--nb-box-size) * 0.9);
+    width: 100%;
+    visibility: hidden;
+}
+
+.equation-area {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+/* Überlappung der Boxen */
+.equation-area > .nb-box + .nb-box { 
+    margin-left: calc(var(--nb-overlap) * -1); 
+}
+
+/* Die Dropzone-Box (Slot 3) */
+#slot-3.nb-drop-target {
+    border: 4px dashed #ccc;
+    background: rgba(255,255,255,0.5);
+}
+
+.options-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 40px;
+    width: 100%;
+}
+
+.op-symbol {
+    font-size: calc(var(--nb-box-size) * 0.6);
+    font-weight: 900;
+    padding: 0 10px;
+    color: #2c3e50;
+    /* Nutzt Patrick Hand via font.css */
+}

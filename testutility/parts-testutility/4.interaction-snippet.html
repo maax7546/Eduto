@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktions-Test Labor</title>
+    <link rel="stylesheet" href="../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="../testutility.css">
+</head>
+<body class="test-card">
+
+    <div class="test-content">
+        <h2>6. Interaktions-Test (Größen & Validierung)</h2>
+        <p class="label-info" style="text-align: center; margin-bottom: 30px; font-style: italic;">
+            Ziehe die Boxen in die Zonen. Die mittlere Spalte akzeptiert den Wert, die rechte Spalte lehnt alles ab.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; align-items: center; justify-items: center; max-width: 900px; margin: 0 auto;">
+            
+            <div class="label-info" style="font-weight: bold; font-size: 0.7rem; opacity: 0.6;">QUELLE</div>
+            <div class="label-info" style="font-weight: bold; font-size: 0.7rem; color: var(--nb-highlight-color);">ZIEL (RICHTIG)</div>
+            <div class="label-info" style="font-weight: bold; font-size: 0.7rem; color: var(--nb-wrong-color);">ZIEL (FALSCH)</div>
+
+            <div class="nb-box nb-option nb-box-small" id="box-s" draggable="true" data-value="5">5</div>
+            <div class="nb-dropzone nb-box-small nb-drop-target" data-expected="5"></div>
+            <div class="nb-dropzone nb-box-small nb-drop-target" data-expected="X"></div>
+
+            <div class="nb-box nb-option" id="box-m" draggable="true" data-value="10">10</div>
+            <div class="nb-dropzone nb-drop-target" data-expected="10"></div>
+            <div class="nb-dropzone nb-drop-target" data-expected="X"></div>
+
+            <div class="nb-box nb-option nb-box-large" id="box-l" draggable="true" data-value="99">99</div>
+            <div class="nb-dropzone nb-box-large nb-drop-target" data-expected="99"></div>
+            <div class="nb-dropzone nb-box-large nb-drop-target" data-expected="X"></div>
+
+        </div>
+    </div>
+
+    <script src="../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../global/math/bundleimport/math-bundleimport.js"></script>
+    <script>
+        (function() {
+            /**
+             * Initialisiert die Interaktions-Logik.
+             * Der DragDropManager ruft diesen Callback bei jedem Drop auf.
+             */
+            function startLabor() {
+                if (window.DragDropManager) {
+                    window.DragDropManager.init((value, sourceElem, zone) => {
+                        const expectedValue = zone.getAttribute('data-expected');
+                        
+                        // Vergleich der Werte (String-Basis)
+                        const isCorrect = (String(value) === String(expectedValue));
+
+                        // Sofortiges visuelles Feedback über deine CSS Klassen
+                        if (isCorrect) {
+                            zone.classList.remove('wrong');
+                            zone.classList.add('correct');
+                        } else {
+                            zone.classList.remove('correct');
+                            zone.classList.add('wrong');
+                        }
+
+                        // Labor-Reset: Nach 1.2 Sekunden alles zurücksetzen für den nächsten Test
+                        setTimeout(() => {
+                            zone.classList.remove('correct', 'wrong');
+                            // Textinhalt leeren, damit das "?" (::after) wieder erscheint
+                            zone.textContent = ""; 
+                        }, 1200);
+                    });
+                    console.log("Labor-Interaktion: Aktiviert.");
+                } else {
+                    // Falls das Script noch nicht geladen wurde (async-Verhalten im Labor)
+                    setTimeout(startLabor, 100);
+                }
+            }
+
+            startLabor();
+        })();
+    </script>
+
+</body>
+</html>

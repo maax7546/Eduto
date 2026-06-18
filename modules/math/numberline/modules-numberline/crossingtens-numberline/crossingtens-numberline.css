@@ -1,0 +1,175 @@
+/**
+ * CROSSINGTENS-NUMBERLINE.CSS
+ * Layout nur für dieses Modul. Bausteine (Zahlenstrahl, Header, Settings)
+ * kommen aus global/. Die Rechenpfeile zeichnet das Modul-JS als SVG.
+ */
+
+/* Der globale Zahlenstrahl erzwingt einen Mindest-Pixelabstand pro Einheit von
+   ~1,15 × --nb-box-size-small. Damit Start- und Zielzahl einer Aufgabe sicher
+   gleichzeitig sichtbar sind (Spanne bis 9), verkleinern wir diesen Wert
+   modul-lokal → mehr Einheiten passen nebeneinander. (Dieses Modul nutzt keine
+   nb-Boxen, daher keine Nebenwirkung.) */
+:root {
+    --nb-box-size-small: clamp(42px, 6vw, 92px);
+}
+
+/* Container füllt exakt den Platz unter dem global gebauten Header (kein Scrollen). */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - (var(--nav-height) + var(--ui-gap) * 2));
+    background-color: #f2f5f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* AUFGABEN-BANNER --------------------------------------------------------- */
+.task-panel {
+    flex: 0 0 auto;
+    text-align: center;
+    /* unten Platz für die Hilfe (Pfeil + großes Zehnerfeld), das absolut
+       unter dem zweiten Operanden hängt */
+    padding: 8px 16px clamp(110px, 16vh, 150px);
+}
+
+.task-equation {
+    font-family: var(--math-font);
+    font-size: clamp(44px, 8vw, 96px);  /* größere Aufgabe */
+    font-weight: 900;
+    color: #1f2d3d;
+    line-height: 1.05;
+    transition: color 0.25s ease;
+}
+.task-equation .eq-num,
+.task-equation .eq-op { vertical-align: middle; }
+
+.task-equation.solved {
+    color: #16a34a;
+}
+
+/* PUNKTE-HILFE: Pfeil ↓ + Zehnerfeld unter dem zweiten Operanden ---------- */
+.op2 {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.ct-help {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2px;
+}
+.ct-arrow-down {
+    font-family: var(--ui-font);
+    font-size: clamp(26px, 3.4vw, 46px);
+    line-height: 0.9;
+    color: #1f2d3d;
+}
+/* Das Zehnerfeld nutzt die globalen dotframe-/dots-Styles (rot = u, blau = r).
+   Nach dem jeweiligen Pfeil wird die zugehörige Gruppe ausgegraut. */
+.ct-help .dot-frame { margin: 2px 0 0; cursor: default; pointer-events: none; }
+.ct-help .dot-frame .dot-cell { cursor: default; }
+/* Ausgegraute (bereits "verbrauchte") Punkte */
+.ct-help .dot-frame .dot.red.used {
+    background: #cbd5e1;
+    box-shadow: none;
+}
+
+/* INLINE-ERGEBNIS-DROPZONE in der Gleichung */
+#ct-result.nb-dropzone {
+    display: inline-flex;
+    vertical-align: middle;
+    margin: 0 6px;
+}
+
+/* Passiver "?"-Platzhalter (gleiche Optik wie die kleine Dropzone, aber KEIN
+   Drop-Ziel) – steht im Gleichungsfeld, solange noch Pfeil-Zahlen dran sind. */
+.ct-qbox {
+    display: inline-flex;
+    vertical-align: middle;
+    margin: 0 6px;
+    width: var(--nb-box-size-small);
+    height: var(--nb-box-size-small);
+    border: 3px dashed #ccc;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: calc(var(--nb-font-size-base) * 0.4);
+    font-weight: 900;
+    color: #ccc;
+}
+.ct-qbox::after { content: "?"; }
+
+/* (Option) Rechenzeichen + "?"-Box, die an einem Pfeil über dem Strahl erscheint */
+#ct-arrow-fill {
+    position: absolute;
+    transform: translateX(-50%);   /* nur horizontal zentrieren; top wird in JS gesetzt */
+    z-index: 7;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+#ct-arrow-fill #ct-arrow-drop {
+    background: #fff;          /* deckend, da über den Bögen */
+}
+.ct-arrow-sign {
+    font-family: var(--math-font);
+    font-size: clamp(28px, 3.6vw, 52px);
+    font-weight: 900;
+    color: #1f2d3d;
+}
+
+/* ANTWORT-OPTIONEN (unten).
+   Platz wird IMMER reserviert (min-height), auch wenn gerade keine Optionen da
+   sind – so verschiebt sich der mittig liegende Zahlenstrahl nicht nach oben,
+   wenn die Optionen erscheinen. */
+.options-container {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: clamp(14px, 2.5vw, 28px);
+    padding-bottom: 18px;
+    min-height: var(--nb-box-size-small);
+    z-index: 10;
+}
+
+/* ZAHLENSTRAHL-VIEWPORT --------------------------------------------------- */
+/* Rahmen weg, volle Breite/Resthöhe – wie beim Erkunden-Modul. */
+.viewport {
+    flex: 1 1 auto;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    background: transparent !important;
+    display: block !important;
+    position: relative;
+}
+
+.numberline-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+/* PFEIL-EBENE ------------------------------------------------------------- */
+/* Liegt über dem Zahlenstrahl, fängt aber keine Maus-Events ab – die ganze
+   Interaktion läuft über den Viewport (Klick auf Zahl + Ziehen). */
+.arrow-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 6;
+    overflow: visible;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Umkehraufgaben herleiten</title>
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="inverseoperation-operators.css">
+    <link rel="stylesheet" href="animation-inverseoperation-operators.css">
+</head>
+<body>
+
+    <header class="header"></header>
+
+    <div class="game-container">
+        <div class="dual-equation-screen">
+            
+            <div class="equation-area minus-task-fixed" id="minus-area">
+                <div id="m-slot-1" class="nb-box nb-card"></div>
+                <div id="m-op-symbol" class="nb-box nb-ghost nb-symbol">-</div>
+                <div id="m-slot-2" class="nb-box nb-card"></div>
+                <div id="m-eq-symbol" class="nb-box nb-ghost nb-symbol">=</div>
+                <div id="m-slot-3" class="nb-box nb-card nb-slot-question">?</div>
+            </div>
+
+            <div class="task-divider"></div>
+
+            <div class="equation-area plus-task-animated" id="plus-area">
+                <div id="p-slot-1-target" class="nb-box nb-card opacity-0"></div>
+                <div id="p-op-symbol" class="nb-box nb-ghost nb-symbol opacity-0">+</div>
+                <div id="p-slot-2-target" class="nb-box nb-card opacity-0"></div>
+                <div id="p-eq-symbol" class="nb-box nb-ghost nb-symbol opacity-0">=</div>
+                <div id="p-slot-3" class="nb-box nb-card nb-slot-question opacity-0">?</div>
+            </div>
+        </div>
+
+        <div class="options-container" id="options-container"></div>
+    </div>
+
+    <script src="../../../../../global/ui/ui.js"></script>
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../../../../global/math/bundleimport/math-bundleimport.js"></script>
+    <script src="../../ui-operators/ui-operators.js"></script>
+    <script src="ui-inverseoperation-operators.js"></script>
+    <script src="inverseoperation-operators.js"></script>
+    <script src="animation-inverseoperation-operators.js"></script>
+    
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('game', {
+                title: "Umkehraufgabe herleiten",
+                showBack: true, 
+                showSettings: true,
+                showExit: true,
+                showFullscreen: true,
+                exitUrl: '../../../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

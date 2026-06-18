@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menü - Quiz-Spiele</title>
+
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="menu-visuals-wettkampf.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="menu-grid">
+
+            <a href="modules-wettkampf/quizfussball-wettkampf/quizfussball-wettkampf.html" class="big-menu-btn red">
+                <span class="btn-title">Quizfussball</span>
+                <div class="visual-quiz-game">
+                    <div class="vqg-board">
+                        <span class="vqg-red">🔴 0</span>
+                        <span class="vqg-sep">:</span>
+                        <span class="vqg-blue">0 🔵</span>
+                    </div>
+                    <div class="vqg-modes">
+                        <span>⚽</span>
+                        <span>🐎</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <script src="../../../global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('menu-wettkampf', {
+                title: 'Quiz-Spiele',
+                showBack: true,
+                showExit: true,
+                exitUrl: '../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/**
+ * GLOBALE SKALIERUNGS-STEUERUNG:
+ * - Zentralisierung der Maße für Konsistenz über alle Spiele
+ * - Definition von Variablen für Punktgrößen, Boxen und Abstände
+ * - Dynamische Schriftskalierung über clamp-Funktionen
+ * - Layout-Fixes für extrem kleine Bildschirme (Scaling-Faktor)
+ * - Optimierung für Smartphones im Querformat (Landscape-Fix)
+ */
+
+:root {
+    --nav-height: 60px;
+    --game-padding: clamp(10px, 3vw, 30px);
+    
+    --dot-size: clamp(20px, 5.5vh, 45px);
+    --dot-gap: clamp(8px, 1.2vh, 12px);
+    --symbol-size: clamp(80px, 16vh, 170px);
+
+    --box-size: clamp(100px, 18vw, 220px);
+    --overlap: clamp(4px, 1vw, 8px);
+    
+    --font-size-huge: clamp(60px, 12vh, 110px);
+    --font-size-large: clamp(30px, 6vw, 80px);
+}
+
+@media (max-width: 380px), (max-height: 580px) {
+    .game-container, .main-container {
+        transform: scale(0.92);
+        transform-origin: center top;
+    }
+    
+    h1 {
+        margin-top: 5px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+@media (max-height: 450px) and (orientation: landscape) {
+    :root {
+        --nav-height: 45px;
+        --dot-size: clamp(15px, 10vh, 30px);
+        --box-size: clamp(80px, 25vh, 150px);
+    }
+    
+    .game-container {
+        padding: 5px;
+    }
+}

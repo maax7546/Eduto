@@ -1,0 +1,121 @@
+/**
+ * ZENTRALE UI-ELEMENTE:
+ * - Globale CSS-Variablen & Adaptive Toolbar
+ * - Header-Layout mit absolut zentriertem Titel
+ * - Navigations-Controls mit dynamischer Breite & 3D-Effekt
+ */
+
+:root {
+    --blue-main: #3498db;
+    --red-main: #e74c3c;
+    --green-main: #27ae60;
+    --gray-text: #7f8c8d;
+    --dark-bg: #2c3e50;
+
+    --ui-base-scale: clamp(35px, 5vw, 55px); 
+    
+    --nav-width: var(--ui-base-scale);
+    --nav-height: calc(var(--ui-base-scale) * 0.85);
+    --nav-font-size: calc(var(--nav-height) * 0.5);
+    
+    --ui-gap: clamp(8px, 1.5vw, 15px);
+    --header-padding: clamp(10px, 2vw, 20px);
+}
+
+/* --- GLOBALER RESET ---
+   Der Browser-Default body-margin (8px) ließ die global gebaute Kopfzeile je
+   nach Seite um 8px verspringen (Seiten, die margin:0 lokal setzten, vs. solche
+   die es nicht taten). Hier EINMAL global zurückgesetzt, damit Header & Exit-/
+   Zurück-Button auf ALLEN Seiten exakt gleich sitzen. Module setzen body-margin
+   daher nicht mehr selbst. */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* --- FOUC-SCHUTZ ---
+   Verhindert das kurze Aufblitzen der statischen Platzhalter (z. B. "?"-Zahlen),
+   bevor injectUI() das Layout aufgebaut und das Modul gerendert hat. injectUI()
+   setzt am Ende die Klasse 'ui-ready' auf <html> und gibt den Inhalt frei.
+   Greift nur bei Seiten mit .main-container — alle solchen Seiten rufen injectUI(). */
+html:not(.ui-ready) .main-container { visibility: hidden; }
+
+/* --- HEADER & LAYOUT --- */
+.header {
+    width: 100%;
+    /* Nutzt --nav-height aus scaling.css falls vorhanden, sonst Fallback */
+    height: calc(var(--nav-height) + var(--ui-gap) * 2); 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--header-padding);
+    box-sizing: border-box;
+    background: #fff;
+    z-index: 1000;
+    position: relative; /* Wichtig für absolute Zentrierung des Titels */
+}
+
+/* GRUPPIERUNG DER BUTTONS */
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: var(--ui-gap);
+    z-index: 10; /* Über dem Titel-Layer */
+}
+
+/* ZENTRALER TITEL (Absolut fixiert) */
+.header-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+    font-weight: 900;
+    font-size: clamp(1rem, 3vw, 1.8rem); 
+    color: var(--dark-bg);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    pointer-events: none; /* Klicks gehen durch auf darunterliegende Elemente */
+    z-index: 5;
+    margin: 0;
+}
+
+/* --- NAV-CONTROLS (BUTTONS) --- */
+.nav-control {
+    min-width: var(--nav-width);
+    width: auto;
+    height: var(--nav-height);
+    padding: 0 calc(var(--ui-gap) * 0.7);
+    
+    border-radius: calc(var(--ui-base-scale) * 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: var(--nav-font-size);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    white-space: nowrap;
+    
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-sizing: border-box;
+    position: relative;
+    pointer-events: auto;
+    flex-shrink: 0;
+}
+
+.nav-control:active { 
+    transform: translateY(3px); 
+    box-shadow: none !important;
+}
+
+/* BUTTON-FARBEN */
+.btn-back { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
+.btn-zoom { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
+.btn-settings { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
+.btn-fs { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
+.btn-exit { background-color: var(--red-main); box-shadow: 0 4px 0 #c0392b; }
+.btn-reset { background-color: var(--green-main); box-shadow: 0 4px 0 #1e8449; }

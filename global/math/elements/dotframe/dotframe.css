@@ -1,0 +1,81 @@
+/* DOTFRAME.CSS - Nur Layout und Struktur */
+:root {
+    --cell-size: 45px;
+    --dot-size: 32px;
+    --gap-size: 3px;
+}
+
+.dot-frame.small {
+    --cell-size: 30px;
+    --dot-size: 22px;
+    --gap-size: 2px;
+}
+
+.dot-frame.large {
+    --cell-size: 65px;
+    --dot-size: 48px;
+    --gap-size: 5px;
+}
+
+.dot-frame.v-10 {
+    display: grid;
+    grid-template-columns: repeat(10, var(--cell-size));
+    grid-template-rows: repeat(1, var(--cell-size));
+    width: fit-content;
+    border: 1px solid #999;
+    background-color: #fff;
+    margin: 10px 0;
+    transition: opacity 0.3s ease;
+}
+
+.dot-frame.v-20 {
+    display: grid;
+    grid-template-columns: repeat(10, var(--cell-size));
+    grid-template-rows: repeat(2, var(--cell-size));
+    width: fit-content;
+    border: 1px solid #999;
+    background-color: #fff;
+    margin: 10px 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 5er-Trenner: dickerer Strich zwischen den beiden Reihen (nur v-20) */
+.dot-frame.v-20 .dot-cell:nth-child(-n+10) {
+    border-bottom: 2px solid #555;
+}
+
+/* 5er-Trenner: dickerer Strich vertikal nach Spalte 5.
+   v-10 ist einreihig (1x10) → Strich nach Zelle 5.
+   v-20 ist zweireihig (2x10) → Strich nach Zelle 5 und 15. */
+.dot-frame.v-10 .dot-cell:nth-child(5),
+.dot-frame.v-20 .dot-cell:nth-child(5),
+.dot-frame.v-20 .dot-cell:nth-child(15) {
+    border-right: 2px solid #555;
+}
+
+.dot-frame .dot-cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Maskierung: Untere Reihe ausgrauen (Zellen 11-20) */
+.dot-frame.mask-bottom .dot-cell:nth-child(n+11) {
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Maskierung: Obere Reihe ausgrauen (Zellen 1-10) */
+.dot-frame.mask-top .dot-cell:nth-child(-n+10) {
+    opacity: 0.15;
+    pointer-events: none;
+}

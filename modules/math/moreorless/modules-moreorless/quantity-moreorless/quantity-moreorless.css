@@ -1,0 +1,73 @@
+/**
+ * QUANTITY-MORE-OR-LESS CSS - ANGEPASST
+ */
+
+@import url("../../../../../global/ui/elements/numberbox.css");
+@import url("../../../../../global/ui/elements/dropzone.css");
+
+/* Haupt-Layout */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 100px);
+    width: 100%;
+}
+
+.game-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+/* Container für die linke/rechte Seite */
+.quantity-display {
+    width: 45%;          
+    height: 100%;        
+    display: flex;       
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+/* Das Punkteraster nutzt den globalen Zehner-/Zwanzigerfeld-Baustein
+   (global/math/elements/dotframe.css + dots.css). Hier wird NICHTS
+   nachgebaut — nur die Punktfarben kommen aus dots.css über data-red
+   (links, rot) bzw. data-blue (rechts, blau). */
+
+/* Dropzone Styling (Spezifisch für dieses Modul) */
+.drop-zone {
+    /* Nutzt die Variable aus numberbox.css für Konsistenz */
+    --nb-box-size: clamp(100px, 20vw, 180px);
+}
+
+/* HILFSZAHLEN (Nutzen Patrick Hand via font.css) */
+.help-number-label {
+    display: none;
+    position: absolute;
+    bottom: -15px;
+    font-size: clamp(50px, 12vh, 90px);
+    font-weight: 900;
+}
+
+body.show-help-numbers .help-number-label { 
+    display: block; 
+}
+
+.dots-left .help-number-label { color: #e74c3c; }
+.dots-right .help-number-label { color: #3498db; }
+
+/* Symbol-Leiste unten */
+.symbol-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}

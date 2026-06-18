@@ -1,0 +1,7 @@
+/*
+ * UI-BUNDLE (CSS) — generische, fach-unabhängige Bausteine.
+ * Pfade relativ zu global/ui/ (eine Ebene über bundleimport/).
+ */
+@import url("../elements/check-button.css");
+@import url("../elements/numberbox.css");
+@import url("../elements/dropzone.css");

@@ -1,0 +1,25 @@
+/**
+ * Darstellung der Krokodile
+ */
+
+/* Krokodil-Karten-Design */
+body.use-crocodiles .nb-option {
+    background: #ffffff !important; 
+    border: clamp(3px, 0.8vw, 5px) solid #27ae60 !important;
+    box-shadow: none !important;
+}
+
+body.use-crocodiles .nb-option:active {
+    background-color: #f0fdf4 !important;
+}
+
+/* Spezial-Feedback im Krokodil-Modus */
+body.use-crocodiles .drop-zone.nb-highlight {
+    background: #e8f8f5 !important;
+    border-color: #27ae60 !important;
+}
+
+body.use-crocodiles .drop-zone.nb-wrong {
+    background: #fdedec !important;
+    border-color: #e74c3c !important;
+}

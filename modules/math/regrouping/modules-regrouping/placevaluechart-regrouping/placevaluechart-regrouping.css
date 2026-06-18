@@ -1,0 +1,74 @@
+:root {
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --primary: #6366f1;
+    --accent-blue: #3b82f6;
+    --accent-red: #ef4444;
+    --text-main: #1e293b;
+    --border-soft: #e2e8f0;
+    --pvc-border-color: #1e293b;
+}
+
+body, html { height: 100vh; background: var(--bg-main); font-family: sans-serif; overflow: hidden; }
+
+.game-container { display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 40px; }
+
+/* TAFEL */
+.pvc-grid {
+    display: flex; width: 100%; max-width: 1100px; height: 450px;
+    background: var(--card-bg); border: 3px solid var(--pvc-border-color); border-radius: 30px; overflow: hidden;
+}
+
+.pvc-column { flex: 1; display: flex; flex-direction: column; border-right: 3px solid var(--border-soft); }
+.pvc-column:last-child { border-right: none; }
+
+.pvc-label { background: #fcfcfd; padding: 15px; text-align: center; font-weight: 900; font-size: 40px; border-bottom: 3px solid var(--border-soft); }
+
+.pvc-area { flex: 1; padding: 20px; position: relative; }
+
+/* INTERAKTIVE PUNKTE DESIGN */
+.dot {
+    width: 30px; height: 30px; background: var(--accent-red); border-radius: 50%;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+    cursor: pointer;
+    pointer-events: auto; /* Stellt sicher, dass sie anklickbar sind */
+    transition: all 0.2s;
+    z-index: 5;
+}
+
+.dot:hover { transform: scale(1.1); filter: brightness(1.1); }
+
+.dot.selected {
+    background: var(--primary);
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px white, 0 0 0 8px var(--primary);
+}
+
+/* ZEHNERSTANGE */
+.rod {
+    width: 25px; height: 90%; background: var(--accent-blue); border-radius: 4px;
+    border: 2px solid #2563eb;
+    background-image: linear-gradient(to bottom, transparent 90%, rgba(0,0,0,0.1) 90%);
+    background-size: 100% 10%;
+}
+
+/* STEPPER & CHECK */
+.interaction-row { display: flex; align-items: center; gap: 40px; }
+.result-table { display: flex; background: white; border: 3px solid var(--pvc-border-color); border-radius: 20px; overflow: hidden; }
+.table-column { width: 150px; border-right: 2px solid var(--border-soft); display: flex; flex-direction: column; align-items: center; }
+.table-column .label { width: 100%; background: var(--pvc-border-color); color: white; padding: 10px; text-align: center; font-weight: bold; }
+
+.step-value { font-size: 80px; font-weight: 900; transition: color 0.3s; }
+.step-value.correct { color: #22c55e; }
+.step-value.wrong { color: #ef4444; animation: shake 0.4s both; }
+
+.check-circle-btn {
+    width: 80px; height: 80px; border-radius: 50%; border: none; background: var(--primary);
+    color: white; font-size: 2rem; cursor: pointer; box-shadow: 0 6px 0 #4338ca;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    30%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menü - Bündelung</title>
+    
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="menu-visuals-regrouping.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="menu-grid">
+            <a href="modules-regrouping/placevaluechart-regrouping/placevaluechart-regrouping.html" class="big-menu-btn purple">
+                <span class="btn-title">Stellenwert-Tafel</span>
+                <div class="visual-regrouping-menu">
+                    <div class="v-bar"></div>
+                    <div class="v-column">
+                        <div class="v-dot"></div><div class="v-dot"></div><div class="v-dot"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script src="../../../global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('menu-regrouping', { 
+                title: 'Bündelung',
+                showBack: true, 
+                showExit: true, 
+                exitUrl: '../../../index.html' 
+            });
+        }
+    </script>
+</body>
+</html>

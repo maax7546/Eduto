@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zahlenstrahl - Auswahl</title>
+    
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/menu-bundleimport.css">
+    
+    <link rel="stylesheet" href="menu-visuals-numberline.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="menu-grid">
+            <a href="modules-numberline/view-numberline/view-numberline.html" class="big-menu-btn blue">
+                <span class="btn-title">Zahlenstrahl erkunden</span>
+                <div class="visual-icon-container"><span class="symbol">🔍</span></div>
+            </a>
+
+            <a href="modules-numberline/assign-numberline/assign-numberline.html" class="big-menu-btn blue">
+                <span class="btn-title">Zahlen zuordnen (BETA)</span>
+                <div class="visual-icon-container"><span class="symbol">🎯</span></div>
+            </a>
+
+            <a href="modules-numberline/crossingtens-numberline/crossingtens-numberline.html" class="big-menu-btn blue">
+                <span class="btn-title">Zehnerübergang mit Pfeilen</span>
+                <div class="visual-icon-container"><span class="symbol">↗️</span></div>
+            </a>
+        </div>
+    </main>
+
+    <script src="../../../global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('menu-numberline', { 
+                title: 'Zahlenstrahl',
+                showBack: true, 
+                showExit: true, 
+                exitUrl: '../../../index.html' 
+            });
+        }
+    </script>
+</body>
+</html>

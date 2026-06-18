@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kombinierte Test-Ansicht: Numberboxen & Feedback</title>
+    
+    <link rel="stylesheet" href="../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="../testutility.css">
+    
+    <style>
+        body { padding: 20px; font-family: sans-serif; }
+        .test-section { 
+            background: white; 
+            border-radius: 15px; 
+            padding: 20px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h2 { color: #3498db; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .label-info { font-weight: bold; margin: 15px 0 10px 0; color: #7f8c8d; display: block; }
+        .flex-row { display: flex; gap: 15px; align-items: flex-end; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <section class="test-section">
+        <h2>2. Numberboxen & Optionen</h2>
+        <div class="test-content">
+            <span class="label-info">Design 1: Statische Karten (.nb-card)</span>
+            <div class="flex-row">
+                <div class="nb-box nb-card nb-box-small">1</div>
+                <div class="nb-box nb-card">2</div>
+                <div class="nb-box nb-card nb-box-large">3</div>
+            </div>
+            
+            <hr>
+            
+            <span class="label-info">Design 2: Ziehbare Optionen (.nb-option)</span>
+            <div class="flex-row">
+                <div class="nb-box nb-option nb-box-small" draggable="true">4</div>
+                <div class="nb-box nb-option" draggable="true">5</div>
+                <div class="nb-box nb-option nb-box-large" draggable="true">6</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="test-section">
+        <h2>3. Dropzones & Feedback</h2>
+        <div class="test-content">
+            <span class="label-info">Zustand: Standard (Leer)</span>
+            <div class="flex-row">
+                <div class="nb-dropzone nb-box-small"></div>
+                <div class="nb-dropzone"></div>
+                <div class="nb-dropzone nb-box-large"></div>
+            </div>
+            
+            <hr>
+            
+            <span class="label-info">Zustand: Feedback Richtig (.correct)</span>
+            <div class="flex-row">
+                <div class="nb-dropzone correct nb-box-small">10</div>
+                <div class="nb-dropzone correct">10</div>
+                <div class="nb-dropzone correct nb-box-large">10</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../global/math/bundleimport/math-bundleimport.js"></script>
+</body>
+</html>

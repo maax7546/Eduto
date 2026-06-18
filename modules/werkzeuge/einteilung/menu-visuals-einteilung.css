@@ -1,0 +1,60 @@
+/**
+ * MENÜ-VISUALS — Gruppe "einteilung" (Werkzeuge)
+ * Visual der Kachel(n) im Gruppenmenü. Farbe/Layout der Kachel selbst
+ * kommen aus global/ui/menu-buttons.css (.big-menu-btn.teal).
+ */
+
+.big-menu-btn.teal { overflow: hidden; }
+
+.visual-einteilung {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.ve-pair {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 3px solid white;
+    border-radius: 12px;
+    padding: 4px 14px;
+}
+
+.ve-pair span {
+    font-size: clamp(20px, 4vw, 30px);
+    line-height: 1;
+}
+
+/* ---- Kachel "Sitzplan" -------------------------------------------------- */
+.big-menu-btn.blue { overflow: hidden; }
+
+.visual-sitzplan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Ein Tisch (helles Rechteck) mit zwei Stühlen darüber */
+.vs-table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 70px;
+    height: 30px;
+    background: linear-gradient(#fdf6e9, #f3e6cf);
+    border: 3px solid white;
+    border-radius: 8px;
+}
+.vs-table-wide { width: 110px; }
+
+.vs-table span {
+    font-size: clamp(16px, 3vw, 24px);
+    line-height: 1;
+}

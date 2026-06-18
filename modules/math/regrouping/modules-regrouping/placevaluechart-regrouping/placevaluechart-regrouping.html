@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stellenwert-Tafel: Bündeln & Schreiben</title>
+    
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="placevaluechart-regrouping.css">
+    <link rel="stylesheet" href="../../visuals-regrouping/animations-regrouping.css">
+</head>
+<body>
+
+    <header class="header"></header>
+
+    <div class="game-container">
+        <div class="pvc-grid">
+            <div class="pvc-column zehner" id="col-z">
+                <div class="pvc-label">Zehner (Z)</div>
+                <div class="pvc-area" id="area-z"></div>
+            </div>
+            <div class="pvc-column einer" id="col-e">
+                <div class="pvc-label">Einer (E)</div>
+                <div class="pvc-area" id="area-e"></div>
+            </div>
+        </div>
+
+        <div class="interaction-row">
+            <div class="result-table">
+                <div class="table-column">
+                    <div class="label">Z <span class="mini-symbol blue-bar"></span></div>
+                    <div class="stepper">
+                        <button class="step-btn" onclick="changeValue('val-z', 1)">▲</button>
+                        <div class="step-value" id="val-z">0</div>
+                        <button class="step-btn" onclick="changeValue('val-z', -1)">▼</button>
+                    </div>
+                </div>
+                <div class="table-column">
+                    <div class="label">E <span class="mini-symbol red-dot"></span></div>
+                    <div class="stepper">
+                        <button class="step-btn" onclick="changeValue('val-e', 1)">▲</button>
+                        <div class="step-value" id="val-e">0</div>
+                        <button class="step-btn" onclick="changeValue('val-e', -1)">▼</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button class="check-circle-btn" onclick="manualCheck()" id="check-btn">✔</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../../global/ui/ui.js"></script>
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../../../../global/math/bundleimport/math-bundleimport.js"></script>
+    <script src="../../ui-regrouping/ui-regrouping.js"></script>
+    <script src="placevaluechart-regrouping.js"></script>
+</body>
+</html>

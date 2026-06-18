@@ -1,0 +1,67 @@
+@import url("../../../../../global/ui/elements/numberbox.css");
+@import url("../../../../../global/ui/elements/dropzone.css");
+
+:root {
+    --bg-color: #f0f4f8;
+    --equation-gap: clamp(20px, 8vh, 60px);
+}
+
+body {
+    background: var(--bg-color);
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.game-container {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: space-between; 
+    height: calc(100vh - 80px);
+    padding: 30px; 
+    background: white;
+    padding: 80px 0 10px 0;
+    box-sizing: border-box;
+}
+
+.dual-equation-screen {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: var(--equation-gap);
+}
+
+.equation-area {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+/* Überlappung der Boxen */
+.equation-area > .nb-box + .nb-box {
+    margin-left: calc(var(--nb-overlap) * -1);
+}
+
+.task-divider { display: none; }
+
+.options-container {
+    display: flex; 
+    gap: 15px; 
+    padding-bottom: 30px;
+}
+
+/* Sichtbarkeits-Klassen */
+.opacity-0 { 
+    opacity: 0; 
+}
+.opacity-1 { 
+    opacity: 1 !important; 
+}
+
+/* Flying Element (während der Animation) */
+.flying-clone {
+    position: fixed; 
+    pointer-events: none; 
+    z-index: 1000; 
+    margin: 0 !important;
+}

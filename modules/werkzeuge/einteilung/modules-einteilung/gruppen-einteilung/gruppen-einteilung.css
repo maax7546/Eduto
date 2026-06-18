@@ -1,0 +1,188 @@
+/**
+ * GRUPPEN-EINTEILUNG — Layout nur dieses Moduls.
+ * Schrift/Skalierung/Header kommen global aus global/ui. Body-margin/padding
+ * NICHT setzen (Header-Reset ist global).
+ *
+ * Gruppen liegen untereinander (gestapelt). Jede Gruppe ist eine Reihe mit
+ * Griff ≡ (ganze Gruppe verschieben), Nummer, Namensfeldern + ＋, und 🗑.
+ */
+
+.ge-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(10px, 1.6vh, 16px);
+    padding: clamp(12px, 3vw, 28px);
+    box-sizing: border-box;
+}
+
+/* ---- Board: Gruppen gestapelt ------------------------------------------- */
+.ge-board {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.6vh, 16px);
+    width: 100%;
+    max-width: 900px;
+}
+
+/* ---- Eine Gruppe (= eine Reihe) ----------------------------------------- */
+.ge-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 2px solid #d6e0dd;
+    border-radius: 16px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    break-inside: avoid; /* beim Drucken nicht über Seiten zerreißen */
+}
+.ge-group.ge-dragging { opacity: 0.4; }
+
+.ge-grip {
+    cursor: grab;
+    color: #16a085;
+    font-size: clamp(20px, 3vw, 26px);
+    line-height: 1;
+    padding: 0 4px;
+    user-select: none;
+}
+.ge-grip:active { cursor: grabbing; }
+
+.ge-group-label {
+    font-family: var(--ui-font, sans-serif);
+    font-weight: 900;
+    color: #16a085;
+    font-size: clamp(18px, 2.4vw, 24px);
+    min-width: 1.6em;
+    text-align: right;
+}
+
+.ge-group-fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+/* ---- Namensfeld (Eingabe + ×) ------------------------------------------- */
+.ge-name-field {
+    display: inline-flex;
+    align-items: center;
+    background: #f4f7f6;
+    border: 2px solid #d6e0dd;
+    border-radius: 10px;
+    padding: 2px 4px 2px 10px;
+}
+.ge-name-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: clamp(90px, 16vw, 150px);
+    font-family: var(--ui-font, sans-serif);
+    font-weight: 700;
+    font-size: clamp(16px, 2.2vw, 20px);
+    color: #2c3e50;
+}
+.ge-name-input::placeholder { color: #9bb0aa; font-weight: 500; }
+
+.ge-field-del {
+    border: none;
+    background: transparent;
+    color: #b0bdb9;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 0 6px;
+}
+.ge-field-del:hover { color: #e74c3c; }
+
+/* ＋ : Feld hinzufügen */
+.ge-add-field {
+    border: 2px dashed #b9cfc9;
+    background: transparent;
+    color: #16a085;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: clamp(18px, 2.4vw, 22px);
+    line-height: 1;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.ge-add-field:hover { background: #eaf5f2; }
+
+/* 🗑 : ganze Gruppe löschen */
+.ge-group-del {
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: clamp(18px, 2.4vw, 22px);
+    line-height: 1;
+    opacity: 0.55;
+    padding: 4px 6px;
+}
+.ge-group-del:hover { opacity: 1; }
+
+/* ---- Buttons (Neue Gruppe) ---------------------------------------------- */
+.ge-btn {
+    font-family: var(--ui-font, sans-serif);
+    font-weight: 800;
+    font-size: clamp(15px, 2vw, 18px);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 22px;
+    cursor: pointer;
+    color: #2c3e50;
+    background: #e3eae8;
+    box-shadow: 0 4px 0 #c3cecb;
+    transition: transform 0.08s, box-shadow 0.08s;
+}
+.ge-btn:active { transform: translateY(4px); box-shadow: none; }
+.ge-btn-primary {
+    color: white;
+    background: #16a085;
+    box-shadow: 0 4px 0 #0e6b59;
+}
+
+/* ---- Kurzhilfe ---------------------------------------------------------- */
+.ge-hint {
+    max-width: 760px;
+    text-align: center;
+    color: #5b6b67;
+    font-family: var(--ui-font, sans-serif);
+    font-size: clamp(14px, 1.8vw, 17px);
+    line-height: 1.5;
+}
+
+.ge-print-title {
+    text-align: center;
+    font-family: var(--ui-font, sans-serif);
+    color: #2c3e50;
+    margin: 0;
+}
+
+/* ---- Druck-Utilities ---------------------------------------------------- */
+.print-only { display: none; }
+
+@media print {
+    .header, .no-print { display: none !important; }
+    .print-only { display: block; }
+
+    /* FOUC-Schutz ggf. erst per .ui-ready aufgehoben — beim Drucken erzwingen. */
+    .main-container { visibility: visible !important; }
+
+    .ge-page { padding: 0; gap: 10px; align-items: stretch; }
+    .ge-board { max-width: none; gap: 8px; }
+
+    .ge-group { border-color: #333; padding: 8px 10px; }
+    .ge-group-label { color: black; }
+    .ge-name-field { background: white; border-color: #555; }
+    .ge-name-input { color: black; width: auto; min-width: 80px; }
+    .ge-grip { display: none; }
+}

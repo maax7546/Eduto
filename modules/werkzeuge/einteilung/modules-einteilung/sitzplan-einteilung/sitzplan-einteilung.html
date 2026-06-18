@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitzplan</title>
+
+    <!-- Lade-Vertrag: globale Basis zuerst. Kein ui-bundleimport.css
+         (keine Numberbox/Dropzone/Check-Button) und kein math-Bundle.
+         Dafür das werkzeuge-Bündel (SeatTable = globaler Tisch-Baustein). -->
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/werkzeuge/bundleimport/werkzeuge-bundleimport.css">
+    <link rel="stylesheet" href="sitzplan-einteilung.css">
+</head>
+<body>
+
+    <header class="header"></header>
+
+    <main class="main-container sp-page">
+
+        <!-- Die große freie Fläche (der Raum). Tische werden hier abgelegt. -->
+        <section id="sp-area" class="sp-area">
+            <div class="sp-front">Tafel</div>
+
+            <!-- Rückgängig / Wiederholen -->
+            <div class="sp-toolbar">
+                <button id="sp-undo" class="sp-tool-btn" type="button" title="Rückgängig" disabled>↶</button>
+                <button id="sp-redo" class="sp-tool-btn" type="button" title="Wiederholen" disabled>↷</button>
+            </div>
+        </section>
+
+        <!-- Tisch-Leiste: Vorlagen zum Hineinziehen -->
+        <div class="sp-tray">
+            <span class="sp-tray-hint">Tisch in den Raum ziehen →</span>
+
+            <div class="sp-tool" data-type="einzel">
+                <div class="sp-tool-prev sp-prev-einzel"></div>
+                <span class="sp-tool-label">Einzeltisch</span>
+            </div>
+
+            <div class="sp-tool" data-type="doppel">
+                <div class="sp-tool-prev sp-prev-doppel"></div>
+                <span class="sp-tool-label">Doppeltisch</span>
+            </div>
+
+            <div class="sp-tool" data-type="vierer">
+                <div class="sp-tool-prev sp-prev-vierer"></div>
+                <span class="sp-tool-label">Vierergruppentisch</span>
+            </div>
+        </div>
+
+        <!-- Verstecktes Datei-Feld für „PDF laden" (vom ⚙️-Menü ausgelöst) -->
+        <input type="file" id="sp-file" accept="application/pdf,.pdf" style="display:none">
+
+    </main>
+
+    <!-- Lade-Vertrag (Reihenfolge zählt) -->
+    <script src="../../../../../global/ui/ui.js"></script>                            <!-- 1. injectUI + SettingsBuilder-Stub -->
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>  <!-- 2. generische Bausteine (u.a. SettingsBuilder) -->
+    <script src="../../../../../global/werkzeuge/bundleimport/werkzeuge-bundleimport.js"></script> <!-- 3. SeatTable (globaler Tisch) -->
+    <script src="ui-sitzplan-einteilung.js"></script>                                <!-- 4. eigene Settings (PDF/Drucken/Reset) -->
+    <script src="sitzplan-einteilung.js"></script>                                   <!-- 5. Modul-Logik -->
+
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('game', {
+                title: 'Sitzplan',
+                showBack: true,
+                showSettings: true,
+                showExit: true,
+                showFullscreen: true,
+                exitUrl: '../../../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

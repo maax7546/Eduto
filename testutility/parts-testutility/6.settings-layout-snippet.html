@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="../testutility.css">
+</head>
+<body class="test-card">
+
+    <h2>6. Settings-Menü Layout-Test</h2>
+    
+    <div class="test-content">
+        <p class="label-info" style="text-align: center; margin-bottom: 20px;">
+            Vorschau der Button-Anordnungen aus der <code>settingsmenu.css</code>.
+        </p>
+
+        <div class="settings-menu" style="display: flex; position: relative; top: 0; box-shadow: none; border: 1px solid #eee; width: 100%; max-width: 400px; margin: 0 auto;">
+            
+            <div class="settings-section">
+                <div class="settings-section-title">Einzelauswahl</div>
+                <button class="settings-cycle-btn">Zahlenraum: 0-20</button>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">Modus (Duo-Row)</div>
+                <div class="settings-row">
+                    <button class="settings-cycle-btn active">Training</button>
+                    <button class="settings-cycle-btn">Prüfung</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">Operatoren (Trio-Row)</div>
+                <div class="settings-row">
+                    <button class="settings-cycle-btn" style="font-size: 1.5rem;">&lt;</button>
+                    <button class="settings-cycle-btn" style="font-size: 1.5rem;">=</button>
+                    <button class="settings-cycle-btn" style="font-size: 1.5rem;">&gt;</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">Animationstempo</div>
+                <div class="speed-row-layout">
+                    <input type="range" id="speed-slider" min="1" max="5" value="3">
+                    <div id="speed-value-display">3x</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../global/ui/ui.js"></script>
+    <script src="../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../global/math/bundleimport/math-bundleimport.js"></script>
+    
+    <script>
+        // Logik zum Umschalten der Farben (active Klasse)
+        document.querySelectorAll('.settings-cycle-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Wenn der Button in einer Reihe (settings-row) ist, 
+                // müssen die anderen in derselben Reihe deaktiviert werden
+                const row = this.closest('.settings-row');
+                if (row) {
+                    row.querySelectorAll('.settings-cycle-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                } else {
+                    // Einzelauswahl Button: Einfach an/aus togglen
+                    this.classList.toggle('active');
+                }
+            });
+        });
+
+        // Slider Anzeige Update
+        const slider = document.getElementById('speed-slider');
+        const display = document.getElementById('speed-value-display');
+        if (slider && display) {
+            slider.addEventListener('input', (e) => {
+                display.innerText = e.target.value + 'x';
+            });
+        }
+    </script>
+</body>
+</html>

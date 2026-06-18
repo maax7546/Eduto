@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menü - Rechenoperationen</title>
+    
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="menu-visuals-operators.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="menu-grid">
+            <a href="modules-operators/structure-operators/structure-operators.html" class="big-menu-btn orange">
+                <span class="btn-title">Anordnung der Rechensymbole</span>
+                <div class="visual-structure">
+                    <div class="state-normal">
+                        <div class="box">10</div>
+                        <span class="op">+</span>
+                        <div class="box">5</div>
+                        <span class="op">=</span>
+                        <div class="box">?</div>
+                    </div>
+                    <div class="state-hover">
+                        <div class="box">?</div>
+                        <span class="op">=</span>
+                        <div class="box">10</div>
+                        <span class="op">+</span>
+                        <div class="box">5</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="modules-operators/structure-commutativelaw/commutativelaw-operators.html" class="big-menu-btn orange">
+                <span class="btn-title">Tauschaufgaben</span>
+                <div class="visual-structure">
+                    <div class="state-normal">
+                        <div class="box">3</div>
+                        <span class="op">+</span>
+                        <div class="box">7</div>
+                        <span class="op">=</span>
+                        <div class="box">10</div>
+                    </div>
+                    <div class="state-hover">
+                        <div class="box">7</div>
+                        <span class="op">+</span>
+                        <div class="box">3</div>
+                        <span class="op">=</span>
+                        <div class="box">10</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="modules-operators/structure-inverseoperation/inverseoperation-operators.html" class="big-menu-btn orange">
+                <span class="btn-title">Umkehraufgaben</span>
+                <div class="visual-structure">
+                    <div class="state-normal">
+                        <div class="box">8</div>
+                        <span class="op">+</span>
+                        <div class="box">2</div>
+                        <span class="op">=</span>
+                        <div class="box">10</div>
+                    </div>
+                    <div class="state-hover">
+                        <div class="box">10</div>
+                        <span class="op">-</span>
+                        <div class="box">2</div>
+                        <span class="op">=</span>
+                        <div class="box">8</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="modules-operators/calculation-operators/calculation-operators.html" class="big-menu-btn orange">
+                <span class="btn-title">Rechenaufgaben</span>
+                <div class="visual-structure">
+                    <div class="state-normal">
+                        <div class="box">7</div>
+                        <span class="op">+</span>
+                        <div class="box">5</div>
+                        <span class="op">=</span>
+                        <div class="box">?</div>
+                    </div>
+                    <div class="state-hover">
+                        <div class="box">12</div>
+                        <span class="op">−</span>
+                        <div class="box">5</div>
+                        <span class="op">=</span>
+                        <div class="box">?</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="modules-operators/crossingtens-operators/crossingtens-operators.html" class="big-menu-btn orange">
+                <span class="btn-title">Zehnerstopp (BETA)</span>
+                <div class="visual-structure">
+                    <div class="state-normal">
+                        <div class="box">8</div>
+                        <span class="op">+</span>
+                        <div class="box">5</div>
+                        <span class="op">=</span>
+                        <div class="box">13</div>
+                    </div>
+                    <div class="state-hover">
+                        <div class="box">8</div>
+                        <span class="op">+</span>
+                        <div class="box">2</div>
+                        <span class="op">=</span>
+                        <div class="box">10</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <script src="../../../global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('menu-operators', { 
+                title: 'Rechenoperationen',
+                showBack: true, 
+                showExit: true, 
+                exitUrl: '../../../index.html' 
+            });
+        }
+    </script>
+</body>
+</html>

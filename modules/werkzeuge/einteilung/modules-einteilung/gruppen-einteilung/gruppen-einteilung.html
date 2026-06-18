@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gruppen-Einteilung</title>
+
+    <!-- Lade-Vertrag: globale Basis zuerst. Kein ui-bundleimport.css
+         (keine Numberbox/Dropzone/Check-Button) und kein math-Bundle. -->
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="gruppen-einteilung.css">
+</head>
+<body>
+
+    <header class="header"></header>
+
+    <main class="main-container ge-page">
+
+        <!-- Druck-Überschrift (nur im Ausdruck sichtbar) -->
+        <h1 class="ge-print-title print-only">Sport-Aufstellung</h1>
+
+        <!-- Die Gruppen werden hier gestapelt (untereinander) gerendert -->
+        <section id="ge-board" class="ge-board"></section>
+
+        <!-- Eine weitere Gruppe anlegen (beim Drucken ausgeblendet) -->
+        <button id="ge-add-group" class="ge-btn ge-btn-primary no-print" type="button">＋ Neue Gruppe</button>
+
+        <!-- Verstecktes Datei-Feld für „PDF laden" (vom ⚙️-Menü ausgelöst) -->
+        <input type="file" id="ge-file" accept="application/pdf,.pdf" class="no-print" style="display:none">
+
+        <!-- Kurzhilfe -->
+        <p class="ge-hint no-print">
+            Tippe einen Namen ein, mit <strong>＋</strong> kommt ein Feld daneben dazu.
+            <strong>„Neue Gruppe"</strong> legt eine weitere Reihe an.
+            Ziehe am Griff <strong>≡</strong>, um ganze Gruppen übereinander umzusortieren
+            (z. B. die Reihenfolge zum gemeinsamen Laufen). Im ⚙️-Menü kannst du die Aufstellung
+            als <strong>PDF speichern</strong> und dieselbe Datei später wieder <strong>laden</strong>,
+            um die Gruppen anzupassen.
+        </p>
+
+    </main>
+
+    <!-- Lade-Vertrag (Reihenfolge zählt) -->
+    <script src="../../../../../global/ui/ui.js"></script>                            <!-- 1. injectUI + SettingsBuilder-Stub -->
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>  <!-- 2. generische Bausteine (u.a. SettingsBuilder) -->
+    <script src="ui-gruppen-einteilung.js"></script>                                 <!-- 3. eigene Settings (Gruppengröße/Drucken/Reset) -->
+    <script src="gruppen-einteilung.js"></script>                                    <!-- 4. Modul-Logik -->
+
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('game', {
+                title: 'Gruppen-Einteilung',
+                showBack: true,
+                showSettings: true,
+                showExit: true,
+                showFullscreen: true,
+                exitUrl: '../../../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

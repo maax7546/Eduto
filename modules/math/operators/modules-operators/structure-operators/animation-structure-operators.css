@@ -1,0 +1,36 @@
+/**
+ * RECHENOPERATIONEN - ANIMATIONEN
+ */
+
+@keyframes sequence-move-rechnung {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(2 * var(--grid-unit))); }
+}
+
+@keyframes sequence-move-equals {
+    0%   { transform: translate(0, 0); }
+    30%  { transform: translate(0, 140%); }      
+    70%  { transform: translate(calc(-2 * var(--grid-unit)), 140%); } 
+    100% { transform: translate(calc(-2 * var(--grid-unit)), 0); }
+}
+
+@keyframes sequence-move-result {
+    0%   { transform: translate(0, 0); }
+    30%  { transform: translate(0, 140%); }
+    70%  { transform: translate(calc(-4 * var(--grid-unit)), 140%); } 
+    100% { transform: translate(calc(-4 * var(--grid-unit)), 0); }
+}
+
+.swapped #slot-1, 
+.swapped #op-symbol, 
+.swapped #slot-2 {
+    animation: sequence-move-rechnung var(--anim-speed) forwards cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.swapped #eq-symbol {
+    animation: sequence-move-equals var(--anim-speed) forwards cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.swapped #slot-3 {
+    animation: sequence-move-result var(--anim-speed) forwards cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}

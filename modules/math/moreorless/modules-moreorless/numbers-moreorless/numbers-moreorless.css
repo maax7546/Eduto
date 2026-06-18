@@ -1,0 +1,39 @@
+/**
+ * NUMBERS-MOREORLESS.CSS
+ */
+
+@import url("../../../../../global/ui/elements/numberbox.css");
+@import url("../../../../../global/ui/elements/dropzone.css");
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 100px);
+    width: 100%;
+}
+
+.game-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.number-box {
+    --nb-box-size: var(--nb-box-size-large);
+}
+
+.drop-zone {
+    --nb-box-size: clamp(100px, 20vw, 180px);
+}
+
+.symbol-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
