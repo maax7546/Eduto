@@ -1,10 +1,1 @@
-/**
- * UI-OPERATORS.JS
- * Nutzt den globalen SettingsBuilder für Geschwindigkeit und Zahlenraum.
- */
-(function () {
-    SettingsBuilder.ready(() => {
-        SettingsBuilder.addSpeedSlider();
-        SettingsBuilder.addRangePicker(['0-10', '0-20', '0-100']);
-    });
-})();
+(function(_0x23adeb,_0x3a1eb5){var _0x333195=a0_0x267b,_0xcc824f=_0x23adeb();while(!![]){try{var _0x4c4b41=-parseInt(_0x333195(0x189))/0x1*(parseInt(_0x333195(0x18d))/0x2)+parseInt(_0x333195(0x188))/0x3*(-parseInt(_0x333195(0x185))/0x4)+-parseInt(_0x333195(0x186))/0x5*(parseInt(_0x333195(0x190))/0x6)+-parseInt(_0x333195(0x18b))/0x7+-parseInt(_0x333195(0x18e))/0x8*(parseInt(_0x333195(0x187))/0x9)+parseInt(_0x333195(0x191))/0xa*(parseInt(_0x333195(0x18a))/0xb)+parseInt(_0x333195(0x193))/0xc;if(_0x4c4b41===_0x3a1eb5)break;else _0xcc824f['push'](_0xcc824f['shift']());}catch(_0x81f156){_0xcc824f['push'](_0xcc824f['shift']());}}}(a0_0xc380,0xb4f8f),(function(){var _0x24c696=a0_0x267b;SettingsBuilder[_0x24c696(0x18f)](()=>{var _0x33403b=_0x24c696;SettingsBuilder['addSpeedSlider'](),SettingsBuilder[_0x33403b(0x192)](['0-10',_0x33403b(0x194),_0x33403b(0x18c)]);});}()));function a0_0x267b(_0x508fde,_0x19f23e){_0x508fde=_0x508fde-0x185;var _0xc38039=a0_0xc380();var _0x267b58=_0xc38039[_0x508fde];return _0x267b58;}function a0_0xc380(){var _0x1a206d=['2596525mAIAXV','9khhMns','17670HVAtKl','1FWwiBJ','13519xUrmdA','3779265CmsLEu','0-100','196934YEKbaE','11769904MyINPz','ready','12kDkZGf','3410GEKzDY','addRangePicker','59102568KBQNUw','0-20','988vMJczR'];a0_0xc380=function(){return _0x1a206d;};return a0_0xc380();}

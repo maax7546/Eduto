@@ -1,18 +1,1 @@
-/**
- * ZOOM-BUTTON-NUMBERLINE.JS
- */
-window.ZoomActions = {
-    changeZoom: (delta) => {
-        window.currentZoom = Math.max(0.4, Math.min(4, window.currentZoom + delta));
-
-        if (typeof calculateStep === 'function') {
-            window.NumberlineState.currentStep = calculateStep(window.NumberlineState.centerX);
-        }
-
-        if (window.refreshNumberline) {
-            window.refreshNumberline();
-        }
-    }
-};
-
-window.changeZoom = window.ZoomActions.changeZoom;
+var a0_0x1d401f=a0_0x1a6c;function a0_0x1a6c(_0x35f188,_0x17b8a6){_0x35f188=_0x35f188-0xef;var _0xe517bd=a0_0xe517();var _0x1a6c7a=_0xe517bd[_0x35f188];return _0x1a6c7a;}(function(_0x14ef00,_0x425e90){var _0x2bb103=a0_0x1a6c,_0x4d2e89=_0x14ef00();while(!![]){try{var _0x382efd=parseInt(_0x2bb103(0xfc))/0x1*(-parseInt(_0x2bb103(0xff))/0x2)+parseInt(_0x2bb103(0xf3))/0x3*(parseInt(_0x2bb103(0xf9))/0x4)+-parseInt(_0x2bb103(0xfd))/0x5+-parseInt(_0x2bb103(0xfb))/0x6+parseInt(_0x2bb103(0xf4))/0x7*(-parseInt(_0x2bb103(0xf6))/0x8)+-parseInt(_0x2bb103(0xf8))/0x9+-parseInt(_0x2bb103(0xf7))/0xa*(-parseInt(_0x2bb103(0xf2))/0xb);if(_0x382efd===_0x425e90)break;else _0x4d2e89['push'](_0x4d2e89['shift']());}catch(_0x4b94e3){_0x4d2e89['push'](_0x4d2e89['shift']());}}}(a0_0xe517,0x6fe08),window[a0_0x1d401f(0xfe)]={'changeZoom':_0x8534f7=>{var _0x55e9b4=a0_0x1d401f;window[_0x55e9b4(0x100)]=Math[_0x55e9b4(0xf0)](0.4,Math[_0x55e9b4(0xef)](0x4,window[_0x55e9b4(0x100)]+_0x8534f7)),typeof calculateStep==='function'&&(window['NumberlineState'][_0x55e9b4(0xfa)]=calculateStep(window['NumberlineState']['centerX'])),window[_0x55e9b4(0xf1)]&&window[_0x55e9b4(0xf1)]();}},window[a0_0x1d401f(0xf5)]=window[a0_0x1d401f(0xfe)][a0_0x1d401f(0xf5)]);function a0_0xe517(){var _0x4664e=['changeZoom','248PlrDaF','40PdVtVT','5929758vPbNlP','3187096qZKfad','currentStep','1155576iobrrK','67PwXkSI','3187080vhATdC','ZoomActions','11074AqNjzL','currentZoom','min','max','refreshNumberline','6431777aoirTj','3aCxfdL','184597OxAWEy'];a0_0xe517=function(){return _0x4664e;};return a0_0xe517();}

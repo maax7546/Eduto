@@ -1,16 +1,1 @@
-/**
- * ANIMATION-STRUCTURE-OPERATORS.JS
- */
-
-function startSwapPhase() {
-    state.phase = 2;
-    document.getElementById('equation-area').classList.add('swapped');
-    const speed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--anim-speed')) || 1.6;
-    
-    setTimeout(() => {
-        state.isAnimating = false;
-        if (window.DragDropManager) {
-            window.DragDropManager.init((val, sourceElem, zone) => checkResult(parseInt(val), sourceElem, zone));
-        }
-    }, speed * 1000);
-}
+function a0_0x349b(){const _0x4e2f8e=['getElementById','equation-area','802298kPMSfx','isAnimating','3176262yqWuuD','DragDropManager','documentElement','90wiJWPt','init','1945710RjPwHd','--anim-speed','336364hacOXc','2014239HEkQJr','4wSNnnu','swapped','1941400WPLrDR','classList','phase','3378529kRzBDD'];a0_0x349b=function(){return _0x4e2f8e;};return a0_0x349b();}(function(_0x21f70a,_0x8a0fd5){const _0x1f8ba1=a0_0xa74c,_0x57a387=_0x21f70a();while(!![]){try{const _0x5ac8e6=parseInt(_0x1f8ba1(0xa5))/0x1+parseInt(_0x1f8ba1(0xaf))/0x2+-parseInt(_0x1f8ba1(0xa6))/0x3*(-parseInt(_0x1f8ba1(0xa7))/0x4)+parseInt(_0x1f8ba1(0xa3))/0x5+parseInt(_0x1f8ba1(0x9e))/0x6+parseInt(_0x1f8ba1(0xac))/0x7+-parseInt(_0x1f8ba1(0xa9))/0x8*(parseInt(_0x1f8ba1(0xa1))/0x9);if(_0x5ac8e6===_0x8a0fd5)break;else _0x57a387['push'](_0x57a387['shift']());}catch(_0x1d0c7a){_0x57a387['push'](_0x57a387['shift']());}}}(a0_0x349b,0x5d96e));function a0_0xa74c(_0x39d1fe,_0x4eae2b){_0x39d1fe=_0x39d1fe-0x9d;const _0x349b38=a0_0x349b();let _0xa74c08=_0x349b38[_0x39d1fe];return _0xa74c08;}function startSwapPhase(){const _0x536640=a0_0xa74c;state[_0x536640(0xab)]=0x2,document[_0x536640(0xad)](_0x536640(0xae))[_0x536640(0xaa)]['add'](_0x536640(0xa8));const _0x3c3c27=parseFloat(getComputedStyle(document[_0x536640(0xa0)])['getPropertyValue'](_0x536640(0xa4)))||1.6;setTimeout(()=>{const _0x62ce04=_0x536640;state[_0x62ce04(0x9d)]=![],window['DragDropManager']&&window[_0x62ce04(0x9f)][_0x62ce04(0xa2)]((_0x2536a4,_0x1f915e,_0x11982d)=>checkResult(parseInt(_0x2536a4),_0x1f915e,_0x11982d));},_0x3c3c27*0x3e8);}
