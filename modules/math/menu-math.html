@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menü - Mathe</title>
+
+    <link rel="stylesheet" href="../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../global/ui/bundleimport/menu-bundleimport.css">
+    <link rel="stylesheet" href="../../index-visuals.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container">
+        <div class="menu-grid">
+
+            <a href="numberline/menu-numberline.html" class="big-menu-btn blue">
+                <span class="btn-title">Zahlenstrahl</span>
+                <div class="visual-line-container">
+                    <div class="visual-ticks">
+                        <div class="visual-tick"><span>0</span></div>
+                        <div class="visual-tick"><span>5</span></div>
+                        <div class="visual-tick"><span>10</span></div>
+                        <div class="visual-tick"><span>15</span></div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="moreorless/menu-moreorless.html" class="big-menu-btn green">
+                <span class="btn-title">Größer / Kleiner</span>
+                <div class="visual-comparison">
+                    <span>7</span>
+                    <span class="symbol">></span>
+                    <span>3</span>
+                </div>
+            </a>
+
+            <a href="operators/menu-operators.html" class="big-menu-btn orange">
+                <span class="btn-title">Operationen</span>
+                <div class="visual-comparison">
+                    <span>+</span>
+                    <span class="symbol">/</span>
+                    <span>−</span>
+                </div>
+            </a>
+
+            <a href="regrouping/menu-regrouping.html" class="big-menu-btn purple">
+                <span class="btn-title">Bündelung (BETA)</span>
+                <div class="visual-regrouping">
+                    <div class="reg-block-ten"></div>
+                    <div class="reg-dots">
+                        <span>●</span>
+                        <span>●</span>
+                        <span>●</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <script src="../../global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('menu-math', {
+                title: 'Mathe',
+                showBack: true,
+                showExit: true,
+                exitUrl: '../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

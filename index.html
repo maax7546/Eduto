@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathe Abenteuer</title>
+    <title>Teacher Web App</title>
 
     <link rel="stylesheet" href="global/ui/bundleimport/global-bundleimport.css">
     <link rel="stylesheet" href="global/ui/bundleimport/menu-bundleimport.css">
@@ -37,45 +37,12 @@
     <main class="main-container">
         <div class="menu-grid">
 
-            <a href="modules/math/numberline/menu-numberline.html" class="big-menu-btn blue">
-                <span class="btn-title">Zahlenstrahl</span>
-                <div class="visual-line-container">
-                    <div class="visual-ticks">
-                        <div class="visual-tick"><span>0</span></div>
-                        <div class="visual-tick"><span>5</span></div>
-                        <div class="visual-tick"><span>10</span></div>
-                        <div class="visual-tick"><span>15</span></div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="modules/math/moreorless/menu-moreorless.html" class="big-menu-btn green">
-                <span class="btn-title">Größer / Kleiner</span>
+            <a href="modules/math/menu-math.html" class="big-menu-btn blue">
+                <span class="btn-title">Mathe</span>
                 <div class="visual-comparison">
-                    <span>7</span>
-                    <span class="symbol">></span>
-                    <span>3</span>
-                </div>
-            </a>
-
-            <a href="modules/math/operators/menu-operators.html" class="big-menu-btn orange">
-                <span class="btn-title">Operationen</span>
-                <div class="visual-comparison">
-                    <span>+</span>
-                    <span class="symbol">/</span>
-                    <span>−</span>
-                </div>
-            </a>
-
-            <a href="modules/math/regrouping/menu-regrouping.html" class="big-menu-btn purple">
-                <span class="btn-title">Bündelung (BETA)</span>
-                <div class="visual-regrouping">
-                    <div class="reg-block-ten"></div>
-                    <div class="reg-dots">
-                        <span>●</span>
-                        <span>●</span>
-                        <span>●</span>
-                    </div>
+                    <span>1</span>
+                    <span class="symbol">+</span>
+                    <span>2</span>
                 </div>
             </a>
 
@@ -99,16 +66,30 @@
         </div>
     </main>
 
-    <a href="testutility/testutility.html" class="test-corner-btn">🔧 Test</a>
+    <a href="testutility/testutility.html" class="test-corner-btn" style="display:none;">🔧 Test</a>
 
     <script src="global/ui/ui.js"></script>
     <script>
         if (typeof injectUI === 'function') {
-            injectUI('index', { 
-                title: 'Mathe Abenteuer',
-                showExit: false 
+            injectUI('index', {
+                title: 'Teacher Web App',
+                showExit: false
             });
         }
+
+        // Versteckter Zugang zur Testseite: Strg+Shift+T → Passwort abfragen.
+        document.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 't' || e.key === 'T')) {
+                e.preventDefault();
+                var eingabe = prompt('Passwort eingeben:');
+                if (eingabe === null) return; // Abgebrochen
+                if (eingabe === '6767') {
+                    window.location.href = 'testutility/testutility.html';
+                } else {
+                    alert('Falsches Passwort.');
+                }
+            }
+        });
     </script>
 </body>
 </html>

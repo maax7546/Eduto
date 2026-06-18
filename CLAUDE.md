@@ -87,6 +87,7 @@ Jede dieser HTML-Seiten zieht ihre Bausteine aus `global/`.
 | modulspezifische Einstellungen | das `ui-…`-Script des Moduls/der Gruppe | ruft nur `SettingsBuilder.*` auf |
 | Zufallszahlen / Zahlenraum-Logik | `global/math/elements/numbergenerator.js` | `window.NumberGenerator` |
 | Drag&Drop / Klick-Antworten | `global/ui/elements/draganddrop.js`, `numberbox.css`, `dropzone.css` | Klassen `nb-box`, `nb-drop-target` |
+| Feedback-Button / Feedback-Mail (EmailJS) | `global/ui/elements/feedback.js` | Auf jeder Seite via `ui.js`-Loader; EmailJS-Schlüssel oben in der Datei eintragen |
 | Zehner-/Zwanzigerfeld (Punktebild) | `global/math/elements/dotframe/dotframe.js` + `.css` | Modul setzt `data-red`/`data-blue`, ruft `renderDotframes()`, definiert `window.checkDots` |
 | Zahlenstrahl | `global/math/elements/numberline/numberline.js` + `settings-numberline/` | `window.NumberlineState`, `window.currentZoom` |
 | Schrift / Skalierung global | `global/ui/font.css`, `global/ui/scaling.css` | CSS-Variablen `--ui-font`, `--math-font` |
@@ -123,8 +124,8 @@ Diese werden von `global/` bereitgestellt; Module **rufen sie auf**, definieren 
 ## 5. Datei-Karte
 
 ### Root
-- `index.html` — Hauptmenü (4 Kacheln → Gruppen-Menüs). Lädt nur `global/ui/ui.js` + `injectUI('index', {showExit:false})`.
-- `index-visuals.css` — Visuals nur fürs Hauptmenü.
+- `index.html` — Hauptmenü (3 Fach-Kacheln: **Mathe** → `modules/math/menu-math.html`, **Quiz** → `modules/quiz/wettkampf/menu-wettkampf.html`, **Werkzeuge** → `modules/werkzeuge/einteilung/menu-einteilung.html`). Lädt nur `global/ui/ui.js` + `injectUI('index', {showExit:false})`.
+- `index-visuals.css` — Visuals fürs Hauptmenü **und** das Mathe-Fach-Menü (`menu-math.html` referenziert es via `../../index-visuals.css`).
 - `CLAUDE.md` — **diese Datei.**
 
 ### `global/ui/` — generischer, fach-unabhängiger Baukasten
@@ -135,6 +136,7 @@ Diese werden von `global/` bereitgestellt; Module **rufen sie auf**, definieren 
 **`global/ui/elements/` — generische Bausteine**
 - `settings-builder.js` — `SettingsBuilder` (siehe §4).
 - `draganddrop.js` — `DragDropManager`.
+- `feedback.js` — auffälliger **Feedback-Button** oben links in der Kopfzeile (erste `.nav-group`) + Modal; verschickt Nachrichten client-seitig via **EmailJS** an die Support-Mail. Wird von `ui.js` (Loader-IIFE am Dateiende, self-lokalisiert über den `global/ui/ui.js`-Marker) auf **jeder** Seite nachgeladen — **nicht** in HTML einbinden. Die EmailJS-Schlüssel (`PUBLIC_KEY`/`SERVICE_ID`/`TEMPLATE_ID`) stehen oben in der Datei und müssen einmalig eingetragen werden (Empfänger = im EmailJS-Template). Klassen-Präfix `fb-`.
 - `numberbox.css` (`nb-*`), `dropzone.css`, `check-button.css` — Baustein-Styles.
 
 **`global/ui/bundleimport/` — Sammel-Imports (in HTML einbinden statt Einzeldateien)**
@@ -186,6 +188,8 @@ modules/<fach>/<gruppe>/
   visuals-<gruppe>/              (optional) geteilte Grafiken/Animationen der Gruppe
   functions-<gruppe>/            (optional) geteilte Logik der Gruppe
 ```
+
+**Fach-Menü:** `modules/math/menu-math.html` — das übergeordnete Mathe-Menü (4 Kacheln → die Gruppen-Menüs `numberline`, `moreorless`, `operators`, `regrouping`). Liegt direkt in `modules/math/` (Tiefe 2 → `../../`), lädt `global/ui/bundleimport/global-` + `menu-bundleimport.css` + die Tile-Visuals aus `../../index-visuals.css`, `injectUI('menu-math', {showBack:true, exitUrl:'../../index.html'})`. Von der Root-Kachel **Mathe** verlinkt.
 
 Konkret vorhanden in `modules/math/`:
 - **`numberline/`** — Module: `view-numberline`, `assign-numberline`, `crossingtens-numberline`. Gruppen-UI: `ui-numberline`. (`crossingtens-numberline` = Zehnerübergang mit Rechenpfeilen: drei Bögen in **fester Reihenfolge** — 1. Start→Zehn, 2. Zehn→Ergebnis, 3. Start→Ergebnis (ganz) — werden gesetzt; auf eine **beliebige** Zahl klicken/drücken → Pfeil stellt sich gerade nach oben → zur Zielzahl klicken oder ziehen (beide Bedien-Modi). Pfeil-Farben: **schwarz** beim Ziehen, **grün** wenn richtig gesetzt, kurz **rot** bei falschem oder nicht-an-der-Reihe-Pfeil (auch falsche Startzahlen erlaubt). Die Teilbögen bekommen ihre Höhe **proportional zur Höhe des großen Bogens an ihrer Scheitelstelle** (Faktor 0,55) → liegen garantiert unter dem großen Bogen; **Bogen-Labels** (−1 …) werden in `redraw()` ZULETZT mit deckendem weißem Hintergrund-Rechteck gezeichnet, damit keine Bogenlinie sie überschneidet. **Punkte-Hilfe** = Pfeil ↓ unter dem zweiten Operanden + großes **Zehnerfeld** (globales `dot-frame v-10 large`, `frozen`/nicht editierbar) darunter: b ist als `data-red`=b (alle Punkte **rot**), `data-blue`=0 eingetragen (`renderDotframes()`); die Punkte werden **von rechts nach links** ausgegraut (Klasse `used`): nach Pfeil zur Zehn die rechten u, nach Weiter-Pfeil alle b — zeigt das Aufteilen der Zahl. Per Settings ein-/ausblendbar. **Nach den drei Pfeilen** erscheinen unten 3 `nb-option.nb-box-small`-Boxen (so groß wie das Drop-Feld); das Kind zieht das Ergebnis in eine Inline-`nb-dropzone.nb-box-small` in der Gleichung (Muster wie `calculation-operators`, via globalem `DragDropManager`; richtig → grün + nächste Aufgabe, falsch → rot). **Option „Pfeil-Zahlen ziehen"** (`window.CT_LABELDROP`, Default aus): dann erscheint nach JEDEM korrekt gezogenen Pfeil statt des Labels eine `#ct-arrow-drop`-„?"-Box am Bogen, in die die richtige Sprungzahl gezogen werden muss, bevor der nächste Pfeil geht; danach das Ergebnis wie gehabt. Damit immer nur EINE Dropzone aktiv ist, ist das Ergebnisfeld in dieser Phase ein passiver `.ct-qbox`-Platzhalter (gleiche Optik) und wird erst in der Ergebnis-Phase zur echten Dropzone. Zustände: `done`/`filled`/`pending`; ein gemeinsamer `handleDrop` für Pfeil-Zahl (`zone.id==='ct-arrow-drop'`) und Ergebnis. Lädt **nicht** `ui-numberline`, sondern hat eigene `ui-crossingtens-numberline.js` (injectUI + Settings: Zahlenraum 20/30/100, Rechenart Minus/Plus/Gemischt, Punkte-Hilfe-Toggle, Neue Aufgabe/Pfeile löschen/Lösung zeigen). Spiel-Logik in `crossingtens-numberline.js`: nutzt die globale Zahlenstrahl-Geometrie (`window.NumberlineState`, `currentStep`, `currentZoom`), zeichnet die Pfeile in eine eigene **SVG-Ebene** `#arrowLayer` und hängt sich an `window.refreshInteractions`, damit die Bögen bei Pan/Zoom/Resize mitlaufen; eigene Maus-Steuerung über `viewport.onmousedown` (Klick auf Zahl = Pfeil, sonst Strahl schieben). Aufgaben: zweiter Operand einstellig (3–9), zerlegt in u+r; CSS senkt modul-lokal `--nb-box-size-small`, damit Start und Ziel gemeinsam sichtbar bleiben.)
