@@ -33,6 +33,13 @@ html, body {
     padding: 0;
 }
 
+/* Kein horizontales Schieben/Wackeln auf dem Smartphone: die Seite darf nur
+   vertikal scrollen. So lassen sich die Menü-Kacheln nicht mehr nach links/
+   rechts ziehen, wenn gar kein Inhalt seitlich verdeckt ist. */
+html {
+    overflow-x: hidden;
+}
+
 /* --- FOUC-SCHUTZ ---
    Verhindert das kurze Aufblitzen der statischen Platzhalter (z. B. "?"-Zahlen),
    bevor injectUI() das Layout aufgebaut und das Modul gerendert hat. injectUI()
@@ -52,7 +59,11 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
     box-sizing: border-box;
     background: #fff;
     z-index: 1000;
-    position: relative; /* Wichtig für absolute Zentrierung des Titels */
+    /* sticky + top:0 → die Kopfzeile bleibt beim Nach-unten-Scrollen oben
+       stehen, statt mit hochzuscrollen. position != static dient zugleich als
+       Bezug für den absolut zentrierten Titel. */
+    position: sticky;
+    top: 0;
 }
 
 /* GRUPPIERUNG DER BUTTONS */

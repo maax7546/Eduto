@@ -12,6 +12,10 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    /* Ohne border-box addiert sich das 20px-Padding auf die 100% Breite → die
+       Grid wird breiter als der Viewport und kippt auf dem Smartphone nach
+       rechts (Horizontal-Überlauf). border-box hält sie exakt auf Viewport-Breite. */
+    box-sizing: border-box;
 }
 
 .big-menu-btn {
