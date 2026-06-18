@@ -288,5 +288,11 @@ die Bündel über `../../global/…`.)
 - **Self-lokalisierende Loader:** `ui-/math-/werkzeuge-bundleimport.js` finden ihren Basis-Pfad über den Marker `bundleimport/`; `ui.js`-Auto-Exit über den Marker `global/ui/ui.js`; `ui-moreorless.js` über `/ui-moreorless/`. Diese Marker beim Verschieben beachten.
 - **Header-Reset:** `body`/`html`-`margin`/`padding` sind **global 0** (`global/ui/ui.css`). Module setzen body-`margin`/`padding` **nicht** selbst — sonst sitzt die global gebaute Kopfzeile (Zurück-/Exit-Button) je nach Seite versetzt und „springt" beim Navigieren.
 - **Sprache:** UI-Texte & Kommentare auf Deutsch.
+- **📊 Tracking-Pflicht (Umami):** Das Analytics-Script wird **zentral** in `global/ui/ui.js`
+  eingehängt (einmaliger `injectUmami()`-IIFE, läuft beim Laden auf jeder Seite). **Jede neue
+  HTML-Datei muss daher `global/ui/ui.js` laden** (steht ohnehin im Lade-Vertrag §7) — dann ist
+  das Tracking automatisch drin. **Niemals** das Umami-`<script>` von Hand in einzelne HTML-Dateien
+  kopieren (sonst Doppel-Zählung; der Guard greift nur gegen dasselbe `data-website-id`). Die
+  Website-ID nur an der einen Stelle in `ui.js` pflegen.
 - **Kein** Build/Test-Runner/Package-Manager. Verifizieren = HTML im Browser öffnen.
 - **Stil:** Vanilla JS, `window.*`-Globals, kein `import`/`export`. Neuer Code soll wie der Nachbarcode lesen (Kommentardichte, Benennung, Idiome übernehmen).

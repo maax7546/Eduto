@@ -5,6 +5,21 @@
  */
 
 /*
+ * UMAMI-ANALYTICS (zentral)
+ * ui.js wird auf JEDER Seite geladen → das Tracking-Script hier genau einmal
+ * einhängen, statt es in jede HTML zu kopieren. Guard verhindert Doppel-Laden.
+ */
+(function injectUmami() {
+    var id = '6b227bb6-d63b-4811-943f-39584f6175f9';
+    if (document.querySelector('script[data-website-id="' + id + '"]')) return;
+    var s = document.createElement('script');
+    s.defer = true;
+    s.src = 'https://cloud.umami.is/script.js';
+    s.setAttribute('data-website-id', id);
+    document.head.appendChild(s);
+})();
+
+/*
  * SETTINGSBUILDER-STUB
  * global/ui/ui.js wird synchron vor dem Bundle geladen. Modul-Scripts greifen
  * direkt auf SettingsBuilder.ready(...) zu, daher braucht der Builder einen
