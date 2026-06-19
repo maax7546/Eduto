@@ -34,7 +34,11 @@
     flex-shrink: 0;
     transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
     box-sizing: border-box;
+    /* Zahlen/Symbole in den Boxen dürfen NICHT markierbar sein — sonst markiert
+       der Touchscreen sie beim Verschieben versehentlich (gilt auch für Kinder). */
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
     touch-action: none;
 }
 
@@ -142,22 +146,25 @@
 }
 
 /* ==========================================
-   4. DRAG-BILD (Klon beim Ziehen)
+   4. ZIEH-KLON (folgt dem Finger/Cursor)
    ========================================== */
 
-/* Schattenloser Klon, den draganddrop.js beim Ziehen als Drag-Bild nutzt.
-   Liegt offscreen, damit nur das vom Browser erzeugte Drag-Bild sichtbar ist.
-   KEIN box-shadow: ein nach außen gerichteter Schatten würde vom Drag-Snapshot
-   am Rand (typisch unten) abgeschnitten — der Schatten gehört nur an die
-   ruhende Box. */
+/* Echter DOM-Klon, den draganddrop.js per Pointer Events mit dem Finger/Cursor
+   mitzieht. Da es ein normal gerendertes Element ist (kein Bitmap-Drag-Bild),
+   bleiben die runden Ecken transparent — KEINE weißen Ecken. KEIN box-shadow
+   (der Schatten gehört nur an die ruhende Box). pointer-events:none, damit der
+   Klon für elementFromPoint unsichtbar ist und die Dropzone darunter erkannt
+   wird. Position (left/top) setzt das JS auf die Pointer-Koordinaten; das
+   translate(-50%,-50%) zentriert den Klon unter dem Finger. */
 .nb-drag-ghost {
-    position: absolute;
+    position: fixed;
+    left: 0;
     top: 0;
-    left: -9999px;
+    z-index: 9999;
     margin: 0 !important;
     box-shadow: none !important;
     transition: none !important;
-    transform: none !important;
-    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
+    opacity: 0.95;
     pointer-events: none;
 }
