@@ -31,17 +31,19 @@
         }
 
         /* Sprach-Umschalter (nur auf index.html) — oben rechts, zeigt die
-           Flagge der AKTUELLEN Sprache (DE → Deutschland, EN → UK).
+           Flagge der ZIEL-Sprache, also der Sprache, auf die der Klick
+           umschaltet (aktuell Deutsch → UK-Flagge, aktuell Englisch → DE-Flagge).
            Optik bewusst wie der orange Feedback-Button (.fb-trigger). */
         .lang-toggle {
             position: fixed;
-            top: 12px;
-            right: 12px;
+            top: var(--ui-gap);
+            right: var(--header-padding);
             z-index: 2500;
-            height: 40px;
-            padding: 0 12px;
+            /* Gleiche Höhe/Radius wie die globalen Leisten-Buttons (--nav-height). */
+            height: var(--nav-height);
+            padding: 0 calc(var(--ui-gap) * 0.9);
             border: none;
-            border-radius: 8px;
+            border-radius: calc(var(--ui-base-scale) * 0.2);
             background: linear-gradient(135deg, #f39c12, #e67e22);
             box-shadow: 0 4px 0 #b9770e;
             cursor: pointer;
@@ -115,7 +117,8 @@
         }
 
         // SPRACH-UMSCHALTER (nur hier auf index.html). Zeigt die Flagge der
-        // aktuellen Sprache; Klick wechselt de⇄en über die globale I18n-Engine.
+        // ZIEL-Sprache (auf die der Klick umschaltet); Klick wechselt de⇄en
+        // über die globale I18n-Engine.
         // Inline-SVG-Flaggen (statt Emoji-Flaggen, die unter Windows fehlen).
         (function () {
             var DE = '<svg viewBox="0 0 5 3" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
@@ -133,7 +136,9 @@
 
             var flag = document.getElementById('lang-flag');
             var btn  = document.getElementById('lang-toggle');
-            function render(lang) { flag.innerHTML = (lang === 'en') ? UK : DE; }
+            // Aktuell Deutsch → UK-Flagge zeigen (Klick wechselt nach Englisch);
+            // aktuell Englisch → DE-Flagge zeigen.
+            function render(lang) { flag.innerHTML = (lang === 'en') ? DE : UK; }
 
             // I18n wird via ui.js asynchron nachgeladen → kurz warten.
             (function wire() {

@@ -66,30 +66,41 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
     top: 0;
 }
 
-/* GRUPPIERUNG DER BUTTONS */
+/* GRUPPIERUNG DER BUTTONS
+   Beide Seiten-Gruppen sind GLEICH breit (flex:1 1 0 → teilen sich den freien
+   Platz exakt hälftig). Dadurch sitzt der dazwischenliegende Titel zwangsläufig
+   genau in der Seitenmitte. Basis 0 + Standard-min-width(auto) heißt: die Gruppen
+   wachsen gleich weit, schrumpfen aber nie unter ihre Button-Breite. */
 .nav-group {
     display: flex;
     align-items: center;
     gap: var(--ui-gap);
     z-index: 10; /* Über dem Titel-Layer */
+    flex: 1 1 0;
 }
+.header .nav-group:first-of-type { justify-content: flex-start; } /* links bündig */
+.header .nav-group:last-of-type  { justify-content: flex-end; }   /* rechts bündig */
 
-/* ZENTRALER TITEL (Absolut fixiert) */
+/* ZENTRALER TITEL
+   Liegt IM Fluss zwischen den zwei gleich breiten Button-Gruppen → exakt mittig.
+   Früher absolut zentriert — dann schob er sich bei schmalem Fenster UNTER die
+   Buttons. Jetzt kürzt er sich bei Platzmangel mit „…" ab (flex:0 1 auto: wächst
+   nicht, schrumpft aber), statt die Buttons je zu überlagern. */
 .header-title {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    
-    font-weight: 900;
-    font-size: clamp(1rem, 3vw, 1.8rem); 
-    color: var(--dark-bg);
+    flex: 0 1 auto;
+    min-width: 0;           /* erlaubt das Schrumpfen unter die Textbreite */
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
+
+    font-weight: 900;
+    font-size: clamp(1rem, 3vw, 1.8rem);
+    color: var(--dark-bg);
     text-transform: uppercase;
     letter-spacing: 1px;
     pointer-events: none; /* Klicks gehen durch auf darunterliegende Elemente */
-    z-index: 5;
-    margin: 0;
+    margin: 0 var(--ui-gap);
 }
 
 /* --- NAV-CONTROLS (BUTTONS) --- */
