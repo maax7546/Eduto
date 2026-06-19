@@ -141,3 +141,58 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 .btn-fs { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
 .btn-exit { background-color: var(--red-main); box-shadow: 0 4px 0 #c0392b; }
 .btn-reset { background-color: var(--green-main); box-shadow: 0 4px 0 #1e8449; }
+
+/* --- FEEDBACK-BUTTON ---
+   Der Feedback-Button ist ein Header-Control wie Zurück/Exit und wird von
+   injectUI() (ui.js) SYNCHRON mitgebaut. Seine Styles liegen deshalb hier im
+   global geladenen Bundle (nicht mehr per JS aus feedback.js injiziert) — so
+   sieht er schon im ERSTEN Paint fertig aus und „flackert" nicht nach.
+   Das Modal/Versenden bleibt in feedback.js. */
+.fb-trigger {
+    position: relative;
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    box-shadow: 0 4px 0 #b9770e;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    height: var(--nav-height);
+    padding: 0 calc(var(--ui-gap) * 0.9);
+    border-radius: calc(var(--ui-base-scale) * 0.2);
+    font-size: calc(var(--nav-font-size) * 0.85);
+    white-space: nowrap;
+    transition: transform .1s, box-shadow .1s;
+}
+.fb-trigger:active { transform: translateY(3px); box-shadow: none; }
+.fb-trigger .fb-ico { font-size: 1.1em; line-height: 1; }
+
+/* Pulsierender Ring als Pseudo-Element HINTER dem Button (z-index:-1). Animiert
+   NUR transform/opacity auf eigener GPU-Ebene (will-change) → kein Schatten-
+   „Geist" an anderer Stelle bei großen Repaints. */
+.fb-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: #f39c12;
+    pointer-events: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    animation: fb-pulse 2s infinite;
+}
+@keyframes fb-pulse {
+    0% { transform: scale(1); opacity: .5; }
+    70%, 100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Schmales Fenster: nur noch das Emoji zeigen (mehr Platz in der Kopfzeile);
+   wird das Fenster wieder breiter, kommt der Text zurück. Auf dem Smartphone
+   baut injectUI() die .fb-label gar nicht erst → dort immer nur das Emoji. */
+@media (max-width: 600px) {
+    .fb-trigger .fb-label { display: none; }
+}
