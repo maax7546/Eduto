@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aufgabenfamilien</title>
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/ui/bundleimport/ui-bundleimport.css">
+    <link rel="stylesheet" href="../../../../../global/math/bundleimport/math-bundleimport.css">
+    <link rel="stylesheet" href="aufgabenfamilien-operators.css">
+</head>
+<body>
+
+    <header class="header"></header>
+
+    <div class="game-container" data-autofit>
+
+        <!-- Das Haus: Dach + Körper mit vier Etagen (eine Aufgabe je Etage). -->
+        <div class="fam-house" id="fam-house">
+            <svg class="fam-roof" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true">
+                <polygon points="50,0 100,50 0,50"></polygon>
+            </svg>
+            <div class="fam-body">
+                <div class="fam-floor" data-floor="0">
+                    <div class="nb-box nb-box-small fam-slot" data-slot="a0"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">+</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="b0"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">=</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="r0"></div>
+                </div>
+                <div class="fam-floor" data-floor="1">
+                    <div class="nb-box nb-box-small fam-slot" data-slot="a1"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">+</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="b1"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">=</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="r1"></div>
+                </div>
+                <div class="fam-floor" data-floor="2">
+                    <div class="nb-box nb-box-small fam-slot" data-slot="m2"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">−</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="s2"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">=</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="r2"></div>
+                </div>
+                <div class="fam-floor" data-floor="3">
+                    <div class="nb-box nb-box-small fam-slot" data-slot="m3"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">−</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="s3"></div>
+                    <div class="nb-box nb-ghost nb-symbol nb-box-small">=</div>
+                    <div class="nb-box nb-box-small fam-slot" data-slot="r3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Die drei Startzahlen der Aufgabenfamilie. -->
+        <div class="fam-tray" id="fam-tray"></div>
+
+    </div>
+
+    <script src="../../../../../global/ui/ui.js?v=2"></script>
+    <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>
+    <script src="../../../../../global/math/bundleimport/math-bundleimport.js"></script>
+    <script src="ui-aufgabenfamilien-operators.js"></script>
+    <script src="aufgabenfamilien-operators.js"></script>
+
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('game', {
+                title: 'Aufgabenfamilien',
+                showBack: true,
+                showSettings: true,
+                showExit: true,
+                showFullscreen: true,
+                exitUrl: '../../../../../index.html'
+            });
+        }
+    </script>
+</body>
+</html>

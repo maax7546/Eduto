@@ -36,3 +36,26 @@
     height: var(--stage-height);
     overflow: hidden;
 }
+
+/* VERTIKALE ZENTRIERUNG der Übungsinhalte (nur [data-autofit] = Mathe-Übungen;
+   Menüs/Werkzeuge bleiben unberührt). Greift im NATIVEN Layout (großer Schirm);
+   beim Auto-Fit skaliert/zentriert autofit.js den Block ohnehin selbst.
+   - Module OHNE reinziehbare Optionen: einfach mittig.
+   - Module MIT .options-container: Optionen bleiben UNTEN (margin-top:auto),
+     der restliche Inhalt wird trotzdem zentriert — die ::before-Strebe
+     (margin-bottom:auto) balanciert die Auto-Margin der Optionen aus. */
+[data-autofit]:not(:has(.options-container)) {
+    justify-content: center;
+}
+[data-autofit]:has(.options-container)::before {
+    content: "";
+    margin-block-end: auto;
+}
+[data-autofit] .options-container {
+    margin-block-start: auto;
+}
+/* Solange noch keine Optionen drin sind (Aufgabe baut sich async auf), KEINEN
+   Platz reservieren → der Inhalt sitzt dann mittig statt nach oben verschoben. */
+[data-autofit] .options-container:empty {
+    min-height: 0;
+}

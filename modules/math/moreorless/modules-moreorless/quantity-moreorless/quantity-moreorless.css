@@ -72,3 +72,19 @@ body.show-help-numbers .help-number-label {
     padding: 20px;
     width: 100%;
 }
+
+/* Schmale Schirme (Smartphone hochkant): zwei Zehnerfelder passen NICHT
+   nebeneinander (lief vorher zur Hälfte aus dem Bild). Untereinander stapeln →
+   alles sichtbar und die Punkte bleiben lesbar groß. A oben, „?" in der Mitte,
+   B unten; das Auto-Fit fängt zu große Höhe zusätzlich ab. */
+@media (max-width: 640px) {
+    .game-area {
+        flex-direction: column;
+        gap: clamp(10px, 3vh, 26px);
+        margin-bottom: clamp(14px, 4vh, 40px);
+    }
+    .quantity-display {
+        width: 92%;
+        padding-bottom: 18px;
+    }
+}

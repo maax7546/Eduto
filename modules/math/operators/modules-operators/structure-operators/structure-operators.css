@@ -25,12 +25,13 @@ body {
 }
 
 .equation-area {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     justify-content: center;
-    position: relative; 
+    position: relative;
     height: var(--nb-box-size);
-    margin-bottom: auto; 
+    /* Vertikale Zentrierung kommt jetzt global aus scaling.css (data-autofit);
+       die frühere margin-bottom:auto würde dort eine dritte Auto-Margin setzen. */
 }
 
 /* Überlappung der Boxen */

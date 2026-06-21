@@ -12,8 +12,11 @@
     --gray-text: #7f8c8d;
     --dark-bg: #2c3e50;
 
-    --ui-base-scale: clamp(35px, 5vw, 55px); 
-    
+    /* Header-Buttons etwas größer (Ziel-Höhe ~50px wie die Buttons im
+       Einstellungsmenü, .settings-cycle-btn). Skaliert auf kleinen Phones
+       moderat herunter, damit die Kopfzeile nicht überläuft. */
+    --ui-base-scale: clamp(42px, 6.5vw, 59px);
+
     --nav-width: var(--ui-base-scale);
     --nav-height: calc(var(--ui-base-scale) * 0.85);
     --nav-font-size: calc(var(--nav-height) * 0.5);
