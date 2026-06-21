@@ -57,7 +57,7 @@ done
 echo "==> 3/3  Obfuskierte Version wird zu GitHub hochgeladen..."
 git add .
 if git commit -m "Deploy $TIMESTAMP"; then
-  if git push; then
+  if git push -u origin main; then
     echo "         Erfolgreich hochgeladen. Webseite wird aktualisiert."
   else
     echo "FEHLER: Hochladen fehlgeschlagen (z.B. Internet weg)."
