@@ -16,17 +16,20 @@ body {
     display: flex; 
     flex-direction: column; 
     justify-content: space-between; 
-    align-items: center; 
-    height: calc(100vh - 80px); 
+    align-items: center;
+    /* Bühnenhöhe unter dem Header (dvh, keine Magic Number). */
+    height: var(--stage-height);
     width: 100%;
-    padding: 30px; 
     background: white;
     padding: 20px 0;
     box-sizing: border-box;
 }
 
-/* Platzhalter für die Flugkurve */
+/* Platzhalter für die Flugkurve (die Zahlen fliegen ±90% = 0,9 × Box hoch/runter,
+   animation-commutativelaw-operators.css). Platz sichern: flex:0 0 auto, damit
+   flex-shrink ihn auf engen Schirmen nicht schluckt. */
 .anim-spacer {
+    flex: 0 0 auto;
     height: calc(var(--nb-box-size) * 0.9);
     width: 100%;
     visibility: hidden;

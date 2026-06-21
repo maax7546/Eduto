@@ -1,7 +1,8 @@
 /* Den Container auf volle Höhe bringen und Abstände entfernen */
 #game-container {
     display: block; /* Zentrierung aufheben, da wir volle Breite wollen */
-    height: 100vh;
+    /* Unter dem Header bleiben (mobil-sicher); füllt sonst hinter die Kopfzeile. */
+    height: var(--stage-height);
     background-color: #f2f5f8;
     margin: 0;
     padding: 0;
@@ -11,7 +12,7 @@
 .viewport {
     width: 100vw !important;  /* Volle Viewport-Breite */
     max-width: none !important; /* Begrenzung aufheben */
-    height: 100vh !important; /* Optional: Volle Höhe oder festen Wert lassen */
+    height: var(--stage-height) !important; /* Voller Platz unter dem Header */
     border: none !important;    /* Den globalen 4px Rahmen entfernen */
     border-radius: 0 !important; /* Abrundung entfernen */
     box-shadow: none !important; /* Schatten entfernen */

@@ -8,8 +8,12 @@
     --nb-box-size-small: clamp(50px, min(12vw, 15vh), 120px);
     --nb-box-size-large: clamp(100px, min(25vw, 35vh), 250px);
 
-    /* Zentrale Schriftgrößen-Basis */
-    --nb-font-size-base: 140px; 
+    /* Zentrale Schriftgrößen-Basis (noch von einzelnen Modulen referenziert
+       → bleibt erhalten, treibt aber NICHT mehr die Standard-Boxen). */
+    --nb-font-size-base: 140px;
+    /* Schrift = konstanter Anteil der Boxgröße → die Zahl hat bei JEDER
+       Skalierung dasselbe Verhältnis zum Rahmen (zentral hier justierbar). */
+    --nb-font-ratio: 0.6;
 
     --nb-overlap: 6px;          
     --nb-border-color: #2c3e50;
@@ -23,12 +27,16 @@
    ========================================== */
 
 .nb-box, .nb-option {
-    width: var(--nb-box-size); 
-    height: var(--nb-box-size);
-    display: flex; 
-    align-items: center; 
+    /* EINE Größen-Variable pro Box. Breite, Höhe UND Schrift leiten sich daraus
+       ab → konstantes Zahl/Rahmen-Verhältnis. small/large (s. u.) überschreiben
+       nur --_nb-size; alles andere folgt automatisch. */
+    --_nb-size: var(--nb-box-size);
+    width: var(--_nb-size);
+    height: var(--_nb-size);
+    display: flex;
+    align-items: center;
     justify-content: center;
-    font-size: var(--nb-font-size-base); 
+    font-size: calc(var(--_nb-size) * var(--nb-font-ratio));
     font-weight: 900;
     position: relative; 
     flex-shrink: 0;
@@ -92,9 +100,8 @@
    ========================================== */
 
 .nb-box-small {
-    width: var(--nb-box-size-small) !important;
-    height: var(--nb-box-size-small) !important;
-    font-size: calc(var(--nb-font-size-base) * 0.5) !important; 
+    /* Nur die Größe umstellen — Breite/Höhe/Schrift folgen aus der Basisregel. */
+    --_nb-size: var(--nb-box-size-small);
 }
 
 /* Karte Small */
@@ -121,9 +128,8 @@
    ========================================== */
 
 .nb-box-large {
-    width: var(--nb-box-size-large) !important;
-    height: var(--nb-box-size-large) !important;
-    font-size: calc(var(--nb-font-size-base) * 1.7) !important; 
+    /* Nur die Größe umstellen — Breite/Höhe/Schrift folgen aus der Basisregel. */
+    --_nb-size: var(--nb-box-size-large);
 }
 
 /* Karte Large */

@@ -20,6 +20,11 @@
     
     --ui-gap: clamp(8px, 1.5vw, 15px);
     --header-padding: clamp(10px, 2vw, 20px);
+
+    /* EINZIGE Quelle der Header-Höhe. Übungs-Container rechnen die nutzbare
+       Bühnenhöhe daraus (--stage-height in scaling.css) statt mit Magic Numbers
+       (früher hart 80px/100px). */
+    --header-height: calc(var(--nav-height) + var(--ui-gap) * 2);
 }
 
 /* --- GLOBALER RESET ---
@@ -50,8 +55,7 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 /* --- HEADER & LAYOUT --- */
 .header {
     width: 100%;
-    /* Nutzt --nav-height aus scaling.css falls vorhanden, sonst Fallback */
-    height: calc(var(--nav-height) + var(--ui-gap) * 2); 
+    height: var(--header-height);
     display: flex;
     align-items: center;
     justify-content: space-between;

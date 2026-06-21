@@ -16,11 +16,11 @@ body {
     display: flex; 
     flex-direction: column; 
     align-items: center;
-    justify-content: space-between; 
-    height: calc(100vh - 80px);
-    padding: 30px; 
-    background: white; 
-    padding: 80px 0 10px 0; 
+    justify-content: space-between;
+    /* Bühnenhöhe unter dem Header (dvh, keine Magic Number). */
+    height: var(--stage-height);
+    background: white;
+    padding: clamp(10px, 3vh, 30px) 0 10px 0;
     box-sizing: border-box;
 }
 
@@ -38,9 +38,14 @@ body {
     margin-left: calc(var(--nb-overlap) * -1); 
 }
 
-/* Reserviert Platz für die Flugkurve */
+/* Reserviert Platz für die Flugkurve.
+   #eq-symbol/#slot-3 tauchen während des Tauschs 140% (= 1,4 × Box) nach unten
+   (animation-structure-operators.css). Dieser Platz MUSS erhalten bleiben:
+   flex:0 0 auto verhindert, dass flex-shrink ihn auf engen Schirmen schluckt –
+   sonst fliegen die Boxen in die Optionen-Reihe. */
 .anim-spacer {
-    height: calc(var(--nb-box-size) * 1.5); 
+    flex: 0 0 auto;
+    height: calc(var(--nb-box-size) * 1.5);
     width: 100%;
     visibility: hidden;
 }

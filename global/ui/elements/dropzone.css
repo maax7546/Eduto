@@ -3,8 +3,11 @@
  */
 
 :root {
-    /* Zentrale Schriftgrößen-Basis auf 140px erhöht */
-    --nb-font-size-base: 140px; 
+    /* Symmetrisch zu numberbox.css gehalten. --nb-font-size-base bleibt für
+       Module, die es referenzieren; die Boxen selbst skalieren über das
+       Verhältnis --nb-font-ratio (Fallback hier, falls numberbox.css fehlt). */
+    --nb-font-size-base: 140px;
+    --nb-font-ratio: 0.6;
 }
 
 /* ==========================================
@@ -12,18 +15,19 @@
    ========================================== */
 
 .nb-dropzone, .drop-zone {
-    width: var(--nb-box-size);
-    height: var(--nb-box-size);
+    /* Wie .nb-box: eine Größen-Variable, Schrift als konstanter Anteil davon. */
+    --_nb-size: var(--nb-box-size);
+    width: var(--_nb-size);
+    height: var(--_nb-size);
     border: 4px dashed #ccc;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.5);
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     position: relative;
     box-sizing: border-box;
-    /* Nutzt die neue Basis-Schriftgröße */
-    font-size: var(--nb-font-size-base); 
+    font-size: calc(var(--_nb-size) * var(--nb-font-ratio));
     font-weight: 900;
     line-height: 1;
     transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
@@ -85,10 +89,8 @@
    ========================================== */
 
 .nb-dropzone.nb-box-small, .drop-zone.nb-box-small {
-    width: var(--nb-box-size-small) !important;
-    height: var(--nb-box-size-small) !important;
-    /* 50% der neuen Basis (140px -> 70px) */
-    font-size: calc(var(--nb-font-size-base) * 0.5) !important; 
+    /* Nur die Größe — Breite/Höhe/Schrift folgen aus der Basisregel. */
+    --_nb-size: var(--nb-box-size-small);
     border-width: 3px;
     border-radius: 12px;
 }
@@ -108,10 +110,8 @@
    ========================================== */
 
 .nb-dropzone.nb-box-large, .drop-zone.nb-box-large {
-    width: var(--nb-box-size-large) !important;
-    height: var(--nb-box-size-large) !important;
-    /* 170% der neuen Basis (140px -> 238px) */
-    font-size: calc(var(--nb-font-size-base) * 1.7) !important; 
+    /* Nur die Größe — Breite/Höhe/Schrift folgen aus der Basisregel. */
+    --_nb-size: var(--nb-box-size-large);
     border-width: 6px;
     border-radius: 25px;
 }

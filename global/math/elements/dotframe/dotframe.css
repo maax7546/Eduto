@@ -1,20 +1,29 @@
 /* DOTFRAME.CSS - Nur Layout und Struktur */
+
+/* Statische Fallbacks für vereinzelte .dot außerhalb eines .dot-frame
+   (z. B. Deko-Punkte in Menü-Kacheln). */
 :root {
     --cell-size: 45px;
     --dot-size: 32px;
     --gap-size: 3px;
 }
 
+/* Responsive Zellen: das Feld ist 10 Spalten breit und muss quer auf den Schirm
+   passen → Zelle an min(Breite, Höhe) koppeln. Punkt (0.72) und Lücke (0.07)
+   leiten sich aus der Zelle ab, damit das Punktbild bei JEDER Größe gleich
+   aussieht. Obergrenzen = die bisherigen festen Maße. */
+.dot-frame {
+    --cell-size: clamp(18px, min(8.5vw, 9vh), 45px);
+    --dot-size: calc(var(--cell-size) * 0.72);
+    --gap-size: calc(var(--cell-size) * 0.07);
+}
+
 .dot-frame.small {
-    --cell-size: 30px;
-    --dot-size: 22px;
-    --gap-size: 2px;
+    --cell-size: clamp(14px, min(6vw, 6vh), 30px);
 }
 
 .dot-frame.large {
-    --cell-size: 65px;
-    --dot-size: 48px;
-    --gap-size: 5px;
+    --cell-size: clamp(22px, min(8.5vw, 11vh), 65px);
 }
 
 .dot-frame.v-10 {

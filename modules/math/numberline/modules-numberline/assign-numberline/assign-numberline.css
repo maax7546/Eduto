@@ -13,8 +13,9 @@
     display: flex;
     flex-direction: column;
     /* Genau den Platz unter der global gebauten Kopfzeile füllen –
-       sonst entsteht unten ein weißer Streifen bzw. wird im Vollbild abgeschnitten */
-    height: calc(100vh - (var(--nav-height) + var(--ui-gap) * 2));
+       sonst entsteht unten ein weißer Streifen bzw. wird im Vollbild abgeschnitten.
+       --stage-height = calc(100dvh - var(--header-height)), mobil-sicher. */
+    height: var(--stage-height);
     width: 100vw;
     background-color: #f2f5f8;
     margin: 0;

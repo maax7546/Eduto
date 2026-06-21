@@ -13,11 +13,12 @@
     --nb-box-size-small: clamp(42px, 6vw, 92px);
 }
 
-/* Container füllt exakt den Platz unter dem global gebauten Header (kein Scrollen). */
+/* Container füllt exakt den Platz unter dem global gebauten Header (kein Scrollen).
+   --stage-height = calc(100dvh - var(--header-height)), mobil-sicher. */
 #game-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - (var(--nav-height) + var(--ui-gap) * 2));
+    height: var(--stage-height);
     background-color: #f2f5f8;
     margin: 0;
     padding: 0;
