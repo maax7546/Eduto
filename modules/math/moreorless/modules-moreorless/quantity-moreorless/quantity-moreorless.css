@@ -10,10 +10,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     /* Bühnenhöhe unter dem Header (dvh, keine Magic Number). */
     height: var(--stage-height);
     width: 100%;
+    gap: clamp(20px, 4vh, 50px);
 }
 
 .game-area {
@@ -22,7 +23,6 @@
     justify-content: center;
     gap: 30px;
     width: 100%;
-    margin-bottom: 50px;
 }
 
 /* Container für die linke/rechte Seite */
@@ -42,11 +42,11 @@
    nachgebaut — nur die Punktfarben kommen aus dots.css über data-red
    (links, rot) bzw. data-blue (rechts, blau). */
 
-/* Dropzone Styling (Spezifisch für dieses Modul) */
-.drop-zone {
-    /* Nutzt die Variable aus numberbox.css für Konsistenz */
-    --nb-box-size: clamp(100px, 20vw, 180px);
-}
+/* Dropzone Styling: KEINE eigene --nb-box-size mehr — sie erbt damit dieselbe
+   Formel wie die Zahlen-Optionen (.nb-box/.nb-option, Standard aus
+   numberbox.css). Die frühere eigene reine-vw-Formel hatte keine vh-Bremse
+   und lief im Querformat/auf manchen Handys gegenüber den Optionsboxen aus
+   der Größe. */
 
 /* HILFSZAHLEN (Nutzen Patrick Hand via font.css) */
 .help-number-label {
@@ -86,5 +86,15 @@ body.show-help-numbers .help-number-label {
     .quantity-display {
         width: 92%;
         padding-bottom: 18px;
+    }
+    /* .quantity-display reserviert unten 18px für die Hilfszahl — das sitzt
+       beim OBEREN Zehnerfeld optisch zwischen Punktebild und Dropzone, beim
+       UNTEREN aber hinter allem (kein Effekt auf den Abstand zur Dropzone).
+       Damit der Abstand Punktebild↔Dropzone auf beiden Seiten gleich bleibt,
+       bekommt die Dropzone dieselbe Reserve als margin (nicht padding, sonst
+       würde die Box selbst kleiner/verschoben wirken) nach UNTEN — der Effekt
+       gleicht sich exakt aus (siehe Berechnung in den Modul-Notizen). */
+    .drop-zone {
+        margin-bottom: 18px;
     }
 }

@@ -1,12 +1,7 @@
 @import url("../../../../../global/ui/elements/numberbox.css");
 @import url("../../../../../global/ui/elements/dropzone.css");
 
-:root {
-    --bg-color: #f0f4f8;
-}
-
 body {
-    background: var(--bg-color);
     overflow: hidden;
     font-family: sans-serif;
 }
@@ -70,5 +65,14 @@ body {
     margin-top: auto;
     padding-bottom: 30px;
     z-index: 10;
+    min-height: var(--nb-box-size);
+}
+
+/* Hier ist die Optionen-Box absichtlich lange leer (während des Zehnerfelds) —
+   die globale :empty-Regel (scaling.css, für kurze Async-Aufbau-Lücken gedacht)
+   würde sonst die reservierte Höhe auf 0 setzen und die Aufgabe springt nach
+   oben, sobald die Optionen erscheinen. ID-Selektor schlägt die globale Regel
+   in der Spezifität und hält die Höhe von Anfang an konstant. */
+#options-container:empty {
     min-height: var(--nb-box-size);
 }

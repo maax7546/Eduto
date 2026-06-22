@@ -2,12 +2,10 @@
 @import url("../../../../../global/ui/elements/dropzone.css");
 
 :root {
-    --bg-color: #f0f4f8;
     --grid-unit: calc(var(--nb-box-size) - var(--nb-overlap));
 }
 
 body {
-    background: var(--bg-color);
     overflow: hidden;
     font-family: sans-serif;
 }

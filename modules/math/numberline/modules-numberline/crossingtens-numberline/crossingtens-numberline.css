@@ -101,7 +101,10 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    font-size: calc(var(--nb-font-size-base) * 0.4);
+    /* Wie jede nb-box/nb-dropzone: Schrift als Anteil der eigenen Boxgröße
+       (--nb-font-ratio), NICHT der globalen Basis-Konstante — sonst bleibt
+       das "?" auf kleinen Boxen (Handy) viel zu groß für die Box. */
+    font-size: calc(var(--nb-box-size-small) * var(--nb-font-ratio));
     font-weight: 900;
     color: #ccc;
 }

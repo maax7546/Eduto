@@ -8,12 +8,25 @@
 
 .exercise-area {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between; 
-    width: 98vw;
-    height: 88vh; 
-    padding: 30px; 
+    justify-content: space-between;
+    /* fit-content statt fixer width: 98vw — eine Gleichungszeile mit 5 Boxen
+       kann auf dem Handy breiter als 98vw sein. Mit fester (oder per
+       max-width gedeckelter) Breite würde sie einfach seitlich überlaufen UND
+       autofit.js (misst die Breite von .main-container) sähe den wahren
+       Platzbedarf nie — ein vw-Deckel ist auch unnötig, die Boxen selbst sind
+       durch --nb-box-size-Clamps schon nach oben begrenzt. Mit ungedeckeltem
+       fit-content wächst die Box mit dem Inhalt, autofit kann sie dann
+       korrekt herunterskalieren. */
+    width: fit-content;
+    /* min- statt fixer Höhe: im Schritte-Modus (3 Gleichungszeilen) braucht der
+       Inhalt mehr als 88vh — mit fester height liefe er über UND autofit.js
+       (misst die Höhe von .main-container) sähe nur die fixen 88vh, nie den
+       wahren Überlauf, und würde nie herunterskalieren. Mit min-height wächst
+       die Box mit dem Inhalt, autofit kann sie dann korrekt einpassen. */
+    min-height: 88vh;
+    padding: 30px;
     background: white;
     border-radius: 20px;
     box-sizing: border-box;

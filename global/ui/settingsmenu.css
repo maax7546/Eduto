@@ -6,19 +6,28 @@
  */
 
 .settings-menu {
-    display: none; 
+    display: none;
     flex-direction: column;
     position: absolute;
-    top: calc(100% + 15px); 
+    top: calc(100% + 15px);
     right: 0;
     background: white;
     padding: var(--ui-gap);
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
-    z-index: 30000; 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    z-index: 30000;
     min-width: 250px;
     border: 1px solid #ddd;
     gap: var(--ui-gap);
+    /* Skalierung fürs Menü selbst: Module mit vielen Sektionen (z. B.
+       Zehnerübergang: Zahlenraum + Rechenart + Zoom + Hilfen + Aufgabe)
+       können auf kleinen Bildschirmen höher werden als unter dem Header
+       noch Platz ist — ohne Deckel lief das Dropdown unten aus dem
+       sichtbaren Bereich. max-height + Scroll lässt es immer erreichbar
+       bleiben, ohne Breite/Optik der Buttons/Sektionen zu verändern. */
+    max-height: calc(100dvh - var(--header-height) - 30px);
+    max-width: calc(100vw - 20px);
+    overflow-y: auto;
 }
 
 .settings-section-title {
@@ -99,6 +108,9 @@
     white-space: nowrap;
     overflow: hidden;
     padding: 0 5px;
+    /* Größen-Kontext für Icons im Button (z. B. .dot-frame.icon-mini), die sich
+       per cqw/cqh exakt an der Button-Größe orientieren sollen. */
+    container-type: size;
 }
 
 .settings-cycle-btn img {

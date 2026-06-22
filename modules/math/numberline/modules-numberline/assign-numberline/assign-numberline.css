@@ -109,12 +109,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 15px;
     padding: 20px 40px;
     background-color: #ffffff;
     border-top: 2px solid #d1d5db;
     box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
     z-index: 200;
+    /* Darf bei sehr vielen Boxen mehrzeilig werden (flex-wrap) — ohne Deckel
+       würde #game-container (overflow:hidden, feste --stage-height) den
+       unteren Teil davon einfach abschneiden, statt der Leiste den nötigen
+       Platz zu lassen. */
+    max-height: 45%;
+    overflow-y: auto;
+}
+
+/* Schmale Schirme (Smartphone): 10 Boxen + Haken passen nicht in eine Zeile —
+   kleinerer Gap/Padding, damit pro Zeile mehr Boxen passen und insgesamt
+   weniger Zeilen (= weniger Höhe) gebraucht werden. */
+@media (max-width: 640px) {
+    .symbol-container {
+        gap: 8px;
+        padding: 12px 10px;
+    }
 }
 
 .nb-box.nb-option.nb-box-small {

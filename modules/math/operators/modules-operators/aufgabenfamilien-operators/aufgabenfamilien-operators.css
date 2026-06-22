@@ -2,14 +2,12 @@
 @import url("../../../../../global/ui/elements/dropzone.css");
 
 :root {
-    --bg-color: #f0f4f8;
     --fam-wall: #fdf3e0;          /* Hauswand (creme) */
     --fam-frame: #8d6e63;         /* Mauer-/Etagenlinien (braun) */
     --fam-roof: #c0392b;          /* Dachfarbe (rot) */
 }
 
 body {
-    background: var(--bg-color);
     overflow: hidden;
     font-family: sans-serif;
 }

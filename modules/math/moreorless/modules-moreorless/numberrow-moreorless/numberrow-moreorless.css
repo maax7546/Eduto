@@ -9,19 +9,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     /* Bühnenhöhe unter dem Header (dvh, keine Magic Number). */
     height: var(--stage-height);
     width: 100%;
+    gap: clamp(20px, 4vh, 50px);
 }
 
 .game-area {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px; 
+    gap: 15px;
     width: 100%;
-    margin-bottom: 50px;
 }
 
 .symbol-display {

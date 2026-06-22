@@ -2,12 +2,10 @@
 @import url("../../../../../global/ui/elements/dropzone.css");
 
 :root {
-    --bg-color: #f0f4f8;
     --equation-gap: clamp(20px, 8vh, 60px);
 }
 
 body {
-    background: var(--bg-color);
     overflow: hidden;
     font-family: sans-serif;
 }

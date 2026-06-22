@@ -88,3 +88,19 @@
     opacity: 0.15;
     pointer-events: none;
 }
+
+/* Mini-Icon-Variante für Settings-Buttons: dasselbe echte .dot-frame-Element
+   (gleiche Zellen, Punkte, 5er-Trennstriche aus den Regeln oben) — nur über
+   `--cell-size` auf Button-Größe heruntergesetzt (cqw/cqh, Button ist
+   `container-type: size`, siehe settingsmenu.css; bindender Wert ist IMMER
+   die kleinere der beiden Button-Maße, `-14px` lässt nur einen kleinen Rand)
+   und ohne den Standard-Außenabstand/Cursor des echten Feldes. Funktion ist
+   bereits über `.frozen` (dotframe.js) deaktiviert. */
+.dot-frame.icon-mini {
+    --cell-size: min(calc((100cqw - 14px) / 10), calc((100cqh - 14px) / var(--icon-rows, 1)));
+    margin: 0;
+}
+
+.dot-frame.icon-mini .dot-cell {
+    cursor: default;
+}

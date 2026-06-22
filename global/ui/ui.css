@@ -39,6 +39,10 @@
 html, body {
     margin: 0;
     padding: 0;
+    /* Verhindert grauen Rand außerhalb eines per transform:scale() verkleinerten
+       Containers (autofit.js) — ohne das zeigt der Browser dort seinen
+       Standard-Hintergrund statt Weiß. */
+    background: #fff;
 }
 
 /* Kein horizontales Schieben/Wackeln auf dem Smartphone: die Seite darf nur
@@ -46,6 +50,22 @@ html, body {
    rechts ziehen, wenn gar kein Inhalt seitlich verdeckt ist. */
 html {
     overflow-x: hidden;
+}
+
+/* --- TEXTMARKIERUNG SPERREN ---
+   Auf Touch-Tafeln/iPad/Handy markiert ein versehentlich zu langer Antipp
+   (z. B. beim Ziehen einer Numberbox) sonst Buttons/Zahlen/Tische blau —
+   global gesperrt. Ausnahme: ECHTER Text zum Lesen/Tippen (Eingabefelder,
+   Fließtext) bleibt markierbar, damit z. B. das Feedback-Formular oder die
+   Namensfelder im Sitzplan/Gruppen-Werkzeug normal bedienbar sind. */
+* {
+    user-select: none;
+    -webkit-user-select: none;
+}
+input, textarea, [contenteditable], [contenteditable] *,
+p, h1, h2, h3, h4, h5, h6, li, label, blockquote, td, th {
+    user-select: text;
+    -webkit-user-select: text;
 }
 
 /* --- FOUC-SCHUTZ ---
@@ -143,11 +163,33 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 
 /* BUTTON-FARBEN */
 .btn-back { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
+/* Pfeil als eigenes <span>: nur ER wird größer (font-size), die Button-Maße
+   kommen von width/height, bleiben unverändert. line-height:1 + eigener
+   Flex-Centering-Kontext, weil der Pfeil-Glyph sonst (Schriftmetrik mit
+   Descender-Raum unterm Strich) im Button optisch zu weit unten saß, selbst
+   mit align-items:center auf dem Button. */
+.btn-back-arrow {
+    font-size: calc(var(--nav-font-size) * 1.9);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Schriftmetrik des Pfeils hat unten etwas mehr Leerraum als oben — auch
+       mit line-height:1 + flex-center sitzt der Glyph dadurch optisch ein
+       Stück zu tief. Kleiner Korrektur-Versatz nach oben (relativ zur
+       Button-Höhe, bleibt also auf jeder Bildschirmgröße proportional). */
+    position: relative;
+    top: calc(var(--nav-height) * -0.066);
+}
 .btn-zoom { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
 .btn-settings { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
 .btn-fs { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
 .btn-exit { background-color: var(--red-main); box-shadow: 0 4px 0 #c0392b; }
 .btn-reset { background-color: var(--green-main); box-shadow: 0 4px 0 #1e8449; }
+/* Generische Farb-Modifier für frei platzierte .nav-control-Buttons außerhalb
+   des Headers (z. B. das "Zu welcher Zahl springen?"-Modal). */
+.nav-control.blue { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
+.nav-control.red { background-color: var(--red-main); box-shadow: 0 4px 0 #c0392b; }
 
 /* --- FEEDBACK-BUTTON ---
    Der Feedback-Button ist ein Header-Control wie Zurück/Exit und wird von

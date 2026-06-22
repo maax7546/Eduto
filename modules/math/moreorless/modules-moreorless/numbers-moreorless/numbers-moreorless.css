@@ -9,10 +9,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     /* Bühnenhöhe unter dem Header (dvh, keine Magic Number). */
     height: var(--stage-height);
     width: 100%;
+    gap: clamp(20px, 4vh, 50px);
 }
 
 .game-area {
@@ -21,15 +22,14 @@
     justify-content: center;
     gap: 30px;
     width: 100%;
-    margin-bottom: 50px;
 }
 
-.number-box {
-    --nb-box-size: var(--nb-box-size-large);
-}
-
+/* Numberbox und Dropzone MÜSSEN dieselbe Formel nutzen (--nb-box-size-large,
+   inkl. vh-Bremse), sonst laufen sie im Querformat (kleine vh) auseinander —
+   die Dropzone hatte vorher eine eigene rein-vw-Formel ohne vh-Deckel. */
+.number-box,
 .drop-zone {
-    --nb-box-size: clamp(100px, 20vw, 180px);
+    --nb-box-size: var(--nb-box-size-large);
 }
 
 .symbol-container {
