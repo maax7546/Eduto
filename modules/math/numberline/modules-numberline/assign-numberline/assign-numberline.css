@@ -17,7 +17,7 @@
        --stage-height = calc(100dvh - var(--header-height)), mobil-sicher. */
     height: var(--stage-height);
     width: 100vw;
-    background-color: #f2f5f8;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -112,9 +112,9 @@
     flex-wrap: wrap;
     gap: 15px;
     padding: 20px 40px;
-    background-color: #ffffff;
-    border-top: 2px solid #d1d5db;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    background-color: transparent;
+    border-top: none;
+    box-shadow: none;
     z-index: 200;
     /* Darf bei sehr vielen Boxen mehrzeilig werden (flex-wrap) — ohne Deckel
        würde #game-container (overflow:hidden, feste --stage-height) den

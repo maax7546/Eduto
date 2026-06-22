@@ -169,7 +169,7 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
    Descender-Raum unterm Strich) im Button optisch zu weit unten saß, selbst
    mit align-items:center auf dem Button. */
 .btn-back-arrow {
-    font-size: calc(var(--nav-font-size) * 1.9);
+    font-size: calc(var(--nav-font-size) * 1.65);
     line-height: 1;
     display: flex;
     align-items: center;
@@ -179,7 +179,7 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
        Stück zu tief. Kleiner Korrektur-Versatz nach oben (relativ zur
        Button-Höhe, bleibt also auf jeder Bildschirmgröße proportional). */
     position: relative;
-    top: calc(var(--nav-height) * -0.066);
+    top: calc(var(--nav-height) * -0.022);
 }
 .btn-zoom { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
 .btn-settings { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }

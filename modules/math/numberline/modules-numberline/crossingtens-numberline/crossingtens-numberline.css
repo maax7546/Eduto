@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     height: var(--stage-height);
-    background-color: #f2f5f8;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -29,8 +29,11 @@
     flex: 0 0 auto;
     text-align: center;
     /* unten Platz für die Hilfe (Pfeil + großes Zehnerfeld), das absolut
-       unter dem zweiten Operanden hängt */
-    padding: 8px 16px clamp(110px, 16vh, 150px);
+       unter dem zweiten Operanden hängt. Knapper gehalten, damit auf flachen
+       Tablet-Schirmen genug Resthöhe für den Zahlenstrahl + die Ergebnis-Boxen
+       bleibt (sonst hingen die Zahlenstrahl-Zahlen in die Boxen-Leiste und die
+       Boxen wurden unten abgeschnitten). */
+    padding: 8px 16px clamp(86px, 13vh, 140px);
 }
 
 .task-equation {
@@ -139,8 +142,11 @@
     justify-content: center;
     align-items: flex-end;
     gap: clamp(14px, 2.5vw, 28px);
-    padding-bottom: 18px;
-    min-height: var(--nb-box-size-small);
+    padding-bottom: 10px;
+    /* Reserviert sicher die Boxhöhe + Schatten, auch wenn (noch) keine Box da
+       ist → der Zahlenstrahl darüber verschiebt sich beim Erscheinen nicht und
+       die Boxen werden nicht angeschnitten. */
+    min-height: calc(var(--nb-box-size-small) + 14px);
     z-index: 10;
 }
 
@@ -163,6 +169,16 @@
 .numberline-wrapper {
     width: 100%;
     height: 100%;
+}
+
+/* Die Zahlenstrahl-Zahlen sind absolut zur Viewport-Mitte positioniert
+   (top:50% + Versatz). Auf flachen Tablet-Schirmen ist der Viewport niedrig;
+   mit dem globalen Versatz/Schriftgrad hingen die Zahlen unter den Viewport in
+   die Ergebnis-Boxen. In diesem (ohnehin dichten) Modul etwas kompakter →
+   bleiben sicher über den Boxen. */
+#game-container .tick-label {
+    font-size: clamp(20px, 4vw, 40px);
+    top: calc(50% + 38px);
 }
 
 /* PFEIL-EBENE ------------------------------------------------------------- */

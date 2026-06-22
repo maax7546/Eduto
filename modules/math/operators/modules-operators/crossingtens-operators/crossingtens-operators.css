@@ -94,8 +94,12 @@
     justify-content: center;
 }
 
-.step-hidden-row { 
-    display: none !important; 
+/* visibility statt display:none → die Rechenzeilen reservieren ihren Platz von
+   Anfang an, damit beim schrittweisen Einblenden nichts springt. Der Mode-Wechsel
+   (Schritte/Split) blendet weiterhin den ganzen Container per inline-display aus,
+   sodass nur die Zeilen des aktiven Modus Platz belegen. */
+.step-hidden-row {
+    visibility: hidden !important;
 }
 
 .step-hidden { 

@@ -31,6 +31,12 @@
     font-weight: 900;
     line-height: 1;
     transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    /* Symmetrisch zu .nb-box: KEINE native Touch-Geste auf der Dropzone. Sonst
+       versucht der Browser beim Wischen ÜBER eine Dropzone (z. B. die Slots auf
+       dem Zahlenstrahl) ein natives Scrollen/Zoomen und kollidiert mit dem
+       JS-gesteuerten Verschieben des Strahls → das Wischen "hakt". Mit none
+       bleibt die Geste komplett in der Hand des Moduls. */
+    touch-action: none;
 }
 
 /* Placeholder "?" */

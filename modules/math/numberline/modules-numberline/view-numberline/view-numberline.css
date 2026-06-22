@@ -3,7 +3,7 @@
     display: block; /* Zentrierung aufheben, da wir volle Breite wollen */
     /* Unter dem Header bleiben (mobil-sicher); füllt sonst hinter die Kopfzeile. */
     height: var(--stage-height);
-    background-color: #f2f5f8;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }

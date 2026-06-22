@@ -56,23 +56,49 @@ body {
     gap: 6px;
     z-index: 80;
 }
+/* Undo/Redo im gleichen Stil wie die Header-Buttons (.nav-control):
+   blauer Knopf mit 3D-Schatten, beim Drücken sackt er ein. */
 .sp-tool-btn {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
-    border: 2px solid #d6e0dd;
-    background: #ffffff;
-    color: #2c3e50;
-    font-size: 19px;
+    border: none;
+    background: var(--blue-main, #3498db);
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: bold;
     line-height: 1;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 0 #2980b9;
+    transition: transform 0.1s, box-shadow 0.1s;
 }
-.sp-tool-btn:hover:not(:disabled) { background: #eaf5f2; border-color: #16a085; }
-.sp-tool-btn:disabled { opacity: 0.4; cursor: default; }
+.sp-tool-btn:active:not(:disabled) { transform: translateY(3px); box-shadow: none; }
+.sp-tool-btn:disabled { opacity: 0.4; cursor: default; box-shadow: 0 4px 0 #9fb4c4; }
+
+/* ×-Knopf der Mehrfach-Auswahl — löscht alle ausgewählten Tische auf einmal.
+   Optik wie das Tisch-× (.st-del-table), sitzt an der Hülle der Auswahl. */
+#sp-seldel, #sp-selrot {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid white;
+    color: white;
+    font-size: 19px;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 85;
+}
+#sp-seldel { background: #e74c3c; }            /* Auswahl löschen (×) */
+/* Auswahl drehen (↻) — wie der Einzel-Dreh-Griff .st-handle-rotate (grün). */
+#sp-selrot { background: #16a085; cursor: grab; touch-action: none; }
 
 /* Aufzieh-Rechteck der Mehrfach-Auswahl. */
 .sp-marquee {
@@ -161,7 +187,7 @@ body {
 
 /* ---- Drucken ------------------------------------------------------------ */
 @media print {
-    .header, .sp-tray, .sp-front, .sp-toolbar, .sp-marquee,
+    .header, .sp-tray, .sp-front, .sp-toolbar, .sp-marquee, #sp-seldel, #sp-selrot,
     .st-handle, .st-add, .st-del-table, .st-del-chair {
         display: none !important;
     }

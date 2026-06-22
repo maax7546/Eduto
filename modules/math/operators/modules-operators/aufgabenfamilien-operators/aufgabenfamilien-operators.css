@@ -41,8 +41,8 @@ body {
     width: 100%;
     height: clamp(34px, 7vh, 80px);
     overflow: visible;
-    /* Dachfuß leicht über die Wand ziehen → Rahmen verschmelzen ohne Doppellinie. */
-    margin-bottom: -2px;
+    /* Kein negativer Abstand mehr: der Körper hat jetzt eine eigene obere
+       Rahmenlinie als Abgrenzung zwischen Dach und Stockwerken. */
 }
 
 .fam-roof polygon {
@@ -57,9 +57,8 @@ body {
 .fam-body {
     display: flex;
     flex-direction: column;
-    background: var(--fam-wall);
+    background: transparent;
     border: clamp(4px, 0.8vw, 8px) solid var(--fam-frame);
-    border-top: none;
     border-radius: 0 0 10px 10px;
     overflow: hidden;
 }

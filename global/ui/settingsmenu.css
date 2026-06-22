@@ -132,3 +132,33 @@
 .settings-cycle-btn.active:active {
     box-shadow: 0 1px 0 #1e8449;
 }
+
+/* --- MOBILE: Menü herunterskalieren ---
+   Auf dem Smartphone war das Dropdown zu groß (Buttons fix 50px, große Schrift,
+   viel Padding). Hier werden die Buttons exakt so hoch wie der Feedback-/Nav-
+   Button (--nav-height) und Schrift/Abstände entsprechend kleiner — das Menü
+   schrumpft als Ganzes, ohne seine Struktur zu ändern. */
+@media (max-width: 600px) {
+    .settings-cycle-btn {
+        height: var(--nav-height);
+        font-size: 1.05rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 0 #2980b9;
+    }
+    .settings-cycle-btn.active {
+        box-shadow: 0 3px 0 #1e8449;
+    }
+    .settings-cycle-btn img {
+        height: calc(var(--nav-height) * 0.6);
+    }
+    .settings-section {
+        padding: 6px 4px;
+        gap: 6px;
+    }
+    .settings-row {
+        gap: 8px;
+    }
+    .settings-menu {
+        min-width: 210px;
+    }
+}
