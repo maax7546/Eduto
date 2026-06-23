@@ -1,0 +1,56 @@
+/**
+ * LEGAL.CSS — Layout der Rechts-Seiten (impressum.html, datenschutz.html).
+ * Nur diese beiden Seiten laden diese Datei. Header/Schrift/Skalierung kommen
+ * global aus global/ui (global-bundleimport.css); der fixe Header + body-
+ * padding-top liegen ebenfalls global → der Text scrollt sauber darunter.
+ */
+
+.legal-page {
+    display: block;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(16px, 4vw, 40px);
+    /* Unten Platz, damit der fixe Rechts-Footer (.legal-footer) die letzten
+       Zeilen nicht überdeckt. */
+    padding-bottom: 90px;
+    box-sizing: border-box;
+    color: #2c3e50;
+    line-height: 1.6;
+    font-size: clamp(0.95rem, 2.6vw, 1.05rem);
+}
+
+.legal-content h1 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    margin: 0 0 0.6em;
+    color: var(--dark-bg);
+}
+
+.legal-content h2 {
+    font-size: clamp(1.15rem, 3.5vw, 1.4rem);
+    margin: 1.5em 0 0.4em;
+    color: var(--dark-bg);
+}
+
+.legal-content p {
+    margin: 0.5em 0;
+}
+
+/* Anschrift/Kontaktblöcke: Zeilenumbrüche aus dem Markup erhalten. */
+.legal-content address {
+    font-style: normal;
+    white-space: pre-line;
+    margin: 0.5em 0;
+}
+
+.legal-content a {
+    color: var(--blue-main);
+    word-break: break-word;
+}
+
+/* Abgesetzter Folge-Abschnitt (z. B. Datenschutz unter dem Impressum,
+   falls beide auf einer Seite stünden) — aktuell je eigene Seite. */
+.legal-sub {
+    margin-top: 2.5em;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.5em;
+}

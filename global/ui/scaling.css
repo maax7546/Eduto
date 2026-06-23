@@ -18,7 +18,7 @@
  */
 
 :root {
-    /* Nutzbare Höhe unterhalb des (sticky) Headers. dvh statt vh: bleibt auf
+    /* Nutzbare Höhe unterhalb des (fixen) Headers. dvh statt vh: bleibt auf
        Smartphones korrekt, wenn die Browser-Adressleiste ein-/ausfährt.
        Übungs-Container nutzen `height: var(--stage-height)` statt Magic Numbers.
        --header-height kommt aus ui.css (NICHT hier definieren: scaling.css lädt

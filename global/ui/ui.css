@@ -39,10 +39,24 @@
 html, body {
     margin: 0;
     padding: 0;
+    /* border-box, damit das Body-padding-top (Platz für die FIXE Kopfzeile, s.u.)
+       bei Modulen mit fester Body-Höhe (z. B. height:100dvh) INNERHALB der Höhe
+       liegt und die Seite nicht um die Header-Höhe überläuft. */
+    box-sizing: border-box;
     /* Verhindert grauen Rand außerhalb eines per transform:scale() verkleinerten
        Containers (autofit.js) — ohne das zeigt der Browser dort seinen
        Standard-Hintergrund statt Weiß. */
     background: #fff;
+}
+
+/* Die Kopfzeile liegt FIX über dem Inhalt (position:fixed, s. .header). Da sie
+   damit aus dem Fluss genommen ist, reserviert der Body oben genau die
+   Header-Höhe — der Inhalt beginnt also exakt wie zuvor direkt unter der
+   Kopfzeile und scrollt beim Scrollen sauber darunter hindurch. Nur auf Seiten
+   MIT Kopfzeile (`:has(.header)`), damit header-lose Test-Seiten keine Lücke
+   oben bekommen. */
+body:has(.header) {
+    padding-top: var(--header-height);
 }
 
 /* Kein horizontales Schieben/Wackeln auf dem Smartphone: die Seite darf nur
@@ -86,11 +100,16 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
     box-sizing: border-box;
     background: #fff;
     z-index: 1000;
-    /* sticky + top:0 → die Kopfzeile bleibt beim Nach-unten-Scrollen oben
-       stehen, statt mit hochzuscrollen. position != static dient zugleich als
-       Bezug für den absolut zentrierten Titel. */
-    position: sticky;
+    /* fixed + top/left/right:0 → die Kopfzeile bleibt IMMER oben am Viewport
+       kleben und bewegt sich beim Scrollen nicht; der restliche Seiteninhalt
+       scrollt sauber DARUNTER hindurch. (Zuvor sticky — das konnte zusammen mit
+       `html{overflow-x:hidden}` auf Touch-Geräten unzuverlässig haften. Der vom
+       Fluss freigegebene Platz wird über body{padding-top} oben ausgeglichen,
+       siehe oben.) position != static dient zugleich als Bezug für den Titel. */
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
 }
 
 /* GRUPPIERUNG DER BUTTONS
@@ -245,3 +264,41 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 @media (max-width: 600px) {
     .fb-trigger .fb-label { display: none; }
 }
+
+/* --- RECHTS-FOOTER (Impressum / Datenschutz) ---
+   Wird von injectLegalFooter() (ui.js) auf JEDER Seite unten rechts
+   eingeblendet — die Pflichtangaben müssen immer erreichbar sein.
+   - position:fixed → bleibt beim Scrollen sichtbar und am Viewport-Rand.
+   - bottom/right über max(.., env(safe-area-inset-*)) → auf Smartphones/Tablets
+     nicht hinter Notch/Home-Indikator (und damit nicht verdeckt).
+   - z-index 990: über dem Seiteninhalt, aber unter Header (1000), Settings-
+     Dropdown (30000) und Feedback-Modal-Overlay — die decken ihn bei Bedarf ab.
+   - pointer-events nur auf den LINKS (Hülle = none) → die dezente Hülle blockiert
+     keine Taps auf darunterliegende Bedienelemente (z. B. Antwort-Optionen). */
+.legal-footer {
+    position: fixed;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(6px, env(safe-area-inset-bottom));
+    z-index: 990;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+    max-width: calc(100vw - 16px);
+    font-family: var(--ui-font);
+    font-size: 0.7rem;
+    line-height: 1;
+    color: var(--gray-text);
+    background: rgba(255, 255, 255, 0.72);
+    padding: 3px 8px;
+    border-radius: 8px;
+}
+.legal-footer a {
+    pointer-events: auto;
+    color: var(--gray-text);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 2px 0;
+}
+.legal-footer a:hover { color: var(--dark-bg); text-decoration: underline; }
+.legal-footer .legal-sep { opacity: 0.5; }

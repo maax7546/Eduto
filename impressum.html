@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Impressum</title>
+    <link rel="stylesheet" href="global/ui/bundleimport/global-bundleimport.css">
+    <link rel="stylesheet" href="legal.css">
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="main-container legal-page">
+        <article class="legal-content">
+            <h1>Impressum</h1>
+
+            <h2>Angaben gemäß § 5 DDG</h2>
+            <address>Max Szelat
+Zingelstraße 7
+25704 Meldorf</address>
+
+            <h2>Kontakt</h2>
+            <p>Telefon: <a href="tel:+4948326012203">+49 4832 6012203</a></p>
+            <p>E-Mail: <a href="mailto:supportteacherwebapp@gmail.com">supportteacherwebapp@gmail.com</a></p>
+        </article>
+    </main>
+
+    <script src="global/ui/ui.js"></script>
+    <script>
+        if (typeof injectUI === 'function') {
+            injectUI('impressum', {
+                title: 'Impressum',
+                showBack: true,
+                showExit: true,
+                showFullscreen: false,
+                showSettings: false,
+                exitUrl: 'index.html'
+            });
+        }
+    </script>
+</body>
+</html>

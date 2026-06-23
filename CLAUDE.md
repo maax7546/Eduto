@@ -82,8 +82,8 @@ Jede dieser HTML-Seiten zieht ihre Bausteine aus `global/`.
 
 | Du willst ändern… | Öffne | Hinweis |
 |---|---|---|
-| Kopfzeile / Navigation / Vollbild / Exit-/Zurück-Button | `global/ui/ui.js`, `global/ui/ui.css` | `injectUI()` baut den Header |
-| Settings-Dropdown (Toggles, Zahlenraum, Speed-Slider) | `global/ui/elements/settings-builder.js`, `global/ui/settingsmenu.css` | **Nie** Dropdown-DOM von Hand bauen → `SettingsBuilder` benutzen |
+| Kopfzeile / Navigation / Vollbild / Exit-/Zurück-Button | `global/ui/ui.js`, `global/ui/ui.css` | `injectUI()` baut den Header. Die `.header` liegt **fix** (`position:fixed`, immer oben, bewegt sich beim Scrollen nicht — Inhalt scrollt darunter); der Body reserviert den Platz oben via `body:has(.header){padding-top:var(--header-height)}` (+ `box-sizing:border-box`), damit fixe-Höhe-Seiten nicht überlaufen. |
+| Settings-Dropdown (Toggles, Zahlenraum, Animationsgeschwindigkeit-Slider) | `global/ui/elements/settings-builder.js`, `global/ui/settingsmenu.css` | **Nie** Dropdown-DOM von Hand bauen → `SettingsBuilder` benutzen |
 | modulspezifische Einstellungen | das `ui-…`-Script des Moduls/der Gruppe | ruft nur `SettingsBuilder.*` auf |
 | Zufallszahlen / Zahlenraum-Logik | `global/math/elements/numbergenerator.js` | `window.NumberGenerator` |
 | Drag&Drop / Klick-Antworten | `global/ui/elements/draganddrop.js`, `numberbox.css`, `dropzone.css` | Klassen `nb-box`, `nb-drop-target` |
@@ -96,6 +96,7 @@ Jede dieser HTML-Seiten zieht ihre Bausteine aus `global/`.
 | Textmarkierung (Touch-Tafel/iPad blockt Markieren von Buttons/Boxen) | `global/ui/ui.css` | Globaler Reset: `* { user-select:none }`, Ausnahme nur echter Text/Eingabe (`input`, `textarea`, `[contenteditable]`, `p/h1-h6/li/label/...`) |
 | Skalierung / „passt auf den Schirm" | `global/ui/scaling.css`, `global/ui/ui.css`, `global/ui/elements/autofit.js` | EINE Quelle je Maß: `--header-height` (ui.css) → `--stage-height = 100dvh − header` (scaling.css); Boxen-Schrift = `--nb-font-ratio × Box` (numberbox/dropzone). Übungs-Container nutzen `height: var(--stage-height)`. **Auto-Fit:** Container mit `data-autofit` werden von `autofit.js` als Block passend herunterskaliert (Verhältnisse + Animationsraum bleiben). Zahlenstrahl-Views (`#game-container`, id) bekommen es NICHT. |
 | Hauptmenü-Kacheln | `index.html`, `index-visuals.css` | |
+| Impressum / Datenschutz / Rechts-Footer | `impressum.html`, `datenschutz.html`, `legal.css`; Footer: `global/ui/ui.js` (`injectLegalFooter`) + `global/ui/ui.css` (`.legal-footer`) | Footer erscheint global auf jeder Seite unten rechts |
 | Ein Gruppen-Untermenü | `modules/<fach>/<gruppe>/menu-<gruppe>.html`, `menu-visuals-<gruppe>.css` | |
 | Eine bestehende Übung | `modules/<fach>/<gruppe>/modules-<gruppe>/<modul>-<gruppe>/` (`.html/.css/.js`) | siehe §6 |
 | Sitzplan-Tisch / Möbel-Baustein (Aussehen, Verschieben/Drehen/Größe, Stühle, Magnet) | `global/werkzeuge/elements/seattable/seattable.js` + `.css` | `window.SeatTable`; Modul liefert nur Vorlagen/Regie |
@@ -116,7 +117,7 @@ Diese werden von `global/` bereitgestellt; Module **rufen sie auf**, definieren 
 | `window.SettingsBuilder` | `global/ui/elements/settings-builder.js` | `.ready(cb)` wartet auf `#settings-dropdown`; `.addRangePicker([ranges])`, `.addSpeedSlider()`, `.addSection(title, [kinder], {id,prepend})`, `.toggleGroup(name, [cfg])` (exklusiv), `.toggleButton({id,label,active,onToggle})`, `.actionButton({id,label,onClick})`. |
 | `window.NumberGenerator` | `global/math/elements/numbergenerator.js` | `.getLimits() → {min,max}`, `.getRandomNumber(smartMin)`, `.getRandomNumbers(count, smartMin)`, `.currentRange`. (0 kommt 50 % seltener.) |
 | `window.DragDropManager.init(onDrop)` | `global/ui/elements/draganddrop.js` | Aktiviert Drag **und** Klick auf `.nb-box[draggable]` → Dropzones. `onDrop(value, sourceEl, zone)`; setzt `zone` `wrong` → wird nach 800 ms zurückgesetzt. |
-| `window.renderDotframes()` / `window.checkDots()` | `global/math/elements/dotframe/dotframe.js` | `renderDotframes()` zeichnet alle `.dot-frame` neu (aus `data-red`/`data-blue`). `checkDots` definiert **das Modul** — wird bei jedem Punkt-Klick aufgerufen. |
+| `window.renderDotframes()` / `window.checkDots()` | `global/math/elements/dotframe/dotframe.js` | `renderDotframes()` zeichnet alle `.dot-frame` neu (aus `data-red`/`data-blue`). `checkDots` definiert **das Modul** — wird bei jedem Punkt-Klick aufgerufen. **Passiver Modus:** Klasse `frozen` macht ein Feld zur reinen Anzeige (kein Klick **und kein Wisch** verändert es mehr) — Module setzen sie z. B. nach Abschluss einer Aufgabe; beim nächsten Durchgang wieder entfernen. **Lade-Race:** dotframe.js rendert beim eigenen Bereitstehen alle schon vorhandenen `.dot-frame` einmal selbst (das Bündel lädt async), damit die Punkte immer erscheinen — auch wenn die Modul-`init()` lief, bevor `renderDotframes` existierte. |
 | `window.NumberlineState`, `window.currentZoom`, `window.changeZoom(delta)` | `global/math/elements/numberline/numberline.js` | Zustand des Zahlenstrahls; `changeZoom` wird von den Zoom-Buttons aus `injectUI({showZoom})` aufgerufen. |
 | Event `rangeChanged` | dispatcht von `addRangePicker` | Module hören darauf und rendern neu (`window.addEventListener('rangeChanged', …)`). |
 | CSS-Var `--anim-speed` | gesetzt von `addSpeedSlider` | Animationsdauer; in `<html>` gesetzt. |
@@ -133,11 +134,13 @@ Diese werden von `global/` bereitgestellt; Module **rufen sie auf**, definieren 
 ### Root
 - `index.html` — Hauptmenü (3 Fach-Kacheln: **Mathe** → `modules/math/menu-math.html`, **Quiz** → `modules/quiz/wettkampf/menu-wettkampf.html`, **Werkzeuge** → `modules/werkzeuge/einteilung/menu-einteilung.html`). Lädt nur `global/ui/ui.js` + `injectUI('index', {showExit:false})`. Enthält **als einzige Seite** den **Flaggen-Sprachumschalter** (`#lang-toggle`, oben rechts, fix positioniert): zeigt die Flagge der aktuellen Sprache (Inline-SVG DE/UK, keine Emoji-Flaggen wegen Windows), ruft `window.I18n.toggle()` und hört auf `languageChanged` (§4).
 - `index-visuals.css` — Visuals fürs Hauptmenü **und** das Mathe-Fach-Menü (`menu-math.html` referenziert es via `../../index-visuals.css`).
+- `impressum.html` / `datenschutz.html` — die zwei **Rechts-Seiten** (Pflichtangaben). Eigenständige Seiten: laden `global/ui/bundleimport/global-bundleimport.css` + `legal.css`, rufen `injectUI({title, showBack, showExit, exitUrl:'index.html'})`. Erreichbar über den **Rechts-Footer**, den `ui.js` auf JEDER Seite unten rechts einblendet (`injectLegalFooter()`, Optik `.legal-footer` in `ui.css`).
+- `legal.css` — Layout NUR der zwei Rechts-Seiten (lesbare Textspalte `.legal-page`/`.legal-content`).
 - `CLAUDE.md` — **diese Datei.**
 
 ### `global/ui/` — generischer, fach-unabhängiger Baukasten
 **Steuerung & Styles**
-- `ui.js` — `injectUI()` + `SettingsBuilder`-Stub (sammelt `ready`-Callbacks bis das echte Builder-Script lädt). Auto-Exit erkennt das Script-Tag über den Marker `global/ui/ui.js`. Definiert die **einzige** `--header-height`-Quelle (`:root`). Lädt am Dateiende per Loader-IIFE (self-lokalisiert über denselben Marker) auf jeder Seite **`feedback.js`**, **`autofit.js`** und die **i18n-Kette** (`lang-de.js` → `lang-en.js` → `i18n.js`) nach.
+- `ui.js` — `injectUI()` + `SettingsBuilder`-Stub (sammelt `ready`-Callbacks bis das echte Builder-Script lädt). Auto-Exit erkennt das Script-Tag über den Marker `global/ui/ui.js`. Definiert die **einzige** `--header-height`-Quelle (`:root`). Lädt am Dateiende per Loader-IIFE (self-lokalisiert über denselben Marker) auf jeder Seite **`feedback.js`**, **`autofit.js`** und die **i18n-Kette** (`lang-de.js` → `lang-en.js` → `i18n.js`) nach und blendet via **`injectLegalFooter()`** den **Rechts-Footer** (`.legal-footer`, Links zu `impressum.html`/`datenschutz.html`, Root-Pfad aus der `../`-Tiefe) unten rechts ein.
 - `ui.css` — Header-/Nav-Styles + `--header-height` · `font.css` — Schrift-Variablen · `scaling.css` — **Skalierungs-Basis**: `--stage-height` (`= calc(100dvh − var(--header-height))`, mobil-sicher; Übungs-Container nutzen es statt Magic Numbers) + `.autofit-stage` (Bühne fürs Auto-Fit). Definiert KEIN `--header-height`/`--nav-height` (lädt zuletzt → würde ui.css überschreiben). · `settingsmenu.css` — Dropdown-Styles · `menu-buttons.css` — `.big-menu-btn`.
 
 **`global/ui/elements/` — generische Bausteine**

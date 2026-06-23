@@ -3,7 +3,6 @@
 
 body {
     overflow: hidden;
-    font-family: sans-serif;
 }
 
 .game-container {
@@ -11,7 +10,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    /* Nutzbare Höhe unter dem (sticky) Header — dvh = mobil-sicher, keine Magic
+    /* Nutzbare Höhe unter dem (fixen) Header — dvh = mobil-sicher, keine Magic
        Number. Der Header steht im Fluss, daher nur kleiner fluider Innenabstand
        oben (früher 80px → doppelter Header-Abstand). */
     height: var(--stage-height);
