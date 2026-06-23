@@ -1,70 +1,229 @@
+/**
+ * PLACEVALUECHART-REGROUPING.CSS
+ * Nur das Layout dieses Moduls. Skalierung über den globalen Vertrag
+ * (--stage-height + data-autofit), Maße fluide. Der Check-Button kommt
+ * global (#btnCheck), daher hier nicht mehr gestylt.
+ */
+
 :root {
-    --card-bg: #ffffff;
-    --primary: #6366f1;
+    --pvc-border: #1e293b;
+    --pvc-soft: #e2e8f0;
     --accent-blue: #3b82f6;
     --accent-red: #ef4444;
-    --text-main: #1e293b;
-    --border-soft: #e2e8f0;
-    --pvc-border-color: #1e293b;
+    --primary: #6366f1;
 }
 
-body, html { height: 100dvh; overflow: hidden; }
+body { overflow: hidden; }
 
-.game-container { display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 40px; }
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: var(--stage-height);
+    padding: clamp(10px, 3vh, 30px) 0;
+    box-sizing: border-box;
+    background: #fff;
+    gap: clamp(20px, 4vh, 45px);
 
-/* TAFEL */
+    /* Größe der Quadrate/Stangen/Lücken — 0–20-Standard. Im 0–100-Modus kleiner
+       (siehe .range-100), damit bis zu 99 Quadrate ins Einer-Feld passen. */
+    --dot-size: clamp(26px, 4vh, 40px);
+    --dot-gap: clamp(6px, 1.2vh, 12px);
+}
+
+.game-container.range-100 {
+    --dot-size: clamp(12px, min(2.6vw, 2.4vh), 22px);
+    --dot-gap: clamp(3px, 0.7vh, 6px);
+}
+
+/* ===== STELLENWERT-TAFEL ===== */
 .pvc-grid {
-    display: flex; width: 100%; max-width: 1100px; height: 450px;
-    background: var(--card-bg); border: 3px solid var(--pvc-border-color); border-radius: 30px; overflow: hidden;
+    display: flex;
+    width: min(94vw, 1100px);
+    height: clamp(260px, 50vh, 470px);
+    background: #fff;
+    border: 3px solid var(--pvc-border);
+    border-radius: 28px;
+    overflow: hidden;
 }
 
-.pvc-column { flex: 1; display: flex; flex-direction: column; border-right: 3px solid var(--border-soft); }
+.pvc-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;            /* Anker für die Zählhilfe-Badge */
+    border-right: 3px solid var(--pvc-soft);
+}
 .pvc-column:last-child { border-right: none; }
 
-.pvc-label { background: #fcfcfd; padding: 15px; text-align: center; font-weight: 900; font-size: 40px; border-bottom: 3px solid var(--border-soft); }
+.pvc-label {
+    background: #fcfcfd;
+    padding: clamp(8px, 1.6vh, 16px);
+    text-align: center;
+    font-weight: 900;
+    font-size: clamp(22px, 3.4vh, 38px);
+    color: var(--pvc-border);
+    border-bottom: 3px solid var(--pvc-soft);
+}
 
-.pvc-area { flex: 1; padding: 20px; position: relative; }
+/* Punkte/Stangen liegen als zentrierter, umbrechender Cluster im Feld —
+   so überläuft nichts, egal wie viele es sind. */
+.pvc-area {
+    flex: 1;
+    min-height: 0;
+    padding: clamp(12px, 2vh, 22px);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: var(--dot-gap);
+}
 
-/* INTERAKTIVE PUNKTE DESIGN */
+/* ===== ZÄHLHILFE (Badge oben rechts — ändert das Layout NICHT) ===== */
+.count-helper {
+    position: absolute;
+    top: clamp(6px, 1.2vh, 12px);
+    right: clamp(6px, 1.2vh, 12px);
+    min-width: clamp(34px, 5vh, 50px);
+    height: clamp(34px, 5vh, 50px);
+    padding: 0 8px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: #fff;
+    font-size: clamp(18px, 2.6vh, 28px);
+    font-weight: 900;
+    border-radius: 999px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+    z-index: 8;
+    pointer-events: none;
+}
+
+/* ===== INTERAKTIVE PUNKTE ===== */
 .dot {
-    width: 30px; height: 30px; background: var(--accent-red); border-radius: 50%;
-    box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+    width: var(--dot-size);
+    height: var(--dot-size);
+    flex: 0 0 auto;
+    background: var(--accent-red);
+    border-radius: 4px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    pointer-events: auto; /* Stellt sicher, dass sie anklickbar sind */
-    transition: all 0.2s;
+    pointer-events: auto;
+    touch-action: none;            /* Wischen wählt aus, statt zu scrollen */
+    transition: transform 0.2s, filter 0.2s;
     z-index: 5;
 }
-
 .dot:hover { transform: scale(1.1); filter: brightness(1.1); }
-
 .dot.selected {
-    background: var(--primary);
+    background: var(--accent-blue);
     transform: scale(1.15);
-    box-shadow: 0 0 0 4px white, 0 0 0 8px var(--primary);
 }
 
-/* ZEHNERSTANGE */
+/* ===== ZEHNERSTANGE ===== */
 .rod {
-    width: 25px; height: 90%; background: var(--accent-blue); border-radius: 4px;
-    border: 2px solid #2563eb;
-    background-image: linear-gradient(to bottom, transparent 90%, rgba(0,0,0,0.1) 90%);
-    background-size: 100% 10%;
+    height: 90%;
+    width: auto;
+    aspect-ratio: 1 / 10;          /* 10 quadratische Felder übereinander: Zellbreite = Zellhöhe */
+    flex: 0 0 auto;
+    background-color: var(--accent-blue);
+    border: 2px solid #1e3a8a;
+    border-radius: 4px;
+    /* 10 deutlich abgegrenzte Quadrate: kräftige Trennlinie alle 10 % der Höhe */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(10% - 2px),
+        #1e3a8a calc(10% - 2px),
+        #1e3a8a 10%
+    );
 }
 
-/* STEPPER & CHECK */
-.interaction-row { display: flex; align-items: center; gap: 40px; }
-.result-table { display: flex; background: white; border: 3px solid var(--pvc-border-color); border-radius: 20px; overflow: hidden; }
-.table-column { width: 150px; border-right: 2px solid var(--border-soft); display: flex; flex-direction: column; align-items: center; }
-.table-column .label { width: 100%; background: var(--pvc-border-color); color: white; padding: 10px; text-align: center; font-weight: bold; }
+/* ===== ERGEBNIS-TABELLE + STEPPER ===== */
+/* Drei Spalten (leer | Tabelle | Check-Button) mit gleich breiten Außenspalten
+   → die Ergebnis-Tabelle bleibt exakt mittig im Container, also liegt ihr
+   Trennstrich genau unter dem Trennstrich der Tafel darüber. */
+.interaction-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: min(94vw, 1100px);
+    gap: clamp(20px, 4vw, 45px);
+}
+.interaction-row::before { content: ""; }
 
-.step-value { font-size: 80px; font-weight: 900; transition: color 0.3s; }
+.result-table {
+    display: flex;
+    background: #fff;
+    border: 3px solid var(--pvc-border);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.table-column {
+    width: clamp(110px, 16vw, 150px);
+    border-right: 2px solid var(--pvc-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.table-column:last-child { border-right: none; }
+
+.table-column .label {
+    width: 100%;
+    background: var(--pvc-border);
+    color: #fff;
+    padding: clamp(6px, 1.2vh, 10px);
+    text-align: center;
+    font-weight: 800;
+    font-size: clamp(24px, 3.4vh, 36px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Mini-Symbole in den Tabellen-Labels */
+.mini-symbol { display: inline-block; width: 16px; height: 16px; border-radius: 4px; }
+.mini-symbol.red-dot { border-radius: 3px; background: var(--accent-red); }
+.mini-symbol.blue-bar { background: var(--accent-blue); }
+
+/* Stepper: ▲ oben, Zahl mittig, ▼ unten — alles zentriert in EINER Spalte */
+.stepper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2px, 0.6vh, 6px);
+    padding: clamp(6px, 1.4vh, 12px) 0;
+}
+
+.step-btn {
+    border: none;
+    background: transparent;
+    color: #000;
+    font-size: clamp(20px, 3vh, 30px);
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 14px;
+    border-radius: 10px;
+    transition: background 0.15s, transform 0.15s;
+}
+.step-btn:hover { background: #f1f5f9; transform: scale(1.1); }
+.step-btn:active { transform: scale(0.95); }
+
+.step-value {
+    font-size: clamp(48px, 8vh, 80px);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--pvc-border);
+    transition: color 0.3s;
+}
 .step-value.correct { color: #22c55e; }
-.step-value.wrong { color: #ef4444; animation: shake 0.4s both; }
-
-.check-circle-btn {
-    width: 80px; height: 80px; border-radius: 50%; border: none; background: var(--primary);
-    color: white; font-size: 2rem; cursor: pointer; box-shadow: 0 6px 0 #4338ca;
-}
+.step-value.wrong { color: var(--accent-red); animation: shake 0.4s both; }
 
 @keyframes shake {
     10%, 90% { transform: translate3d(-1px, 0, 0); }

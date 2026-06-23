@@ -24,18 +24,13 @@
     width: 100%;
 }
 
-/* Die Zahlen sind randlose Ghost-Boxen: ihre sichtbare Ziffer füllt nur einen
-   Teil der (unsichtbaren) Box. Eine gleich große Dropbox bekäme ihren Rahmen über
-   die VOLLE Box-Höhe und wirkte dadurch deutlich größer als die Ziffer daneben.
-   Darum: Zahlen bleiben large (große Ziffern), die Dropbox wird auf die optische
-   Ziffernhöhe heruntergesetzt, damit beide gleich groß wirken. (Diese Datei lädt
-   zuletzt → überschreibt die globalen --_nb-size-Regeln, auch wenn
-   render-moreorless.js die Dropzone-Klassen ohne nb-box-large neu setzt.) */
-.number-box {
-    --_nb-size: var(--nb-box-size-large);
-}
+/* Dropbox und Zahlen-Boxen sind GLEICH groß: dieselbe --_nb-size (large) für
+   beide, damit die Reihe „Zahl – Dropbox – Zahl" einheitlich wirkt. (Diese Datei
+   lädt zuletzt → überschreibt die globalen --_nb-size-Regeln, auch wenn
+   render-moreorless.js die Dropzone-Klassen neu setzt.) */
+.number-box,
 .drop-zone {
-    --_nb-size: calc(var(--nb-box-size-large) * 0.5);
+    --_nb-size: var(--nb-box-size-large);
 }
 
 .symbol-container {
