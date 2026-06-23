@@ -24,15 +24,18 @@
     width: 100%;
 }
 
-/* Numberbox und Dropzone MÜSSEN exakt gleich groß sein. Beide bekommen ihre
-   echte Größen-Variable --_nb-size DIREKT auf large gesetzt (nicht über den
-   Umweg --nb-box-size): Die Numbers ziehen ihre Größe sonst über nb-box-large,
-   die Dropzone über den --nb-box-size-Override — und render-moreorless.js setzt
-   die Dropzone-Klassen mehrfach ohne nb-box-large neu, wodurch sie auseinander-
-   laufen konnten. Diese Datei lädt zuletzt → überschreibt die globalen Regeln. */
-.number-box,
-.drop-zone {
+/* Die Zahlen sind randlose Ghost-Boxen: ihre sichtbare Ziffer füllt nur einen
+   Teil der (unsichtbaren) Box. Eine gleich große Dropbox bekäme ihren Rahmen über
+   die VOLLE Box-Höhe und wirkte dadurch deutlich größer als die Ziffer daneben.
+   Darum: Zahlen bleiben large (große Ziffern), die Dropbox wird auf die optische
+   Ziffernhöhe heruntergesetzt, damit beide gleich groß wirken. (Diese Datei lädt
+   zuletzt → überschreibt die globalen --_nb-size-Regeln, auch wenn
+   render-moreorless.js die Dropzone-Klassen ohne nb-box-large neu setzt.) */
+.number-box {
     --_nb-size: var(--nb-box-size-large);
+}
+.drop-zone {
+    --_nb-size: calc(var(--nb-box-size-large) * 0.5);
 }
 
 .symbol-container {

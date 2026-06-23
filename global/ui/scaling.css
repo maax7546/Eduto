@@ -18,12 +18,15 @@
  */
 
 :root {
-    /* Nutzbare Höhe unterhalb des (fixen) Headers. dvh statt vh: bleibt auf
-       Smartphones korrekt, wenn die Browser-Adressleiste ein-/ausfährt.
-       Übungs-Container nutzen `height: var(--stage-height)` statt Magic Numbers.
-       --header-height kommt aus ui.css (NICHT hier definieren: scaling.css lädt
-       zuletzt und würde den echten Wert sonst wieder überschreiben). */
-    --stage-height: calc(100dvh - var(--header-height));
+    /* Nutzbare Höhe ZWISCHEN dem fixen Header (oben) und der fixen Fußzeile
+       (unten). dvh statt vh: bleibt auf Smartphones korrekt, wenn die
+       Browser-Adressleiste ein-/ausfährt. Übungs-Container nutzen
+       `height: var(--stage-height)` statt Magic Numbers. --header-height und
+       --footer-height kommen aus ui.css (NICHT hier definieren: scaling.css lädt
+       zuletzt und würde die echten Werte sonst wieder überschreiben). Die
+       Fußzeilen-Höhe (+ Safe-Area) wird abgezogen, damit die Übung oberhalb der
+       Fußzeile bleibt — symmetrisch zum Header. */
+    --stage-height: calc(100dvh - var(--header-height) - var(--footer-height) - env(safe-area-inset-bottom));
 }
 
 /* AUTO-FIT-BÜHNE (autofit.js): fester Rahmen in Höhe der nutzbaren Fläche.

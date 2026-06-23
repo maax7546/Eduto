@@ -28,6 +28,12 @@
        Bühnenhöhe daraus (--stage-height in scaling.css) statt mit Magic Numbers
        (früher hart 80px/100px). */
     --header-height: calc(var(--nav-height) + var(--ui-gap) * 2);
+
+    /* EINZIGE Quelle der Fußzeilen-Höhe. Symmetrisch zum Header: die kleine
+       Rechts-Fußzeile (Impressum/Datenschutz) liegt als FIXE Zeile am unteren
+       Rand und reserviert diesen Platz, damit der Inhalt nie darunter rutscht
+       (Body-padding-bottom unten + --stage-height in scaling.css ziehen sie ab). */
+    --footer-height: clamp(26px, 4.5vw, 36px);
 }
 
 /* --- GLOBALER RESET ---
@@ -59,13 +65,15 @@ body:has(.header) {
     padding-top: var(--header-height);
 }
 
-/* Bezugsrahmen für den absolut positionierten Rechts-Footer (s. .legal-footer):
-   relative + min-height 100dvh → der Footer sitzt am UNTEREN Rand des Body
-   (= Seitenende), nicht fix am Viewport. Auf kurzen Seiten füllt min-height die
-   Höhe, damit der Footer trotzdem ganz unten steht; auf langen, scrollbaren
-   Seiten wandert er ans echte Inhaltsende (erst beim Herunterscrollen sichtbar). */
+/* Spiegelbildlich zum padding-top für den fixen Header: sobald die fixe
+   Rechts-Fußzeile (.legal-footer, von injectLegalFooter() angehängt) im Body
+   liegt, reserviert der Body unten genau die Fußzeilen-Höhe (+ Safe-Area auf
+   Geräten mit Home-Indikator). So bleibt der Inhalt IMMER oberhalb der Zeile —
+   die Fußzeile ist eine eigene, dauerhaft sichtbare Zeile unter dem Inhalt. */
+body:has(.legal-footer) {
+    padding-bottom: calc(var(--footer-height) + env(safe-area-inset-bottom));
+}
 body {
-    position: relative;
     min-height: 100dvh;
 }
 
@@ -276,38 +284,40 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 }
 
 /* --- RECHTS-FOOTER (Impressum / Datenschutz) ---
-   Wird von injectLegalFooter() (ui.js) auf JEDER Seite unten rechts
-   eingeblendet — die Pflichtangaben müssen immer erreichbar sein.
-   - position:absolute (Bezug = body, s. o.) → der Footer klebt am SEITENENDE,
-     nicht am Viewport: auf nicht-scrollenden Seiten steht er wie bisher unten;
-     auf scrollbaren Seiten ist er erst sichtbar, wenn man ganz nach unten scrollt
-     (statt dauerhaft über dem Inhalt zu schweben).
-   - bottom/right über max(.., env(safe-area-inset-*)) → auf Smartphones/Tablets
-     nicht hinter Notch/Home-Indikator (und damit nicht verdeckt).
+   Wird von injectLegalFooter() (ui.js) auf JEDER Seite eingeblendet — die
+   Pflichtangaben müssen immer erreichbar sein. Spiegelbild zur fixen Kopfzeile:
+   - position:fixed über die volle Breite am unteren Rand → eine eigene, dauerhaft
+     sichtbare ZEILE; der Body reserviert dafür padding-bottom (s. o.) und die
+     Übungs-Bühne (--stage-height) zieht die Höhe ab → der Inhalt liegt IMMER
+     oberhalb, nie unter der Fußzeile.
+   - height = --footer-height (einzige Quelle, ui.css), + Safe-Area-Padding unten,
+     damit die Zeile auf Geräten mit Home-Indikator nicht verdeckt wird.
+   - Links rechtsbündig (justify-content:flex-end) — wie zuvor unten rechts.
    - z-index 990: über dem Seiteninhalt, aber unter Header (1000), Settings-
-     Dropdown (30000) und Feedback-Modal-Overlay — die decken ihn bei Bedarf ab.
-   - pointer-events nur auf den LINKS (Hülle = none) → die dezente Hülle blockiert
-     keine Taps auf darunterliegende Bedienelemente (z. B. Antwort-Optionen). */
+     Dropdown (30000) und Feedback-Modal-Overlay — die decken sie bei Bedarf ab. */
 .legal-footer {
-    position: absolute;
-    right: max(8px, env(safe-area-inset-right));
-    bottom: max(6px, env(safe-area-inset-bottom));
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--footer-height);
+    box-sizing: content-box;
+    padding-bottom: env(safe-area-inset-bottom);
     z-index: 990;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 6px;
-    pointer-events: none;
-    max-width: calc(100vw - 16px);
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
     font-family: var(--ui-font);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     line-height: 1;
     color: var(--gray-text);
-    background: rgba(255, 255, 255, 0.72);
-    padding: 3px 8px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
 }
 .legal-footer a {
-    pointer-events: auto;
     color: var(--gray-text);
     text-decoration: none;
     font-weight: 700;
