@@ -7,6 +7,13 @@
 }
 
 .exercise-area {
+    /* Modul-lokal kleinere Zahl-/Dropboxen: im Schritte-Modus stehen bis zu drei
+       Gleichungszeilen UNTEREINANDER — mit der globalen Standardgröße (bis 180px)
+       wurde der Block so hoch, dass autofit alles (inkl. der Zeilenabstände)
+       uniform herunterskalierte → die Aufgaben klebten aneinander. Kleinere Boxen
+       lassen den Block nativ passen, sodass die echten Abstände (math-steps gap)
+       sichtbar bleiben. */
+    --nb-box-size: clamp(58px, min(12vw, 13vh), 112px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,10 +80,11 @@
 .math-steps {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    /* Mehr Luft zwischen den untereinander stehenden Gleichungszeilen. */
+    gap: clamp(18px, 4vh, 40px);
     align-items: center;
     flex-grow: 1;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .math-row {

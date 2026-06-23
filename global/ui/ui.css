@@ -59,6 +59,16 @@ body:has(.header) {
     padding-top: var(--header-height);
 }
 
+/* Bezugsrahmen für den absolut positionierten Rechts-Footer (s. .legal-footer):
+   relative + min-height 100dvh → der Footer sitzt am UNTEREN Rand des Body
+   (= Seitenende), nicht fix am Viewport. Auf kurzen Seiten füllt min-height die
+   Höhe, damit der Footer trotzdem ganz unten steht; auf langen, scrollbaren
+   Seiten wandert er ans echte Inhaltsende (erst beim Herunterscrollen sichtbar). */
+body {
+    position: relative;
+    min-height: 100dvh;
+}
+
 /* Kein horizontales Schieben/Wackeln auf dem Smartphone: die Seite darf nur
    vertikal scrollen. So lassen sich die Menü-Kacheln nicht mehr nach links/
    rechts ziehen, wenn gar kein Inhalt seitlich verdeckt ist. */
@@ -268,7 +278,10 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 /* --- RECHTS-FOOTER (Impressum / Datenschutz) ---
    Wird von injectLegalFooter() (ui.js) auf JEDER Seite unten rechts
    eingeblendet — die Pflichtangaben müssen immer erreichbar sein.
-   - position:fixed → bleibt beim Scrollen sichtbar und am Viewport-Rand.
+   - position:absolute (Bezug = body, s. o.) → der Footer klebt am SEITENENDE,
+     nicht am Viewport: auf nicht-scrollenden Seiten steht er wie bisher unten;
+     auf scrollbaren Seiten ist er erst sichtbar, wenn man ganz nach unten scrollt
+     (statt dauerhaft über dem Inhalt zu schweben).
    - bottom/right über max(.., env(safe-area-inset-*)) → auf Smartphones/Tablets
      nicht hinter Notch/Home-Indikator (und damit nicht verdeckt).
    - z-index 990: über dem Seiteninhalt, aber unter Header (1000), Settings-
@@ -276,7 +289,7 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
    - pointer-events nur auf den LINKS (Hülle = none) → die dezente Hülle blockiert
      keine Taps auf darunterliegende Bedienelemente (z. B. Antwort-Optionen). */
 .legal-footer {
-    position: fixed;
+    position: absolute;
     right: max(8px, env(safe-area-inset-right));
     bottom: max(6px, env(safe-area-inset-bottom));
     z-index: 990;

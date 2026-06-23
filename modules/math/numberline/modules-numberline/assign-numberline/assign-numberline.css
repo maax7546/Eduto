@@ -58,7 +58,9 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
-    pointer-events: auto;
+    /* pointer-events bewusst NICHT hier auf auto: das steuert numberline.css
+       gegatet über body.nb-dragging, damit Wischen über die Slots (ohne Box in
+       der Hand) den Zahlenstrahl verschiebt und nicht hakt. */
     transition: background-color 0.2s, border-color 0.2s, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -109,7 +111,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    /* wrap-reverse: passen nicht alle Boxen in eine Zeile (Smartphone), klappen
+       die überzähligen nach OBEN um statt nach unten — so rutscht keine Box zu
+       weit an den unteren Bildschirmrand. Bei einer einzigen Zeile kein Effekt. */
+    flex-wrap: wrap-reverse;
     gap: 15px;
     padding: 20px 40px;
     background-color: transparent;

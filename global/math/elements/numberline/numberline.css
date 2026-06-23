@@ -75,12 +75,22 @@
     z-index: 2; 
 }
 
-.tick-label { 
-    position: absolute; 
-    top: calc(50% + 45px); 
-    transform: translateX(-50%); 
-    font-size: clamp(24px, 5vw, 48px); 
-    font-weight: 900; 
-    color: #333; 
-    z-index: 3; 
+.tick-label {
+    position: absolute;
+    top: calc(50% + 45px);
+    transform: translateX(-50%);
+    font-size: clamp(24px, 5vw, 48px);
+    font-weight: 900;
+    color: #333;
+    z-index: 3;
 }
+
+/* SLOTS (Drop-Zonen auf dem Strahl) fangen Touch/Maus NUR, während wirklich eine
+   Numberbox gezogen wird (body.nb-dragging, gesetzt vom globalen DragDropManager).
+   Grund: render() erzeugt die Slots bei JEDEM Frame neu — wäre ein Slot beim
+   Wischen das Touch-Ziel, verlöre der Finger beim Neu-Rendern sein Ziel und die
+   Wischgeste würde haken. Ohne Box in der Hand soll Wischen über die Slots also
+   einfach den Zahlenstrahl schieben; erst beim aktiven Box-Zug werden sie zu
+   Drop-Zielen (dann findet elementFromPoint sie wieder). */
+.slot.drop-zone { pointer-events: none; }
+body.nb-dragging .slot.drop-zone { pointer-events: auto; }
