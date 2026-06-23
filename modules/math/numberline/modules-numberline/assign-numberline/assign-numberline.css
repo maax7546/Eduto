@@ -23,9 +23,18 @@
     overflow: hidden;
 }
 
-/* 3. ZAHLENSTRAHL VIEWPORT */
+/* 3. ZAHLENSTRAHL VIEWPORT
+   NICHT flex:1 — sonst füllt der Viewport den ganzen Platz über den Antwort-
+   Boxen, und weil der Zahlenstrahl seinen Inhalt bei top:50% ZENTRIERT, landet
+   die Linie in der Mitte dieses riesigen Bereichs: oben klafft eine leere
+   Fläche, unten rücken die Drop-Felder dicht an die Boxen ("nimmt mehr Platz ein
+   als er muss / überlagert die Elemente darunter"). Stattdessen bekommt der
+   Viewport GENAU die Höhe, die der Strahl braucht: oben die Ticks, unten die
+   um 45px tiefer hängenden Drop-Felder/Labels (Höhe = Box-Größe). So sitzt der
+   Strahl kompakt oben unter der Kopfzeile; der Rest bleibt frei. */
 .viewport {
-    flex: 1;
+    flex: 0 0 auto;
+    height: calc(var(--nb-box-size-small, 70px) * 2 + 120px);
     width: 100vw;
     max-width: none;
     margin: 0;
@@ -37,7 +46,7 @@
     position: relative;
     display: block;
     overflow: hidden;
-    user-select: none; 
+    user-select: none;
 }
 
 /* 4. PRÄZISE POSITIONIERUNG DER DROPZONES (SLOTS) */
@@ -111,6 +120,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Boxen ans untere Ende schieben: der Zahlenstrahl-Band sitzt jetzt kompakt
+       oben, dazwischen bleibt freie Fläche (Spielfeld zum Hochziehen). */
+    margin-top: auto;
     /* wrap-reverse: passen nicht alle Boxen in eine Zeile (Smartphone), klappen
        die überzähligen nach OBEN um statt nach unten — so rutscht keine Box zu
        weit an den unteren Bildschirmrand. Bei einer einzigen Zeile kein Effekt. */

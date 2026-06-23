@@ -33,7 +33,13 @@
        Rechts-Fußzeile (Impressum/Datenschutz) liegt als FIXE Zeile am unteren
        Rand und reserviert diesen Platz, damit der Inhalt nie darunter rutscht
        (Body-padding-bottom unten + --stage-height in scaling.css ziehen sie ab). */
-    --footer-height: clamp(26px, 4.5vw, 36px);
+    /* Höhe der kleinen Rechts-Fußzeile. Bewusst NUR schwach an die Breite
+       gekoppelt (kleiner Faktor + niedriger Deckel): früher 4.5vw → auf dem
+       Tablet/Desktop schlug das am 36px-Deckel an, auf dem Handy am 26px-Boden,
+       sodass die Zeile auf dem Tablet spürbar höher wirkte als sonst. Die Zeile
+       trägt nur eine 0.72rem-Textzeile (Impressum/Datenschutz) — eine fast
+       konstante, niedrige Höhe genügt und gibt den Übungen mehr Bühne. */
+    --footer-height: clamp(22px, 2.2vw, 26px);
 }
 
 /* --- GLOBALER RESET ---
@@ -314,8 +320,11 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
     font-size: 0.72rem;
     line-height: 1;
     color: var(--gray-text);
-    background: rgba(255, 255, 255, 0.9);
-    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    /* Keine visuelle Abgrenzung: weder Hintergrundbalken noch Trennlinie. Die
+       Zeile liegt auf einer eigenen, vom Body reservierten Höhe (padding-bottom
+       oben), Inhalt schiebt sich nie darunter — daher braucht sie keinen
+       deckenden Hintergrund/Rahmen, um sich abzuheben. */
+    background: transparent;
 }
 .legal-footer a {
     color: var(--gray-text);
