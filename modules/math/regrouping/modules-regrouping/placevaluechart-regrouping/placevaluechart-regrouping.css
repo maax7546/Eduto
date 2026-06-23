@@ -65,6 +65,15 @@ body { overflow: hidden; }
     font-size: clamp(22px, 3.4vh, 38px);
     color: var(--pvc-border);
     border-bottom: 3px solid var(--pvc-soft);
+    /* Beschriftung („Zehner (Z)") und Zählhilfe-Badge liegen IN EINER Zeile
+       nebeneinander (Flex), statt dass die Badge absolut über der Schrift
+       schwebt — so überlagert die Zählhilfe den Text nie (war auf dem Smartphone
+       der Fall). Beide schrumpfen zusammen, wenn der Platz eng wird. */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 1.6vw, 12px);
+    min-width: 0;
 }
 
 /* Punkte/Stangen liegen als zentrierter, umbrechender Cluster im Feld —
@@ -81,25 +90,26 @@ body { overflow: hidden; }
     gap: var(--dot-gap);
 }
 
-/* ===== ZÄHLHILFE (Badge oben rechts — ändert das Layout NICHT) ===== */
+/* ===== ZÄHLHILFE (Badge — sitzt als Flex-Kind NEBEN der Beschriftung) =====
+   Liegt jetzt IN der .pvc-label-Zeile (kein position:absolute mehr), damit sie
+   den Text nie überlagert. Größe an die Schrift gekoppelt (em), nicht an die
+   Viewport-Höhe → schrumpft auf dem Smartphone gemeinsam mit der Beschriftung. */
 .count-helper {
-    position: absolute;
-    top: clamp(6px, 1.2vh, 12px);
-    right: clamp(6px, 1.2vh, 12px);
-    min-width: clamp(34px, 5vh, 50px);
-    height: clamp(34px, 5vh, 50px);
-    padding: 0 8px;
+    flex: 0 0 auto;
+    min-width: 1.5em;
+    height: 1.5em;
+    padding: 0 0.35em;
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     background: var(--primary);
     color: #fff;
-    font-size: clamp(18px, 2.6vh, 28px);
+    font-size: 0.8em;
     font-weight: 900;
+    line-height: 1;
     border-radius: 999px;
     box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
-    z-index: 8;
     pointer-events: none;
 }
 
@@ -140,6 +150,16 @@ body { overflow: hidden; }
         #1e3a8a calc(10% - 2px),
         #1e3a8a 10%
     );
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+/* Ausgewählte Zehnerstange (zum Zählen angetippt): grün und leicht größer —
+   analog zur Punkt-Auswahl im Einer-Feld. */
+.rod.selected {
+    background-color: #22c55e;
+    border-color: #15803d;
+    transform: scale(1.08);
 }
 
 /* ===== ERGEBNIS-TABELLE + STEPPER ===== */

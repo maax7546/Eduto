@@ -81,6 +81,10 @@ body:has(.legal-footer) {
 }
 body {
     min-height: 100dvh;
+    /* Bezug für die absolut positionierte Rechts-Fußzeile (.legal-footer, s.u.):
+       sie soll am unteren Ende des GESAMTEN Dokuments sitzen, nicht am
+       Viewport-Rand kleben. */
+    position: relative;
 }
 
 /* Kein horizontales Schieben/Wackeln auf dem Smartphone: die Seite darf nur
@@ -292,17 +296,21 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 /* --- RECHTS-FOOTER (Impressum / Datenschutz) ---
    Wird von injectLegalFooter() (ui.js) auf JEDER Seite eingeblendet — die
    Pflichtangaben müssen immer erreichbar sein. Spiegelbild zur fixen Kopfzeile:
-   - position:fixed über die volle Breite am unteren Rand → eine eigene, dauerhaft
-     sichtbare ZEILE; der Body reserviert dafür padding-bottom (s. o.) und die
-     Übungs-Bühne (--stage-height) zieht die Höhe ab → der Inhalt liegt IMMER
-     oberhalb, nie unter der Fußzeile.
+   - position:absolute am unteren Ende des BODYS (nicht fixed!) über die volle
+     Breite → die Zeile sitzt am unteren Ende des GESAMTEN Dokuments und nicht
+     fest am Viewport. Auf kurzen Übungs-Seiten (Body ≈ 100dvh, --stage-height
+     zieht die Höhe ab) erscheint sie wie zuvor unten am Schirm; auf langen,
+     scrollbaren Seiten (Menüs auf dem Smartphone) liegt sie GANZ UNTEN unter dem
+     Inhalt und überlagert die Menü-Buttons nicht mehr — man scrollt hinunter, um
+     Impressum/Datenschutz zu erreichen. Der Body reserviert dafür padding-bottom
+     (s. o.), damit Inhalt im Fluss nie unter die Zeile rutscht.
    - height = --footer-height (einzige Quelle, ui.css), + Safe-Area-Padding unten,
      damit die Zeile auf Geräten mit Home-Indikator nicht verdeckt wird.
    - Links rechtsbündig (justify-content:flex-end) — wie zuvor unten rechts.
    - z-index 990: über dem Seiteninhalt, aber unter Header (1000), Settings-
      Dropdown (30000) und Feedback-Modal-Overlay — die decken sie bei Bedarf ab. */
 .legal-footer {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
