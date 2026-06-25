@@ -9,8 +9,8 @@
          (keine Numberbox/Dropzone/Check-Button) und kein math-Bundle.
          Dafür das werkzeuge-Bündel (SeatTable = globaler Tisch-Baustein). -->
     <link rel="stylesheet" href="../../../../../global/ui/bundleimport/global-bundleimport.css">
-    <link rel="stylesheet" href="../../../../../global/werkzeuge/bundleimport/werkzeuge-bundleimport.css">
-    <link rel="stylesheet" href="sitzplan-einteilung.css?v=2">
+    <link rel="stylesheet" href="../../../../../global/werkzeuge/bundleimport/werkzeuge-bundleimport.css?v=4">
+    <link rel="stylesheet" href="sitzplan-einteilung.css?v=3">
 </head>
 <body>
 
@@ -20,12 +20,19 @@
 
         <!-- Die große freie Fläche (der Raum). Tische werden hier abgelegt. -->
         <section id="sp-area" class="sp-area">
-            <div class="sp-front">Tafel</div>
+            <!-- Bühne: virtuelles Koordinatensystem fester Höhe, per CSS-Transform an
+                 die Flächengröße skaliert. Tische/Tafel/Stühle/Schrift skalieren so
+                 einheitlich mit Fenster/Tablet mit. Tische werden hier (JS) abgelegt. -->
+            <div id="sp-stage" class="sp-stage">
+                <div class="sp-front">Tafel</div>
+            </div>
 
-            <!-- Rückgängig / Wiederholen -->
+            <!-- Rückgängig / Wiederholen + Stühle aus-/einblenden (fix, NICHT skaliert) -->
             <div class="sp-toolbar">
                 <button id="sp-undo" class="sp-tool-btn" type="button" title="Rückgängig" disabled>↶</button>
                 <button id="sp-redo" class="sp-tool-btn" type="button" title="Wiederholen" disabled>↷</button>
+                <button id="sp-chairs" class="sp-tool-btn" type="button" title="Stühle ausblenden">🪑</button>
+                <button id="sp-view" class="sp-tool-btn" type="button" title="Ansicht um 180° drehen (Sicht von der Tafel)">🔄</button>
             </div>
         </section>
 
@@ -57,9 +64,9 @@
     <!-- Lade-Vertrag (Reihenfolge zählt) -->
     <script src="../../../../../global/ui/ui.js?v=2"></script>                            <!-- 1. injectUI + SettingsBuilder-Stub -->
     <script src="../../../../../global/ui/bundleimport/ui-bundleimport.js"></script>  <!-- 2. generische Bausteine (u.a. SettingsBuilder) -->
-    <script src="../../../../../global/werkzeuge/bundleimport/werkzeuge-bundleimport.js"></script> <!-- 3. SeatTable (globaler Tisch) -->
+    <script src="../../../../../global/werkzeuge/bundleimport/werkzeuge-bundleimport.js?v=4"></script> <!-- 3. SeatTable (globaler Tisch) -->
     <script src="ui-sitzplan-einteilung.js"></script>                                <!-- 4. eigene Settings (PDF/Drucken/Reset) -->
-    <script src="sitzplan-einteilung.js?v=3"></script>                               <!-- 5. Modul-Logik -->
+    <script src="sitzplan-einteilung.js?v=14"></script>                              <!-- 5. Modul-Logik -->
 
     <script>
         if (typeof injectUI === 'function') {

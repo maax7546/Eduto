@@ -233,6 +233,16 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 .btn-fs { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }
 .btn-exit { background-color: var(--red-main); box-shadow: 0 4px 0 #c0392b; }
 .btn-reset { background-color: var(--green-main); box-shadow: 0 4px 0 #1e8449; }
+/* HILFE-BUTTON (?) — eigene Farbe (Lila), hebt sich von Zurück (blau) und
+   Feedback (orange) ab. Größe/Form kommt von .nav-control → exakt so groß wie
+   der Zurück-Button. Das „?" liegt in einem eigenen <span>, damit nur der Glyph
+   (nicht die Button-Maße) vergrößert wird — analog zu .btn-back-arrow. */
+.btn-help { background-color: #9b59b6; box-shadow: 0 4px 0 #8e44ad; }
+.btn-help-mark {
+    font-size: calc(var(--nav-font-size) * 1.25);
+    font-weight: 900;
+    line-height: 1;
+}
 /* Generische Farb-Modifier für frei platzierte .nav-control-Buttons außerhalb
    des Headers (z. B. das "Zu welcher Zahl springen?"-Modal). */
 .nav-control.blue { background-color: var(--blue-main); box-shadow: 0 4px 0 #2980b9; }

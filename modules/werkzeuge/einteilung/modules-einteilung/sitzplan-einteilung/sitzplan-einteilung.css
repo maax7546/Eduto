@@ -37,22 +37,41 @@ body {
     min-height: 0;
     position: relative;
     overflow: hidden;
-    /* feines Raster als Orientierung im sonst weißen Raum */
     background-color: #ffffff;
+    /* Raster über die GANZE Fläche. Zellgröße = 28 virtuelle px · Bühnen-Skalierung
+       (JS setzt --sp-grid) und horizontal am Bühnen-Ursprung ausgerichtet
+       (--sp-grid-x = currentOffsetX) → die Linien decken sich exakt mit den
+       Tisch-Koordinaten und füllen trotzdem die ganze Seite. */
     background-image:
-        repeating-linear-gradient(0deg, #e7eeec 0 1px, transparent 1px 28px),
-        repeating-linear-gradient(90deg, #e7eeec 0 1px, transparent 1px 28px);
+        linear-gradient(0deg, #e7eeec 1px, transparent 1px),
+        linear-gradient(90deg, #e7eeec 1px, transparent 1px);
+    background-size: var(--sp-grid, 28px) var(--sp-grid, 28px);
+    background-position: var(--sp-grid-x, 0px) 0;
     border: 2px solid #d6e0dd;
     border-radius: 16px;
     touch-action: none;
 }
 
-/* Rückgängig / Wiederholen — oben links in der Fläche. */
+/* Bühne: virtuelles Koordinatensystem (feste Höhe), per JS mit transform:scale an
+   die Fläche angepasst. transform-origin oben links, damit (0,0) = Flächen-Ecke.
+   Das Raster liegt NICHT hier, sondern auf der Fläche (.sp-area) — über --sp-grid
+   an diese Skalierung gekoppelt, damit es die ganze Seite deckt. Transform setzt JS. */
+.sp-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+}
+
+/* Rückgängig / Wiederholen / Stühle — oben links in der Fläche. Die Leiste darf
+   umbrechen, damit der Stuhl-Knopf unter Rückgängig/Wiederholen rutscht. */
 .sp-toolbar {
     position: absolute;
     top: 8px;
     left: 8px;
     display: flex;
+    flex-wrap: wrap;
+    max-width: 86px;   /* zwei Knöpfe je Reihe (40+6+40) → dritter bricht um */
     gap: 6px;
     z-index: 80;
 }
@@ -77,6 +96,17 @@ body {
 }
 .sp-tool-btn:active:not(:disabled) { transform: translateY(3px); box-shadow: none; }
 .sp-tool-btn:disabled { opacity: 0.4; cursor: default; box-shadow: 0 4px 0 #9fb4c4; }
+
+/* Stuhl-Knopf: im „aus"-Zustand (Stühle ausgeblendet) gedämpft/grau. */
+#sp-chairs { font-size: 20px; }
+#sp-chairs.sp-off { background: #b0bec5; box-shadow: 0 4px 0 #8aa0a8; }
+
+/* Ansicht-Drehen-Knopf: hervorgehoben, wenn die Sicht von der Tafel aktiv ist. */
+#sp-view { font-size: 18px; }
+#sp-view.sp-active { background: #16a085; box-shadow: 0 4px 0 #11806b; }
+
+/* Gedrehte Ansicht („von der Tafel"): die Tafel sitzt dann unten statt oben. */
+.sp-area.sp-flipped .sp-front { top: auto; bottom: 8px; }
 
 /* ×-Knopf der Mehrfach-Auswahl — löscht alle ausgewählten Tische auf einmal.
    Optik wie das Tisch-× (.st-del-table), sitzt an der Hülle der Auswahl. */
@@ -115,7 +145,7 @@ body {
     top: 8px;
     left: 50%;
     transform: translateX(-50%);
-    width: min(58%, 680px);
+    width: min(92%, 376px);   /* genau 2 Doppeltische breit (2 × 188 px) */
     box-sizing: border-box;
     background: #2c3e50;
     color: white;
@@ -173,9 +203,9 @@ body {
     border: 2px solid #c8a36a;
     border-radius: 0;
 }
-.sp-prev-einzel { width: 34px; height: 24px; }
-.sp-prev-doppel { width: 58px; height: 24px; }
-.sp-prev-vierer { width: 58px; height: 42px; }
+.sp-prev-einzel { width: 42px; height: 30px; }
+.sp-prev-doppel { width: 72px; height: 30px; }
+.sp-prev-vierer { width: 72px; height: 53px; }
 
 .sp-tool-label {
     font-family: var(--ui-font, sans-serif);

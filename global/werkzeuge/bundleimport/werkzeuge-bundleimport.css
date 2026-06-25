@@ -3,4 +3,5 @@
  * Pfade relativ zu global/werkzeuge/ (eine Ebene über bundleimport/).
  * Nur von Werkzeug-Modulen geladen, die diese Bausteine brauchen.
  */
-@import url("../elements/seattable/seattable.css");
+/* ?v=… gegen Browser-Cache: bei Änderung an seattable.css hochzählen. */
+@import url("../elements/seattable/seattable.css?v=4");

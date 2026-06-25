@@ -41,7 +41,7 @@
     pointer-events: none;
     font-family: var(--ui-font, sans-serif);
     font-weight: 800;
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #6b5638;
@@ -56,8 +56,8 @@
 /* ---- Stuhl (Kreis mit Namensfeld) --------------------------------------- */
 .st-chair {
     position: absolute;
-    width: 38px;
-    height: 38px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: #ffffff;
     border: 2px solid #8aa0a8;
@@ -66,19 +66,49 @@
     justify-content: center;
     box-sizing: border-box;
 }
+/* Namensfeld: liegt AUSSERHALB des Stuhls (Seite je nach Tischlage); Größe und
+   Position setzt JS (placeName), damit der ganze Name lesbar bleibt und weder
+   Stuhl noch Tisch überlagert wird. Leichte weiße Pille zur Lesbarkeit. */
 .st-chair-name {
-    width: 90%;
+    position: absolute;
+    box-sizing: border-box;
+    height: 18px;
     border: none;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 4px;
     outline: none;
     text-align: center;
     font-family: var(--ui-font, sans-serif);
     font-weight: 700;
-    font-size: 11px;
+    font-size: 14px;
+    line-height: 18px;
     color: #2c3e50;
-    padding: 0;
+    padding: 0 3px;
+    white-space: nowrap;
+    z-index: 2;
 }
+.st-chair-name:not(.st-has-name) { background: transparent; }
 .st-chair-name::placeholder { color: transparent; }
+
+/* Klick auf einen Stuhl fokussiert sein (ggf. leeres) Namensfeld. Der native
+   Text-Cursor wird in GEDREHTEN <input>-Feldern von vielen Browsern nicht
+   gezeichnet → man sähe sonst nur bei nicht gedrehten Tischen, dass man tippen
+   kann. Ein deutlicher Fokus-Rahmen + heller Hintergrund zeigt das Schreibfeld
+   bei JEDER Tischdrehung zuverlässig an. */
+.st-chair-name:focus {
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 0 0 2px var(--blue-main, #3498db);
+    min-width: 18px;
+}
+
+/* Stühle deaktiviert: Kreise unsichtbar (Namen bleiben am Stuhl-Platz stehen). */
+.st-table.st-no-chairs .st-chair {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+.st-table.st-no-chairs .st-add,
+.st-table.st-no-chairs .st-del-chair { display: none !important; }
 
 /* ---- Bedien-Elemente (nur bei Auswahl sichtbar) ------------------------- */
 .st-handle, .st-add, .st-del-table {
@@ -108,6 +138,15 @@
 .st-del-chair { display: none; }
 .st-table.st-solo .st-del-chair { display: flex; }
 
+/* Während des Drehens ALLE Tisch-Buttons ausblenden — sie würden sonst mit dem
+   Tisch mitschwenken. Nach dem Loslassen (Klasse weg) erscheinen sie wieder an
+   ihren Ecken: ×-Tisch oben rechts, Dreh-Griff oben links, Größer-Griff unten
+   rechts, Stuhl-× oben rechts am Stuhl. */
+.st-table.st-rotating .st-handle,
+.st-table.st-rotating .st-add,
+.st-table.st-rotating .st-del-table,
+.st-table.st-rotating .st-del-chair { display: none !important; }
+
 .st-handle {
     background: #16a085;
     color: white;
@@ -124,6 +163,8 @@
     font-size: 16px;
 }
 .st-add:hover { background: #d6efe8; }
+/* Seite voll (Stuhl-Limit erreicht) → ＋ gesperrt. */
+.st-add.st-add-full { opacity: 0.3; cursor: default; pointer-events: none; }
 
 .st-del-table {
     background: #e74c3c;
@@ -133,11 +174,10 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Stuhl entfernen (× am Stuhl) */
+/* Stuhl entfernen (× am Stuhl). Position setzt JS (placeChairDel) — immer optisch
+   oben rechts am Stuhl, aufrecht, auch bei gedrehtem Tisch/Ansicht. */
 .st-del-chair {
     position: absolute;
-    top: -8px;
-    right: -8px;
     width: 18px;
     height: 18px;
     border-radius: 50%;
