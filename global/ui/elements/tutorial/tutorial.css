@@ -56,24 +56,42 @@ html.tut-active { overflow: hidden; }
     pointer-events: auto;
 }
 
-/* --- Belohnungs-Häkchen: poppt einmal auf und BLEIBT dann stehen (bis das Kind
-   per Weiter-Pfeil weitergeht) — die ruhige Bestätigung, dass der Schritt
-   geschafft ist. --- */
+/* --- Erledigt-Häkchen: ein kleines grünes Badge mit weißem Haken, das OBEN
+   RECHTS an der Ecke des erledigten Elements sitzt (Position setzt tutorial.js).
+   Poppt einmal auf und BLEIBT dann stehen (bis das Kind per Weiter-Pfeil
+   weitergeht) — die ruhige Bestätigung, dass der Schritt geschafft ist. --- */
 .tut-cheer {
     position: absolute;
+    /* left/top = obere rechte Ecke des Elements; translate zentriert das Badge
+       auf diesem Punkt → es ragt zur Hälfte nach außen (= „neben der Ecke"). */
     transform: translate(-50%, -50%) scale(0.4);
-    color: var(--tut-done);
-    font-size: 4rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--tut-done);
+    color: #fff;
+    font-size: 20px;
     font-weight: 900;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 3px #fff;
     opacity: 0;
     pointer-events: none;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    /* Über der Sprechblase (gleiche Ebene, später im DOM) liegen, damit das Badge
+       an der Element-Ecke sichtbar bleibt, auch wenn die Blase daneben/darüber
+       sitzt. */
+    z-index: 3;
 }
-.tut-cheer.tut-cheer-show { animation: tut-cheer-pop .5s ease forwards; }
+.tut-cheer.tut-cheer-show { animation: tut-cheer-pop .45s ease forwards; }
 @keyframes tut-cheer-pop {
     0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
-    60% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+    60% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
     100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@media (max-width: 600px) {
+    .tut-cheer { width: 28px; height: 28px; font-size: 17px; }
 }
 
 /* --- Sprechblase --- */
@@ -236,5 +254,4 @@ html.tut-active { overflow: hidden; }
     .tut-text { font-size: 0.96rem; }
     .tut-next { height: 42px; min-width: 42px; }
     .tut-prev { width: 34px; height: 34px; }
-    .tut-cheer { font-size: 3rem; }
 }
