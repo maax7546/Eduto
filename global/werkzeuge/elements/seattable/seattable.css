@@ -111,7 +111,7 @@
 .st-table.st-no-chairs .st-del-chair { display: none !important; }
 
 /* ---- Bedien-Elemente (nur bei Auswahl sichtbar) ------------------------- */
-.st-handle, .st-add, .st-del-table {
+.st-handle, .st-add, .st-del-table, .st-flip {
     position: absolute;
     width: 24px;
     height: 24px;
@@ -132,7 +132,8 @@
    Bei Mehrfach-Auswahl bleibt es bei der reinen Auswahl-Umrandung. */
 .st-table.st-solo .st-handle,
 .st-table.st-solo .st-add,
-.st-table.st-solo .st-del-table { display: flex; }
+.st-table.st-solo .st-del-table,
+.st-table.st-solo .st-flip { display: flex; }
 
 /* Stuhl-× nur bei Einzel-Auswahl */
 .st-del-chair { display: none; }
@@ -145,6 +146,7 @@
 .st-table.st-rotating .st-handle,
 .st-table.st-rotating .st-add,
 .st-table.st-rotating .st-del-table,
+.st-table.st-rotating .st-flip,
 .st-table.st-rotating .st-del-chair { display: none !important; }
 
 .st-handle {
@@ -173,6 +175,18 @@
     font-size: 17px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
+
+/* Spiegel-Buttons in der Tisch-MITTE: Stühle auf die gegenüberliegende Seite
+   klappen (↔ horizontal, ↕ vertikal). Position setzt JS (placeCenter), aufrecht
+   auch bei gedrehtem Tisch. */
+.st-flip {
+    background: #2c6fb3;
+    color: white;
+    border: 2px solid white;
+    font-size: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.st-flip:hover { background: #245d96; }
 
 /* Stuhl entfernen (× am Stuhl). Position setzt JS (placeChairDel) — immer optisch
    oben rechts am Stuhl, aufrecht, auch bei gedrehtem Tisch/Ansicht. */

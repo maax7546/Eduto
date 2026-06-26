@@ -256,3 +256,37 @@ html.tut-active { overflow: hidden; }
     .tut-next { height: 42px; min-width: 42px; }
     .tut-prev { width: 34px; height: 34px; }
 }
+
+/* ============================================================================
+   ZWEI-PHASEN-MODUS (kleine Schirme / Smartphones)
+   Pro Schritt erst LESEN (Text mittig, kein Spotlight), dann auf „Ausprobieren"
+   die MACH-Phase (Highlight + Aktion, Blase schrumpft auf „mini" = nur Knöpfe).
+   tutorial.js setzt die Klassen .tut-small (Wurzel), .tut-read / .tut-mini (Blase).
+   ============================================================================ */
+
+/* Lesephase: die Blase steht mittig (Position kommt aus JS) und darf ruhig etwas
+   großzügiger sein — sie ist gerade der alleinige Inhalt. */
+.tut-bubble.tut-read {
+    max-width: min(440px, 92vw);
+}
+.tut-bubble.tut-read .tut-text { font-size: 1.06rem; }
+/* Aufforderungs-Knopf in der Lesephase („Ausprobieren"/„Weiter") — breit & klar. */
+.tut-try {
+    font-size: 1.08rem;
+    font-weight: 900;
+    padding: 0 6px;
+    white-space: nowrap;
+}
+
+/* Mach-Phase (mini): die Blase ist auf die Knopfleiste reduziert (Titel/Text sind
+   per JS ausgeblendet) und sitzt klein irgendwo am Rand, ohne das Highlight zu
+   verdecken. */
+.tut-bubble.tut-mini {
+    padding: 24px 10px 8px;   /* oben Platz fürs kleine Schließen-× */
+    border-radius: 14px;
+    max-width: max-content;
+}
+.tut-bubble.tut-mini .tut-footer { margin-top: 0; }
+/* Schließen-× bleibt auch mini erreichbar (sonst käme man auf dem ersten Schritt
+   am Smartphone nicht aus der Tour), nur kleiner und dicht in der Ecke. */
+.tut-bubble.tut-mini .tut-close { top: 3px; right: 5px; width: 22px; height: 22px; font-size: 1.15rem; }

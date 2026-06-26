@@ -70,7 +70,10 @@ body.show-help-numbers .help-number-label {
     justify-content: center;
     gap: 20px;
     padding: 20px;
-    width: 100%;
+    /* KEIN width:100% — sonst spannt der Options-Streifen über die ganze Breite
+       und das Tutorial-Highlight (#symbolContainer) leuchtet den gesamten unteren
+       Bereich aus. Ohne Breite schrumpft das Flex-Item in der zentrierten Spalte
+       auf Inhaltsbreite (eng um die Symbol-Boxen) — wie bei numbers/numberrow. */
 }
 
 /* Schmale Schirme (Smartphone hochkant): zwei Zehnerfelder passen NICHT

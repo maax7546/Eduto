@@ -37,7 +37,15 @@
     box-sizing: border-box;
     break-inside: avoid; /* beim Drucken nicht über Seiten zerreißen */
 }
-.ge-group.ge-dragging { opacity: 0.4; }
+/* Die gezogene Reihe hebt sich ab und folgt dem Finger (transform via JS). */
+.ge-group.ge-dragging {
+    position: relative;
+    z-index: 5;
+    box-shadow: 0 10px 24px rgba(22, 160, 133, 0.28);
+    border-color: #16a085;
+    cursor: grabbing;
+    will-change: transform;
+}
 
 .ge-grip {
     cursor: grab;
