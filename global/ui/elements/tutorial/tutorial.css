@@ -57,13 +57,14 @@ html.tut-active { overflow: hidden; }
 }
 
 /* --- Erledigt-Häkchen: ein kleines grünes Badge mit weißem Haken, das OBEN
-   RECHTS an der Ecke des erledigten Elements sitzt (Position setzt tutorial.js).
-   Poppt einmal auf und BLEIBT dann stehen (bis das Kind per Weiter-Pfeil
-   weitergeht) — die ruhige Bestätigung, dass der Schritt geschafft ist. --- */
+   LINKS an der Ecke der SPRECHBLASE sitzt (Position setzt tutorial.js) — IMMER
+   dort, unabhängig vom bedienten Element. Poppt einmal auf und BLEIBT dann stehen
+   (bis das Kind per Weiter-Pfeil weitergeht) — die ruhige Bestätigung, dass der
+   Schritt geschafft ist. --- */
 .tut-cheer {
     position: absolute;
-    /* left/top = obere rechte Ecke des Elements; translate zentriert das Badge
-       auf diesem Punkt → es ragt zur Hälfte nach außen (= „neben der Ecke"). */
+    /* left/top = obere linke Ecke der Blase; translate zentriert das Badge auf
+       diesem Punkt → es ragt zur Hälfte nach außen (= „neben der Ecke"). */
     transform: translate(-50%, -50%) scale(0.4);
     width: 34px;
     height: 34px;

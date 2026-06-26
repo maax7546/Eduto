@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Schule">
+  <!-- Hintergrund (full-bleed → auch als maskable PWA-Icon tauglich) -->
+  <rect width="512" height="512" rx="112" fill="#4f86d6"/>
+
+  <!-- Fahnenmast + Fahne oben mittig -->
+  <rect x="251" y="120" width="10" height="84" rx="5" fill="#37404f"/>
+  <path d="M261 126 h52 l-15 16 15 16 h-52 z" fill="#e8523f"/>
+
+  <!-- Rotes Dach (breite Platte) -->
+  <rect x="120" y="196" width="272" height="42" rx="12" fill="#e8523f"/>
+  <rect x="120" y="196" width="272" height="14" rx="7" fill="#f06a58"/>
+
+  <!-- Gebäude -->
+  <rect x="138" y="234" width="236" height="180" rx="14" fill="#f5ead0"/>
+  <!-- Boden / Sockel -->
+  <rect x="118" y="404" width="276" height="22" rx="11" fill="#d9c8a1"/>
+
+  <!-- Uhr -->
+  <circle cx="256" cy="284" r="31" fill="#fff" stroke="#37404f" stroke-width="7"/>
+  <g stroke="#37404f" stroke-width="6" stroke-linecap="round">
+    <line x1="256" y1="284" x2="256" y2="266"/>
+    <line x1="256" y1="284" x2="271" y2="290"/>
+  </g>
+  <circle cx="256" cy="284" r="4" fill="#37404f"/>
+
+  <!-- Tür (Bogen) -->
+  <path d="M230 414 V358 a26 26 0 0 1 52 0 V414 Z" fill="#37404f"/>
+  <circle cx="274" cy="388" r="4" fill="#f5ead0"/>
+
+  <!-- Fenster links + rechts (Bogen) -->
+  <path d="M168 408 V352 a22 22 0 0 1 44 0 V408 Z" fill="#4f86d6"/>
+  <path d="M300 408 V352 a22 22 0 0 1 44 0 V408 Z" fill="#4f86d6"/>
+</svg>
