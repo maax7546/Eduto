@@ -110,7 +110,7 @@ body {
 
 /* ×-Knopf der Mehrfach-Auswahl — löscht alle ausgewählten Tische auf einmal.
    Optik wie das Tisch-× (.st-del-table), sitzt an der Hülle der Auswahl. */
-#sp-seldel, #sp-selrot {
+#sp-seldel, #sp-selrot, .sp-selflip {
     position: absolute;
     width: 28px;
     height: 28px;
@@ -129,6 +129,9 @@ body {
 #sp-seldel { background: #e74c3c; }            /* Auswahl löschen (×) */
 /* Auswahl drehen (↻) — wie der Einzel-Dreh-Griff .st-handle-rotate (grün). */
 #sp-selrot { background: #16a085; cursor: grab; touch-action: none; }
+/* Auswahl spiegeln (↔ / ↕) — wie die Einzel-Spiegel-Buttons .st-flip (blau). */
+.sp-selflip { background: #2c6fb3; font-size: 15px; }
+.sp-selflip:hover { background: #245d96; }
 
 /* Aufzieh-Rechteck der Mehrfach-Auswahl. */
 .sp-marquee {
@@ -218,7 +221,7 @@ body {
 
 /* ---- Drucken ------------------------------------------------------------ */
 @media print {
-    .header, .sp-tray, .sp-front, .sp-toolbar, .sp-marquee, #sp-seldel, #sp-selrot,
+    .header, .sp-tray, .sp-front, .sp-toolbar, .sp-marquee, #sp-seldel, #sp-selrot, .sp-selflip,
     .st-handle, .st-add, .st-del-table, .st-del-chair {
         display: none !important;
     }

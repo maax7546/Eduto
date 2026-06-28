@@ -27,6 +27,13 @@ html.tut-active { overflow: hidden; }
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Eine GEZOGENE Box (draganddrop.js: .nb-drag-ghost, sonst z-index 9999) liegt
+   normalerweise UNTER der Tour-Abdunklung → sie sähe auf dem Weg zur Dropzone
+   abgedunkelt aus, als zöge man sie „unter" die Tour. Während der Tour heben wir
+   den Klon daher ÜBER das Overlay, damit die Box durchgehend hell/hervorgehoben
+   bleibt (sie ist pointer-events:none → fängt keine Klicks ab). */
+html.tut-active .nb-drag-ghost { z-index: 2147483646; }
+
 /* --- Abdunklung + Spotlight (rein visuell) --- */
 .tut-svg {
     position: absolute;
@@ -149,6 +156,14 @@ html.tut-active { overflow: hidden; }
 }
 .tut-close:hover { color: #2c3e50; background: #f0f2f5; }
 
+.tut-section {
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tut-accent);
+    margin: 0 26px 3px 0;
+}
 .tut-title {
     font-weight: 900;
     font-size: 1.15rem;
@@ -208,6 +223,8 @@ html.tut-active { overflow: hidden; }
     transition: background .15s, width .15s, transform .1s;
 }
 .tut-dot:active { transform: scale(0.9); }
+/* Lücke vor dem ersten Punkt eines neuen Bereichs → zeigt die Gliederung. */
+.tut-dot-group { margin-left: 12px; }
 .tut-dot-active {
     background: var(--tut-accent);
     width: 24px;
@@ -290,3 +307,18 @@ html.tut-active { overflow: hidden; }
 /* Schließen-× bleibt auch mini erreichbar (sonst käme man auf dem ersten Schritt
    am Smartphone nicht aus der Tour), nur kleiner und dicht in der Ecke. */
 .tut-bubble.tut-mini .tut-close { top: 3px; right: 5px; width: 22px; height: 22px; font-size: 1.15rem; }
+
+/* Schmale Blase (Schritt mit `bubbleWidth`, z. B. „Zahlenraum wählen"): die
+   Footer-Knöpfe sind kompakter, damit der Weiter-/Fertig-Knopf nicht über den
+   schmalen Blasenrand hinausragt. */
+.tut-bubble.tut-narrow .tut-footer { gap: 7px; }
+.tut-bubble.tut-narrow .tut-prev { width: 34px; height: 34px; font-size: 1.1rem; }
+.tut-bubble.tut-narrow .tut-dots { gap: 7px; }
+.tut-bubble.tut-narrow .tut-next {
+    height: 40px;
+    min-width: 40px;
+    padding: 0 12px;
+    font-size: 1.15rem;
+    border-radius: 20px;
+}
+.tut-bubble.tut-narrow .tut-done-txt { font-size: 0.95rem; }

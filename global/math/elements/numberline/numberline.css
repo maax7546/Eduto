@@ -57,6 +57,21 @@
     height: 100%;
 }
 
+/* Geometrie-Band um den sichtbaren Strahl (Linie mittig, Ticks darüber, Zahlen
+   ~45px darunter): mittig im Viewport, FESTE Höhe statt voller Viewport-Höhe.
+   Rein als Anker (z. B. Tutorial-Spotlight) — unsichtbar, fängt keine Eingaben
+   ab. */
+.numberline-band {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+    height: 240px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
 .main-line { 
     position: absolute; 
     height: 6px; 

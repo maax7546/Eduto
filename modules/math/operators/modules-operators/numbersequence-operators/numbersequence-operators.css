@@ -1,0 +1,293 @@
+@import url("../../../../../global/ui/elements/numberbox.css");
+@import url("../../../../../global/ui/elements/dropzone.css");
+
+body {
+    overflow: hidden;
+}
+
+.game-container {
+    /* Eigene Größen-Tokens dieses Moduls (fluid → Auto-Fit übernimmt den Rest).
+       Bewusst groß gewählt; Auto-Fit skaliert das Ganze bei Bedarf herunter. */
+    --seq-stone: clamp(78px, 13.5vw, 150px);        /* Aufgaben-Steine (untere Reihe) */
+    --seq-cell: clamp(44px, 9vw, 86px);             /* Raster-Zelle der 0–20-Schlange — treibt Stein-Abstände + Frosch */
+    --seq-sw: calc(var(--seq-cell) * 0.94);         /* Schlangen-Stein: Breite (etwas größer) */
+    --seq-sh: calc(var(--seq-cell) * 0.72);         /* Schlangen-Stein: Höhe (Oval, etwas größer) */
+    --seq-frog-size: calc(var(--seq-cell) * 1.5);
+    /* Ein Frosch-Sprung dauert die halbe globale Animationszeit (sonst zu träge). */
+    --seq-hop: calc(var(--anim-speed, 1.6s) * 0.5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: var(--stage-height);
+    /* Wenig Abstand zur oberen Leiste (Header) → mehr Platz fürs Modul. */
+    padding: clamp(2px, 0.6vh, 8px) 12px 8px 12px;
+    box-sizing: border-box;
+    background: #fff;
+    gap: clamp(12px, 2.6vh, 30px);
+}
+
+/* ===================================================================
+   OBEN — feste Zahlenfolge 0–20 als „Schlange" (Frosch hüpft hier)
+   =================================================================== */
+.seq-snake-stage {
+    position: relative;
+    /* Platz oben für den über dem Stein sitzenden, springenden Frosch reservieren. */
+    padding-top: calc(var(--seq-frog-size) * 1.05);
+    display: flex;
+    justify-content: center;
+}
+
+/* Settings-Schalter „🐸 ausblenden": Frosch + obere 0–20-Reihe weg. Der Sprung-Knopf
+   (Frosch-Emoji unter der Regel) steuert nur den Frosch → ohne sichtbare Schlange
+   sinnlos, also auch ausblenden. Der große Abstand oben an der Aufgabe entfällt dann. */
+.game-container.seq-no-snake .seq-snake-stage,
+.game-container.seq-no-snake #seq-jump {
+    display: none;
+}
+.game-container.seq-no-snake .seq-task-row {
+    margin-top: 0;
+}
+
+/* Schlangen-Fläche: Steine + Frosch liegen darin ABSOLUT (gemeinsamer offsetParent).
+   Die ECHTE Größe setzt buildSnake() inline aus SNAKE_W/SNAKE_H (gleichmäßige Folge);
+   die Werte hier sind nur ein Fallback vor dem JS-Lauf. Overflow sichtbar, damit der
+   Frosch über der obersten Reihe sitzen darf. */
+.seq-snake {
+    position: relative;
+    width: calc(16 * var(--seq-cell));
+    height: calc(7 * var(--seq-cell));
+    overflow: visible;
+}
+
+/* Ein Schlangen-Stein (0–20), absolut über left/top platziert (JS rechnet die
+   Zelle aus den Gitter-Koordinaten). EINZELN, NICHT verbunden. Oval wie eine Münze. */
+.seq-snake-stone {
+    position: absolute;
+    width: var(--seq-sw);
+    height: var(--seq-sh);
+    border-radius: 50%;
+    /* Globale Mathe-Schrift für Zahlen (wie Boxen/Optionen), nicht die UI-Schrift. */
+    font-family: var(--math-font);
+    background: radial-gradient(ellipse at 50% 34%, #f0cd8c 0%, #d9a64f 55%, #b27d28 100%);
+    border: 2px solid #8a5a18;
+    box-shadow: 0 3px 0 #774d14, 0 5px 7px rgba(0, 0, 0, .15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: #5a3a10;
+    font-size: calc(var(--seq-sh) * 0.62);
+    line-height: 1;
+}
+
+/* Schon besuchte Folge-Zahl → grün hervorgehoben (zeigt die Sprung-Spur) */
+.seq-snake-stone.seq-visited {
+    background: radial-gradient(ellipse at 50% 34%, #aef0c4 0%, #4ec77e 60%, #2e9e5b 100%);
+    border-color: #1e8449;
+    color: #134d2b;
+}
+
+/* ===================================================================
+   UNTEN — die gerade Aufgabe (Regel links + 7 Holzsteine, KEIN Frosch)
+   =================================================================== */
+.seq-task-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 22px);
+    /* Deutlicher Abstand zwischen der Frosch-Schale (oben) und der Aufgabe. */
+    margin-top: clamp(24px, 6vh, 70px);
+}
+
+/* Spalte links neben der Folge: Regel „+ 2" oben, Frosch-Sprung darunter. */
+.seq-rule-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(4px, 1.2vh, 12px);
+}
+
+/* Regel-Schild „+ 2" */
+.seq-rule {
+    font-weight: 900;
+    font-size: clamp(22px, 4vw, 40px);
+    color: #000;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 6px 16px;
+    white-space: nowrap;
+    user-select: none;
+}
+
+/* EINE nicht umbrechende Zeile — Auto-Fit skaliert sie bei Bedarf herunter. */
+.seq-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: clamp(6px, 1.4vw, 16px);
+}
+
+/* Ein Holzstück / Aufgaben-Stein (1:1 wie zuvor, nur 7 Stück) */
+.seq-stone {
+    flex: 0 0 auto;
+    width: var(--seq-stone);
+    height: calc(var(--seq-stone) * 0.74);
+    border-radius: 50%;
+    /* Globale Mathe-Schrift für Zahlen (wie Boxen/Optionen), nicht die UI-Schrift. */
+    font-family: var(--math-font);
+    background: radial-gradient(ellipse at 50% 34%, #f0cd8c 0%, #d9a64f 55%, #b27d28 100%);
+    border: 3px solid #8a5a18;
+    box-shadow: 0 5px 0 #774d14, 0 9px 12px rgba(0, 0, 0, .18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: #5a3a10;
+    font-size: calc(var(--seq-stone) * 0.4);
+    line-height: 1;
+}
+
+/* Nächster, noch leerer Stein = Ziel: KEIN Ring mehr, nur leichtes Pulsieren.
+   (Der blaue Kreis beim Drüberziehen kommt weiterhin über .nb-hover.) */
+.seq-stone.seq-active {
+    animation: seqPulse 1.2s ease-in-out infinite;
+}
+.seq-stone.seq-active:empty::after {
+    content: "?";
+    color: #a5701f;
+}
+/* Zieh-Hover (vom DragDropManager gesetzt): blauer Kreis beim Drüberhalten.
+   Outline-Breite/-Abstand hier explizit, da der aktive Stein keinen Ring mehr hat. */
+.seq-stone.nb-hover {
+    outline: 4px solid #3498db;
+    outline-offset: 3px;
+    transform: scale(1.06);
+}
+.seq-stone.seq-pop {
+    animation: seqPop 0.4s ease;
+}
+.seq-stone.wrong {
+    background: radial-gradient(ellipse at 50% 34%, #f5b4ab 0%, #e74c3c 70%);
+    color: #fff;
+    border-color: #8e0000;
+    animation: seqShake 0.5s ease-in-out;
+}
+
+@keyframes seqPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+@keyframes seqPop {
+    0% { transform: scale(0.6); }
+    70% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+@keyframes seqShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+/* ===================================================================
+   FROSCH (sitzt über der aktuellen Zahl auf der Schlange)
+   =================================================================== */
+.seq-frog {
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* zentriert über dem Stein, Unterkante an der Stein-Oberkante */
+    transform: translate(-50%, -100%);
+    width: var(--seq-frog-size);
+    height: var(--seq-frog-size);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: none;
+    transition: left var(--seq-hop) ease-in-out, top var(--seq-hop) ease-in-out;
+    z-index: 4;
+}
+.seq-frog-emoji {
+    font-size: var(--seq-frog-size);
+    line-height: 1;
+}
+/* Der Bogen des Sprungs (translate auf dem Kind, damit die Zentrierung der
+   Hülle erhalten bleibt). */
+.seq-frog.seq-hop .seq-frog-emoji {
+    animation: seqFrogHop var(--seq-hop) ease-in-out;
+}
+@keyframes seqFrogHop {
+    0% { transform: translateY(0) scaleY(0.92); }
+    35% { transform: translateY(-65%) scaleY(1.05); }
+    100% { transform: translateY(0) scaleY(1); }
+}
+
+/* ===================================================================
+   Sprung-Hilfe — NUR das Frosch-Emoji (kein Button-Look), unter der Regel
+   =================================================================== */
+.seq-jump-btn {
+    font-family: inherit;
+    /* Etwas größer als zuvor im Button (war max. 24px). */
+    font-size: clamp(30px, 5.4vw, 52px);
+    line-height: 1;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    transition: transform .1s ease;
+}
+.seq-jump-btn:hover {
+    transform: scale(1.1);
+}
+.seq-jump-btn:active {
+    transform: scale(0.92);
+}
+/* Während des Frosch-Sprungs nur GESPERRT — kein Ausgrauen/keine Bewegung
+   (sonst zu viel Unruhe auf der Seite). Sieht identisch aus, reagiert nur nicht. */
+.seq-jump-btn:disabled {
+    cursor: default;
+}
+.seq-jump-btn:disabled:hover,
+.seq-jump-btn:disabled:active {
+    transform: none;
+}
+
+/* ===================================================================
+   Optionen unten (Größe an die Aufgaben-Steine angepasst)
+   =================================================================== */
+.options-container {
+    display: flex;
+    gap: 15px;
+    margin-top: auto;
+    padding-bottom: 24px;
+    min-height: var(--seq-stone);
+    z-index: 10;
+}
+/* Box-Größe = Aufgaben-Stein (statt der großen Standard-nb-box). */
+#seq-options .nb-option {
+    --_nb-size: var(--seq-stone);
+}
+/* Während des Sprungs bleiben die (alten) Boxen im DOM, aber unsichtbar +
+   unbedienbar → das Layout (und damit Auto-Fit) springt nicht. */
+#seq-options.seq-hidden {
+    visibility: hidden;
+}
+/* ID-Selektor hält die reservierte Höhe (schlägt die globale :empty-Regel aus
+   scaling.css), damit beim Neuaufbau der Optionen nichts nach oben springt. */
+#seq-options:empty {
+    min-height: var(--seq-stone);
+}
+
+/* ---------- Feier am Ende der Folge ---------- */
+.seq-row.seq-celebrate .seq-stone {
+    animation: seqCheer 0.6s ease;
+}
+@keyframes seqCheer {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+}
