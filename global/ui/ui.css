@@ -352,3 +352,12 @@ html:not(.ui-ready) .main-container { visibility: hidden; }
 }
 .legal-footer a:hover { color: var(--dark-bg); text-decoration: underline; }
 .legal-footer .legal-sep { opacity: 0.5; }
+/* ===================================================================
+   BETA-Markierung (global) — Buttons/Menü-Knöpfe mit „(BETA)" im Text
+   werden ausgegraut (Optik), bleiben aber voll FUNKTIONSFÄHIG (keine
+   pointer-events-Sperre). Die Klasse setzt global/ui/elements/beta.js.
+   =================================================================== */
+.is-beta {
+    filter: grayscale(1);
+    opacity: 0.6;
+}

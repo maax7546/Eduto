@@ -321,4 +321,9 @@ html.tut-active .nb-drag-ghost { z-index: 2147483646; }
     font-size: 1.15rem;
     border-radius: 20px;
 }
-.tut-bubble.tut-narrow .tut-done-txt { font-size: 0.95rem; }
+/* Im letzten Schritt zeigt der „Fertig"-Knopf in der SCHMALEN Blase nur das
+   grüne ✓ (genau so groß wie der →-Knopf der übrigen schmalen Schritte). Mit dem
+   Wort „Fertig" daneben wäre er breiter als der →-Knopf; zusammen mit den
+   Fortschritts-Punkten passte die Fußzeile dann nicht mehr in die schmale Blase
+   und der Knopf ragte (über `justify-content:space-between`) rechts hinaus. */
+.tut-bubble.tut-narrow .tut-done-txt { display: none; }

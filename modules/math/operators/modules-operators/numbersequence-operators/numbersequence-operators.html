@@ -17,6 +17,13 @@
         <!-- OBEN: feste Zahlenfolge 0–20 als „Schlange". Hier hüpft der Frosch.
              Frosch + Steine liegen IM #seq-snake (gemeinsamer offsetParent). -->
         <div class="seq-snake-stage" id="seq-snake-stage">
+            <!-- Frosch-Steuerung links neben der 0–20-Folge, vertikal mittig:
+                 Sprung (Frosch hüpft eins weiter) + Zurücksetzen (Frosch an den
+                 zuletzt gelösten Stein zurück, falls man zu weit gesprungen ist). -->
+            <div class="seq-jump-wrap">
+                <button type="button" id="seq-jump" class="seq-jump-btn" aria-label="Sprung">🐸</button>
+                <button type="button" id="seq-reset" class="seq-reset-btn" aria-label="Frosch zurücksetzen">↩</button>
+            </div>
             <div id="seq-snake" class="seq-snake">
                 <div id="seq-frog" class="seq-frog"><span class="seq-frog-emoji">🐸</span></div>
             </div>
@@ -27,9 +34,6 @@
         <div class="seq-task-row" id="seq-task-row">
             <div class="seq-rule-col">
                 <div class="seq-rule" id="seq-rule">+ 2</div>
-                <!-- Sprung-Hilfe: nur das Frosch-Emoji (kein Button-Look), anklickbar →
-                     lässt den Frosch von selbst auf die nächste Zahl springen. -->
-                <button type="button" id="seq-jump" class="seq-jump-btn" aria-label="Sprung">🐸</button>
             </div>
             <div id="seq-row" class="seq-row"></div>
         </div>
@@ -47,7 +51,7 @@
     <script>
         if (typeof injectUI === 'function') {
             injectUI('game', {
-                title: 'Zahlenfolgen',
+                title: 'Zahlenfolgen (BETA)',
                 showBack: true,
                 showSettings: true,
                 showExit: true,

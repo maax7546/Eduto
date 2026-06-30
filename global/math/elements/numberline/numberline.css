@@ -65,9 +65,12 @@
     position: absolute;
     left: 0;
     width: 100%;
-    top: 50%;
-    height: 240px;
-    transform: translateY(-50%);
+    /* Höhe über/unter der Linie getrennt einstellbar (Default symmetrisch 120px =
+       bisher 240px mittig). Module mit Inhalt UNTER der Linie (z. B. die Drop-Slots
+       in „Zahlen zuordnen") setzen --nl-band-down höher, damit das Tutorial-Spotlight
+       die Boxen mit umfasst. */
+    top: calc(50% - var(--nl-band-up, 120px));
+    height: calc(var(--nl-band-up, 120px) + var(--nl-band-down, 120px));
     pointer-events: none;
     z-index: 0;
 }

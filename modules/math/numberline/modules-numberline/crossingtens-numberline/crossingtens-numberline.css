@@ -37,6 +37,11 @@
 }
 
 .task-equation {
+    /* inline-block → die Box umschließt nur die SICHTBARE Gleichung (im
+       text-align:center-Banner bleibt sie zentriert). Als Block spannte sie über
+       die ganze Breite, wodurch das Tutorial-Spotlight im 1. Schritt von links nach
+       rechts lief, statt nur die Aufgabe zu umfassen. */
+    display: inline-block;
     font-family: var(--math-font);
     font-size: clamp(44px, 8vw, 96px);  /* größere Aufgabe */
     font-weight: 900;
@@ -113,23 +118,16 @@
 }
 .ct-qbox::after { content: "?"; }
 
-/* (Option) Rechenzeichen + "?"-Box, die an einem Pfeil über dem Strahl erscheint */
-#ct-arrow-fill {
+/* Unsichtbarer Geometrie-Anker für das Tutorial-Spotlight über den Pfeilen.
+   Fängt keine Maus-Events ab; Größe/Position setzt das JS (updateArrowBand). */
+.ct-arrow-band {
     position: absolute;
-    transform: translateX(-50%);   /* nur horizontal zentrieren; top wird in JS gesetzt */
-    z-index: 7;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-#ct-arrow-fill #ct-arrow-drop {
-    background: #fff;          /* deckend, da über den Bögen */
-}
-.ct-arrow-sign {
-    font-family: var(--math-font);
-    font-size: clamp(28px, 3.6vw, 52px);
-    font-weight: 900;
-    color: #1f2d3d;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: 5;
 }
 
 /* ANTWORT-OPTIONEN (unten).

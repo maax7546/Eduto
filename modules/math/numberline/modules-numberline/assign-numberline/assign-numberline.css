@@ -49,6 +49,17 @@
     user-select: none;
 }
 
+/* 3b. TUTORIAL-HIGHLIGHT-BAND an dieses Modul anpassen.
+   Standard ist das Band symmetrisch (120px über/unter der Linie). Hier hängen aber
+   die Drop-Slots 45px UNTER der Linie und sind bis zu einer ganzen Box-Größe hoch —
+   das Band muss also nach unten bis unter die Slots reichen, sonst schneidet das
+   Spotlight die unteren Boxen ab. Oben genügt etwas Luft über den Ticks. Beide
+   Abstände lassen nur EIN WENIG Rand zu den Boxen (Wunsch: nicht knapp am Rand). */
+.numberline-band {
+    --nl-band-up: 50px;                                          /* Ticks + etwas Luft oben */
+    --nl-band-down: calc(45px + var(--nb-box-size-small, 70px) + 22px); /* Slots + etwas Luft unten */
+}
+
 /* 4. PRÄZISE POSITIONIERUNG DER DROPZONES (SLOTS) */
 .slot.nb-dropzone.nb-box-small {
     position: absolute;

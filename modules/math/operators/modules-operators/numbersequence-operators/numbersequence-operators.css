@@ -33,17 +33,35 @@ body {
    =================================================================== */
 .seq-snake-stage {
     position: relative;
+    /* Volle Breite, damit die Schlange mittig bleibt und die Frosch-Steuerung
+       im freien Platz LINKS daneben sitzen kann. */
+    width: 100%;
     /* Platz oben für den über dem Stein sitzenden, springenden Frosch reservieren. */
     padding-top: calc(var(--seq-frog-size) * 1.05);
     display: flex;
     justify-content: center;
 }
 
-/* Settings-Schalter „🐸 ausblenden": Frosch + obere 0–20-Reihe weg. Der Sprung-Knopf
-   (Frosch-Emoji unter der Regel) steuert nur den Frosch → ohne sichtbare Schlange
-   sinnlos, also auch ausblenden. Der große Abstand oben an der Aufgabe entfällt dann. */
-.game-container.seq-no-snake .seq-snake-stage,
-.game-container.seq-no-snake #seq-jump {
+/* Frosch-Steuerung (Sprung + Reset) — links neben der 0–20-Folge, vertikal mittig. */
+.seq-jump-wrap {
+    position: absolute;
+    left: clamp(4px, 2vw, 28px);
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Deutlich nach UNTEN gerückt (am unteren Rand der Schlangen-Bühne). */
+    justify-content: flex-end;
+    padding-bottom: clamp(10px, 4vh, 48px);
+    gap: clamp(6px, 1.6vh, 18px);
+    z-index: 5;
+}
+
+/* Settings-Schalter „🐸 ausblenden": Frosch + obere 0–20-Reihe weg. Die Frosch-
+   Steuerung (Sprung + Reset) liegt IN der Schlangen-Bühne und verschwindet damit
+   automatisch mit. Der große Abstand oben an der Aufgabe entfällt dann. */
+.game-container.seq-no-snake .seq-snake-stage {
     display: none;
 }
 .game-container.seq-no-snake .seq-task-row {
@@ -255,6 +273,44 @@ body {
 .seq-jump-btn:disabled:hover,
 .seq-jump-btn:disabled:active {
     transform: none;
+}
+
+/* Reset-Knopf: bringt den Frosch zum zuletzt gelösten Stein zurück (kleiner,
+   runder Holz-Knopf unter dem Sprung-Frosch). */
+.seq-reset-btn {
+    font-family: inherit;
+    font-size: clamp(20px, 3.4vw, 32px);
+    line-height: 1;
+    width: clamp(40px, 6vw, 60px);
+    height: clamp(40px, 6vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a5a18;
+    background: #f7e6c4;
+    border: 2px solid #b27d28;
+    border-radius: 50%;
+    box-shadow: 0 3px 0 #b27d28;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+.seq-reset-btn:hover {
+    transform: scale(1.08);
+}
+.seq-reset-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #b27d28;
+}
+.seq-reset-btn:disabled {
+    opacity: .4;
+    cursor: default;
+}
+.seq-reset-btn:disabled:hover,
+.seq-reset-btn:disabled:active {
+    transform: none;
+    box-shadow: 0 3px 0 #b27d28;
 }
 
 /* ===================================================================
